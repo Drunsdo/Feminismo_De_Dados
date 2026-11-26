@@ -58,7 +58,7 @@ body.is-dark header.top{background:rgba(22,19,15,.9);border-color:#3E362D}
 body.is-dark .brand em{color:var(--sun)}
 .navtabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;padding:6px 0}
 .navtabs::-webkit-scrollbar{display:none}
-.navtabs a{font-size:14.5px;font-weight:700;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.navtabs a{font-size:14.5px;font-weight:700;color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:999px;white-space:nowrap}
 .navtabs a:hover{color:var(--fg)}
 .navtabs a[aria-current="page"]{background:var(--fg);color:var(--paper)}
 body.is-dark .navtabs a[aria-current="page"]{background:var(--sun);color:#1F1A14}
@@ -303,24 +303,6 @@ figcaption,.cap{font-size:14.5px;color:var(--muted);margin-top:10px}
 .checklist li{display:grid;grid-template-columns:22px 1fr;gap:10px}
 .checklist li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--sun);margin-top:7px}
 
-/* datasheet */
-.ds-table{width:100%;border-collapse:collapse;font-size:15px}
-.ds-table th,.ds-table td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
-.ds-table th{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.ds-wrap{overflow-x:auto}
-.ds-sec{margin-top:clamp(26px,4vh,40px)}
-.ds-sec > h3{margin-bottom:12px}
-.qa{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:8px}
-.qa summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;display:grid;grid-template-columns:52px 1fr 20px;gap:8px;align-items:baseline}
-.qa summary::-webkit-details-marker{display:none}
-.qa .code{font-family:var(--display);color:var(--amber);font-weight:800}
-.qa .pl{color:var(--muted)}
-.qa[open] .pl{transform:rotate(45deg)}
-.qa .ans{padding:0 16px 16px 76px;font-size:15.5px;display:grid;gap:8px}
-@media (max-width:600px){.qa .ans{padding-left:16px}}
-.qa .ans ul{margin:0;padding-left:18px;display:grid;gap:4px}
-.vnote{border-left:4px solid var(--wine);padding:8px 14px;font-size:15px;background:#FBEDEA;border-radius:0 10px 10px 0;color:#1F1A14}
-
 /* apoio, equipe */
 .help-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:clamp(22px,3vh,34px)}
 @media (max-width:900px){.help-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -335,6 +317,90 @@ figcaption,.cap{font-size:14.5px;color:var(--muted);margin-top:10px}
 @media (max-width:1000px){.credits{grid-template-columns:1fr}}
 .credits ul{margin:8px 0 0;padding-left:18px;font-size:15px;display:grid;gap:6px}
 footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+/* ---------- O caminho do dado (seção do grupo, estilos com escopo) ---------- */
+#p-caminho{color-scheme:light;
+  --fundo:#fff8e8; --cartao:#fffdf7; --linha:#e0d5c0; --linha-forte:#c4b8a7;
+  --titulo:#3d2311; --texto:#3d2311; --suave:#695342;
+  --semente:#623c1f; --folha:#50722a; --folha-escura:#2f4119; --petala:#e9b10d;
+  --tabuleiro:#fbf1da; --trilha:#f1e2bd; --casa-a:#f4dfa8; --casa-b:#dfe6c4; --visitada:#eef0d8;
+  --perda-fundo:#f6e9cc; --buraco:#3d2311;
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:var(--body);}
+#p-caminho *{box-sizing:border-box;min-width:0}
+#p-caminho .cd{margin:0;background:var(--fundo);color:var(--texto);font:16px/1.6 var(--sans)}
+#p-caminho .cd{max-width:1340px;margin:0 auto;padding:32px 20px 48px}
+#p-caminho h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,4.4vw,48px);line-height:1.05;margin:0 0 10px;color:var(--titulo)}
+#p-caminho .lead{color:var(--suave);max-width:720px;margin:0 0 26px;font-size:17px}
+#p-caminho .layout{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:960px){#p-caminho .layout{grid-template-columns:minmax(0,1fr)}}
+#p-caminho .rolagem{overflow-x:auto;padding-bottom:4px}
+#p-caminho svg#tab{width:100%;min-width:620px;height:auto;display:block}
+#p-caminho .serif{font-family:var(--serif)}
+#p-caminho .legenda{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--suave);margin:10px 4px 0}
+#p-caminho .legenda span{display:inline-flex;align-items:center;gap:8px}
+#p-caminho .controles{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:18px;padding:16px 18px;background:var(--cartao);border:1px solid var(--linha);border-radius:18px}
+#p-caminho .dado-botao{position:relative;background:none;border:0;padding:12px 12px 20px;cursor:pointer;border-radius:16px;perspective:600px}
+#p-caminho .dado-botao::after{content:"";position:absolute;left:22px;right:22px;bottom:6px;height:10px;border-radius:50%;background:var(--linha);z-index:-1}
+#p-caminho .dado-botao:focus-visible{outline:3px solid var(--petala);outline-offset:2px}
+#p-caminho .dado-botao:disabled{cursor:default}
+#p-caminho .dado-botao:not(:disabled):hover{background:rgba(233,177,13,.14)}
+#p-caminho .cubo{width:80px;height:80px;position:relative;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.25,1)}
+#p-caminho .face{position:absolute;inset:0;background:var(--cartao);border:2px solid var(--titulo);border-radius:16px;display:grid;grid-template-rows:1fr auto;justify-items:center;padding:9px 6px 5px;backface-visibility:hidden}
+#p-caminho .pips{display:grid;grid-template-columns:repeat(3,10px);grid-template-rows:repeat(3,10px);gap:4px}
+#p-caminho .pip{width:10px;height:10px;border-radius:50%;background:var(--semente);visibility:hidden}
+#p-caminho .pip.on{visibility:visible}
+#p-caminho .face small{font-family:var(--serif);font-size:12px;color:var(--suave);line-height:1.1}
+#p-caminho .f1{transform:translateZ(40px)}
+#p-caminho .f2{transform:rotateY(90deg) translateZ(40px)}
+#p-caminho .f3{transform:rotateY(180deg) translateZ(40px)}
+#p-caminho .f4{transform:rotateY(-90deg) translateZ(40px)}
+#p-caminho .f5{transform:rotateX(90deg) translateZ(40px)}
+#p-caminho .f6{transform:rotateX(-90deg) translateZ(40px)}
+#p-caminho .flor-dado{width:96px;height:96px;display:none}
+#p-caminho .virou .cubo{display:none}
+#p-caminho .virou .flor-dado{display:block}
+#p-caminho .instrucao{margin:0;font-family:var(--serif);font-size:22px;font-weight:600;color:var(--titulo);line-height:1.2}
+#p-caminho .instrucao span{display:block}
+#p-caminho #legenda-face{font-family:var(--sans);font-weight:400;color:var(--suave);font-size:15px;margin-top:4px}
+#p-caminho .ir-painel{display:none;font-family:var(--sans);font-size:14px;color:var(--folha);margin-top:4px}
+@media (max-width:960px){#p-caminho .ir-painel{display:inline-block}}
+#p-caminho .botoes{display:flex;gap:8px;margin-left:auto}
+#p-caminho .botoes button{font:500 14px var(--sans);background:transparent;color:var(--titulo);border:1.5px solid var(--titulo);border-radius:999px;padding:8px 16px;min-height:40px;cursor:pointer}
+#p-caminho .botoes button:hover:not(:disabled){background:var(--titulo);color:var(--fundo)}
+#p-caminho .botoes button:disabled{opacity:.35;cursor:default}
+#p-caminho .botoes button:focus-visible{outline:3px solid var(--petala);outline-offset:2px}
+#p-caminho #painel{background:var(--cartao);border:1px solid var(--linha);border-radius:18px;padding:24px 26px;min-height:440px}
+#p-caminho #painel .etapa{font-size:13px;color:var(--suave);margin:0;letter-spacing:.01em}
+#p-caminho #painel h2{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.15;margin:4px 0 16px;color:var(--titulo)}
+#p-caminho #painel h3{font-size:14px;font-weight:600;margin:18px 0 4px;color:var(--folha)}
+#p-caminho #painel p{margin:0}
+#p-caminho .bloco-perda{border-left:4px solid var(--semente);background:var(--perda-fundo);padding:12px 14px;border-radius:0 10px 10px 0;margin-top:14px}
+#p-caminho .bloco-perda h3{margin-top:0 !important;color:var(--semente) !important}
+#p-caminho .bloco-nao{display:grid;grid-template-columns:auto 1fr;gap:12px;border:1.5px dashed var(--linha-forte);padding:12px 14px;border-radius:10px;margin-top:12px}
+#p-caminho .bloco-nao h3{margin-top:0 !important;color:var(--titulo) !important}
+#p-caminho .buraco-mini{width:30px;height:24px;border-radius:50%;background:var(--buraco);color:var(--fundo);display:grid;place-items:center;font:600 14px var(--serif);margin-top:2px}
+#p-caminho .docs{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+#p-caminho .doc{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--titulo);border:1.5px solid var(--linha-forte);background:var(--fundo);border-radius:12px;padding:10px 14px;max-width:270px;font-size:14px;line-height:1.3}
+#p-caminho .doc:hover{border-color:var(--titulo)}
+#p-caminho .doc small{color:var(--folha);font-weight:600}
+#p-caminho .doc .folha-pdf{flex:none;width:30px;height:38px;border:1.5px solid var(--semente);border-radius:3px 9px 3px 3px;position:relative;background:var(--cartao)}
+#p-caminho .doc .folha-pdf::after{content:"PDF";position:absolute;bottom:4px;left:0;right:0;text-align:center;font:700 8px var(--sans);color:var(--semente)}
+#p-caminho .fontes{font-size:14px;color:var(--suave);padding-left:18px;margin:4px 0 0}
+#p-caminho .fontes a{color:inherit}
+#p-caminho .sub-gaveta{margin-top:22px;border-top:1px solid var(--linha);padding-top:14px}
+#p-caminho .ajuda{margin-top:20px;background:var(--folha-escura);color:var(--fundo);border-radius:12px;padding:14px 16px}
+#p-caminho .ajuda a{color:var(--petala)}
+#p-caminho .rodape{margin-top:28px;font-size:14px;color:var(--suave)}
+#p-caminho .rodape a{color:var(--folha)}
+#p-caminho .casa{cursor:default}
+#p-caminho .explorar .casa,#p-caminho .explorar .saida-g{cursor:pointer}
+#p-caminho .casa:focus-visible .moldura{stroke:var(--petala);stroke-width:5}
+#p-caminho #flor-grande{transform-box:fill-box;transform-origin:50% 100%}
+#p-caminho .lupa,#p-caminho .retorno,#p-caminho .contorno-flor,#p-caminho .rotulo-chegada{transition:opacity .6s}
+@media (prefers-reduced-motion: reduce){#p-caminho .cubo,#p-caminho .lupa,#p-caminho .retorno,#p-caminho .contorno-flor,#p-caminho .rotulo-chegada{transition:none !important}}
+#p-caminho #painel h3{font-family:var(--sans)}
+#p-caminho .cd{background:transparent;color:var(--texto)}
+#p-caminho .cd h1{font-family:var(--display)}
 </style>
 </head>
 <body>
@@ -358,11 +424,11 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
     <nav class="navtabs" aria-label="Seções do site" id="navtabs">
       <a href="#inicio" data-tab="inicio">Início</a>
       <a href="#historia" data-tab="historia">A história</a>
+      <a href="#caminho" data-tab="caminho">O caminho do dado</a>
       <a href="#comparacoes" data-tab="comparacoes">Comparações</a>
-      <a href="#principios" data-tab="principios">Os 7 princípios</a>
-      <a href="#datasheet" data-tab="datasheet">Datasheet</a>
-      <a href="#apoio" data-tab="apoio">Apoio e saúde</a>
-      <a href="#equipe" data-tab="equipe">Equipe e fontes</a>
+      <a href="#principios" data-tab="principios">7 princípios</a>
+      <a href="#apoio" data-tab="apoio">Apoio</a>
+      <a href="#equipe" data-tab="equipe">Equipe</a>
     </nav>
     <a class="helpchip" href="#apoio" data-tab="apoio">CVV 188</a>
     <button type="button" class="fullbtn" id="btn-full">Tela cheia</button>
@@ -493,6 +559,7 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
         <div class="void-cards" id="void-cards"></div>
       </div>
       <p class="big-quiet">Nenhum gráfico desta página mostra as tentativas que nunca chegaram a um serviço.</p>
+      <div class="next" style="justify-content:flex-start"><a class="btn" href="#caminho" data-tab="caminho" style="text-decoration:none;color:inherit">Siga o caminho de uma notificação e veja onde ela pode se perder →</a></div>
     </div>
   </section>
 
@@ -503,11 +570,56 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
       <p class="lead">Os dados disponíveis já permitem perguntas melhores. O que falta pode ser cobrado, coletado e cuidado.</p>
       <div class="grid2" style="margin-top:24px">
         <div class="card"><h3 style="margin-bottom:12px">O que pedimos à rede e ao painel</h3><ul class="todo-list" id="todo-list"></ul></div>
-        <div class="card"><h3 style="margin-bottom:12px">Para continuar</h3><p style="font-size:16px">Veja as comparações que fizemos com os dados disponíveis, a documentação completa da base (datasheet) e os canais de apoio.</p>
-          <div class="next" style="justify-content:flex-start"><a class="btn" href="#comparacoes" data-tab="comparacoes" style="text-decoration:none">Comparações →</a><a class="btn" href="#datasheet" data-tab="datasheet" style="text-decoration:none">Datasheet →</a><a class="btn solid" href="#apoio" data-tab="apoio" style="text-decoration:none">Apoio e saúde →</a></div>
+        <div class="card"><h3 style="margin-bottom:12px">Para continuar</h3><p style="font-size:16px">Veja o caminho que cada notificação percorre, as comparações que fizemos com os dados disponíveis e os canais de apoio.</p>
+          <div class="next" style="justify-content:flex-start"><a class="btn" href="#caminho" data-tab="caminho" style="text-decoration:none">O caminho do dado →</a><a class="btn" href="#comparacoes" data-tab="comparacoes" style="text-decoration:none">Comparações →</a><a class="btn solid" href="#apoio" data-tab="apoio" style="text-decoration:none">Apoio e saúde →</a></div>
         </div>
       </div>
     </div>
+  </section>
+</div>
+
+
+<!-- ============ O CAMINHO DO DADO (seção do grupo) ============ -->
+<div class="page" id="p-caminho" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="cd">
+  <span class="tag">O caminho do dado · Princípios 6 e 7</span>
+  <h1>O caminho do dado</h1>
+  <p class="lead">Antes de virar girassol no nosso vídeo, cada notificação percorre um caminho. Em cada casa, um caso pode cair num buraco e sair do jogo, e não sabemos quantos caem.</p>
+
+  <div class="layout">
+    <section aria-label="Tabuleiro">
+      <div class="rolagem">
+        <svg id="tab" viewBox="0 0 900 800" role="img" aria-labelledby="tab-titulo tab-desc">
+          <title id="tab-titulo">Tabuleiro do caminho do dado</title>
+          <desc id="tab-desc">Trilha em caracol com seis casas, do atendimento ao painel da Prefeitura, que termina num girassol no centro. Ao lado de cada casa há um buraco com um ponto de interrogação, onde o caso pode sair do jogo. Antes do tabuleiro, uma carta solta representa o sofrimento que não é notificado.</desc>
+        </svg>
+      </div>
+      <div class="legenda" aria-hidden="true">
+        <span><svg width="22" height="22"><rect x="2" y="2" width="18" height="18" rx="5" fill="#fffdf7" stroke="#623c1f" stroke-width="1.5"/></svg>casa do caminho</span>
+        <span><svg width="28" height="20"><ellipse cx="14" cy="10" rx="12" ry="8" fill="#3d2311"/><text x="14" y="14" text-anchor="middle" font-size="11" fill="#fff8e8" font-family="Georgia">?</text></svg>buraco, onde o caso sai do jogo sem que se saiba quantos saem</span>
+      </div>
+      <div class="controles">
+        <button id="dado" class="dado-botao" type="button" aria-label="Rolar o dado e avançar para a próxima casa">
+          <div class="cubo" id="cubo"></div>
+          <svg class="flor-dado" viewBox="-40 -40 80 80" aria-hidden="true"><use href="#flor-cabeca"/></svg>
+        </button>
+        <div>
+          <p class="instrucao" id="instrucao"><span id="instrucao-titulo">Clique no dado para avançar</span><span id="legenda-face">O dado ainda não rolou.</span></p>
+          <a class="ir-painel" href="#painel">Ler esta casa ↓</a>
+        </div>
+        <div class="botoes">
+          <button id="voltar" type="button">Voltar uma casa</button>
+          <button id="recomecar" type="button">Recomeçar</button>
+        </div>
+      </div>
+    </section>
+
+    <aside id="painel" aria-live="polite"><p>Carregando…</p></aside>
+  </div>
+
+  <p class="rodape">Se você precisar de ajuda, ligue 188 · CVV – Centro de Valorização da Vida · Ligação gratuita, 24 horas · também por chat e e-mail em <a href="https://cvv.org.br">cvv.org.br</a></p>
+</div>
   </section>
 </div>
 
@@ -532,21 +644,6 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
       <span class="tag">Os 7 princípios do Feminismo de Dados</span>
       <h2>Quem, como, para quem e por quê.</h2>
       <div class="pr-layout"><ul class="pr-list" role="tablist" aria-label="Princípios" id="pr-list"></ul><div class="pr-panel" role="tabpanel" id="pr-panel" aria-live="polite"></div></div>
-    </div>
-  </section>
-</div>
-
-<!-- ============ DATASHEET ============ -->
-<div class="page" id="p-datasheet" hidden>
-  <section class="chap short" data-tone="0">
-    <div class="wrap">
-      <span class="tag">Datasheet · Gebru et al. (2021)</span>
-      <h2>A documentação da nossa base.</h2>
-      <p class="lead">Seguimos o modelo de <i>Datasheets for Datasets</i>, seções Motivação e Composição. O datasheet documenta a base que o grupo constrói a partir de tabulações públicas, e não o SISNOV ou o SIM em si.</p>
-      <div class="ds-sec"><div class="vnote" id="ds-vnote"></div></div>
-      <div class="ds-sec"><h3>Recorte da base derivada</h3><div class="card ds-wrap"><table class="ds-table" id="ds-recorte"></table></div></div>
-      <div class="ds-sec"><h3>Motivação</h3><div id="ds-mot"></div></div>
-      <div class="ds-sec"><h3>Composição</h3><div id="ds-comp"></div></div>
     </div>
   </section>
 </div>
@@ -725,7 +822,7 @@ const anual = d3.rollups(C.mensal, v => d3.sum(v, d => d[2]), d => d[0]).map(([y
 const ultimoAno = anual[anual.length-1].y;
 
 /* ---------- abas (páginas) ---------- */
-const TABS = ['inicio','historia','comparacoes','principios','datasheet','apoio','equipe'];
+const TABS = ['inicio','historia','caminho','comparacoes','principios','apoio','equipe'];
 let curTab = 'inicio';
 function showTab(id, push){
   if(!TABS.includes(id)) id = 'inicio';
@@ -805,10 +902,11 @@ function drawHero(){
 (function(){
   const DOORS = [
     ['historia','A história','Do palpite ao mapa, do que os dados mostram ao que eles escondem.'],
+    ['caminho','O caminho do dado','Um tabuleiro: do atendimento ao painel, onde cada caso pode se perder.'],
     ['principios','Os 7 princípios','Como o Feminismo de Dados muda as perguntas que fazemos ao SISNOV.'],
     ['apoio','Apoio e saúde','Canais de escuta e de cuidado, sempre à mão.']
   ];
-  const box = document.getElementById('doors');
+  const box = document.getElementById('doors'); box.style.gridTemplateColumns = 'repeat(auto-fit,minmax(240px,1fr))';
   DOORS.forEach(([id,t,s],i) => {
     const a = el('a','card door'); a.href = '#' + id; a.addEventListener('click', e => { e.preventDefault(); showTab(id); });
     const ic = d3.select(a).append('svg').attr('class','ico').attr('viewBox','-30 -30 60 60').attr('aria-hidden','true');
@@ -1278,38 +1376,6 @@ function drawPrinciple(){
 }
 drawPrinciple();
 
-/* ---------- datasheet ---------- */
-document.getElementById('ds-vnote').textContent = 'Nota de versão: o datasheet descreve o recorte planejado (mulheres de 20 anos ou mais, 2018 a 2026). A extração usada nos gráficos deste site, de 17/11/2026, inclui todas as idades e começa em 2017; o recorte de 20 anos ou mais aparece no mapa como alternativa.';
-const RECORTE = [['','SISNOV (notificações)','SIM (óbitos)'],['Período','2018 a 2026; 2026 apenas de janeiro a outubro','2018 ao último ano disponível (pendente)'],['Território','Município de notificação: Campinas; distrito de residência: todos','Residentes em Campinas'],['Sexo','Feminino (o masculino entra depois, para comparação)','Feminino'],['Idade','20 a 80 anos ou mais','20 a 80 anos ou mais'],['Evento','Violência principal: todas, exceto trabalho infantil; foco em "tentativa de suicídio/suicídio"','Lesões autoprovocadas intencionalmente (CID-10 X60–X84) e sequelas (Y87.0)'],['Desagregações','Ano, mês, distrito de residência, raça/cor, faixa etária, violência principal','Ano, faixa etária, raça/cor'],['Unidade','Notificação','Óbito'],['Acesso','TabNet da SMS Campinas','TabNet da SMS Campinas ou TabNet/DATASUS']];
-(function(){
-  const t = document.getElementById('ds-recorte'); const th = el('thead'), tr0 = el('tr'); RECORTE[0].forEach(h => tr0.append(el('th',null,h))); th.append(tr0); t.append(th);
-  const tb = el('tbody'); RECORTE.slice(1).forEach(r => { const tr = el('tr'); r.forEach((c,i) => { const td = el(i === 0 ? 'th' : 'td', null, c); if(i === 0) td.scope = 'row'; tr.append(td); }); tb.append(tr); }); t.append(tb);
-})();
-const DS_MOT = [
-  ['M1','Para qual propósito a base foi criada?',['Para o projeto final da MO810: analisar, com a lente do Feminismo de Dados, as notificações de tentativa de suicídio de mulheres em Campinas e confrontá-las com os óbitos por suicídio do mesmo grupo.','Lacunas: o boletim não cruza sexo e idade, não traz raça/cor nem distrito para as tentativas, usa só números absolutos, e não há base pública em formato aberto. A solicitação formal de dados feita pelo grupo à Prefeitura não foi respondida.']],
-  ['M2','Quem criou a base e em nome de qual entidade?',['Os integrantes do grupo, estudantes da MO810 no IC/UNICAMP, como trabalho acadêmico, não em nome da Prefeitura. O SISNOV é mantido pela SMS de Campinas (DEVISA) a partir das fichas de notificação preenchidas por profissionais de saúde, assistência social e educação; o SIM é do Ministério da Saúde.']],
-  ['M3','Quem financiou a criação da base?',['Não houve financiamento específico. Os sistemas de origem são mantidos com recursos públicos do SUS.']]
-];
-const DS_COMP = [
-  ['C1','O que representam as instâncias?',['Células de tabulações agregadas: contagens por combinação de atributos, não pessoas nem fichas. Notificação não é pessoa nem ocorrência: uma mulher pode ser notificada mais de uma vez, e uma tentativa que não chega a um serviço não é notificada.']],
-  ['C2','Quantas instâncias existem?',['Depende das tabulações extraídas, porque o TabNet só cruza duas variáveis por consulta. O plano prevê tabelas de ano × mês, idade, raça/cor, distrito e violência principal, mais tabelas do SIM.']],
-  ['C3','É a população inteira ou uma amostra?',['Um recorte deliberado. O SISNOV não representa todas as tentativas: só as que chegaram a um serviço e foram notificadas, com peso da urgência (a Rede Mário Gatti responde por 42,8% de todas as notificações de 2019 a 2024).']],
-  ['C4','Em que dados consiste cada instância?',['Contagens agregadas pelo TabNet, mais variáveis derivadas pelo grupo: taxa por 100 mil e intervalo médio entre notificações (para a escala humana).']],
-  ['C5','Há rótulos?',['Não no sentido de aprendizado de máquina. A violência principal é escolhida por quem notifica, e só uma é registrada por notificação.']],
-  ['C6','Falta informação?',['Sim: "ignorado" em raça/cor e distrito; campos coletados mas pouco preenchidos, como identidade de gênero e orientação sexual; meses recentes subestimados por atraso de digitação.']],
-  ['C7','As relações entre instâncias são explícitas?',['Não há identificador individual: não dá para saber quantas mulheres distintas foram notificadas, nem quantas que morreram por suicídio tinham tentativa notificada antes.']],
-  ['C8','Há divisões recomendadas?',['Períodos: 2018–2019 (pré-pandemia), 2020–2021 (pandemia e Lei 13.931/2019), 2022–2025, e 2026 parcial. Distritos separados em antes e depois de 2024.']],
-  ['C9','Há erros, ruído ou redundância?',['Mesma mulher em várias notificações; suicídio que aparece no SISNOV e no SIM; subnotificação seletiva; mudanças na rede; categorias ambíguas; inconsistências no próprio boletim.']],
-  ['C10','A base depende de recursos externos?',['Sim: TabNet da SMS Campinas, TabNet/DATASUS, Censo 2022 e o boletim. O TabNet muda retroativamente e não tem versões; por isso guardamos cada extração com data e parâmetros.']],
-  ['C11','Há dados confidenciais?',['A base derivada não: só contagens agregadas públicas. As fichas de origem são sigilosas e o grupo não teve acesso a elas.']],
-  ['C12','Há dados que podem causar ansiedade?',['Sim. Por isso: aviso de conteúdo, nenhuma desagregação por método, comunicação conforme a OMS e canais de ajuda sempre visíveis.']],
-  ['C13','A base identifica subpopulações?',['Sim: sexo (binário, como na ficha), faixa etária, raça/cor autodeclarada e distrito.']],
-  ['C14','É possível identificar indivíduos?',['Diretamente não. Indiretamente, em células pequenas: por isso valores de 1 a 4 aparecem como "<5", e cruzamentos com três ou mais variáveis não são publicados.']],
-  ['C15','Há dados sensíveis?',['Sim: saúde, raça/cor, sexo e localização, sensíveis pela LGPD. A supressão de células pequenas é condição para tratar a base derivada como anônima.']]
-];
-function renderQA(host, list){ const h = document.getElementById(host); list.forEach(([c,q,a]) => { const d = el('details','qa'), s = el('summary'); s.append(el('span','code',c), el('span',null,q), el('span','pl','＋')); const ans = el('div','ans'); a.forEach(t => ans.append(el('p',null,t))); d.append(s, ans); h.append(d); }); }
-renderQA('ds-mot', DS_MOT); renderQA('ds-comp', DS_COMP);
-
 /* ---------- apoio, equipe, fontes ---------- */
 C.ajuda.forEach(([n,t]) => { const d = el('div','card'); d.append(el('b',null,n), el('span',null,t)); document.getElementById('help-grid').append(d); });
 const BIO = [
@@ -1325,7 +1391,6 @@ C.equipe.forEach(n => { const li = el('li'); txtWithTodo(li, n); document.getEle
 C.disciplina.forEach(n => document.getElementById('disciplina').append(el('li',null,n)));
 const REFS = [
   ['D\'IGNAZIO, C.; KLEIN, L. F. Data Feminism. MIT Press, 2020.','https://data-feminism.mitpress.mit.edu/'],
-  ['GEBRU, T. et al. Datasheets for datasets. Communications of the ACM, 2021.', null],
   ['Prefeitura de Campinas. Painel de Monitoramento de Violências (SISNOV/Sinan).','https://campinas.sp.gov.br/sites/vigiviolencias/painel-de-monitoramento'],
   ['DEVISA/SMS Campinas. Boletim Epidemiológico SISNOV nº 18, dez. 2025.', null],
   ['DEVISA/SMS Campinas. Boletim nº 1 SPN (saúde da população negra), 2024.','https://portal-api.campinas.sp.gov.br/sites/default/files/secretarias/arquivos-avulsos/125/2024/03/21-104624/Boletim_01_SPN_DEVISA_SMS.pdf'],
@@ -1346,6 +1411,418 @@ function drawVisible(){
 showTab(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'inicio', false);
 let raf = 0, lastW = document.documentElement.clientWidth;
 new ResizeObserver(() => { const cw = document.documentElement.clientWidth; if(cw === lastW) return; lastW = cw; cancelAnimationFrame(raf); raf = requestAnimationFrame(drawVisible); }).observe(document.body);
+})();
+</script>
+<!-- Conteúdo das casas do tabuleiro (copiado de casas.csv; para editar, troque o texto abaixo) -->
+<script type="text/plain" id="casas-embutido">
+﻿id;tipo;face;titulo;rotulo_tabuleiro;saida_tabuleiro;acontece;perda;nao_sabemos;doc1_rotulo;doc1_url;doc2_rotulo;doc2_url;fonte1_rotulo;fonte1_url;fonte2_rotulo;fonte2_url;fonte3_rotulo;fonte3_url;fonte4_rotulo;fonte4_url
+antes;fora;;Antes do registro;Antes do registro;fora do tabuleiro, porque não é notificado;O sofrimento, a ideação suicida e as crises que não chegam a um serviço de saúde não são notificados e, por isso, ficam fora do tabuleiro. A ideação suicida, por exemplo, não entra na notificação pela regra do Ministério da Saúde, embora exija cuidado.;Tudo o que acontece antes de um atendimento fica fora do registro e, portanto, fora deste jogo.;Quantas mulheres passam por isso sem nunca serem atendidas.;;;;;Instrutivo de notificação de violência interpessoal e autoprovocada (Ministério da Saúde, 2016), p. 23;https://monaco.saude.sp.gov.br/resources/ses/perfil/cidadao/homepage-new/outros-destaques/violencias/viva_instrutivo_violencia_interpessoal_autoprovocada_2ed.pdf;;;;;;
+atendimento;casa;acesso;Chegar a um serviço;Atendimento;sem atendimento;A mulher chega a um serviço, como um pronto-socorro, uma UPA, uma unidade básica de saúde, um hospital, um equipamento da assistência social ou uma escola. Em Campinas, a Rede Mário Gatti, de urgência e emergência, foi quem mais notificou violências em 2025, com 1.955 registros.;Se ela não é atendida, não há notificação. Uma ligação para o CVV (188) é anônima e não gera ficha, e um boletim de ocorrência vai para a Segurança Pública, que mantém outra base de dados.;Quantas mulheres não têm acesso fácil a esses serviços ou buscam ajuda por outros caminhos, como a rede de apoio da igreja ou da vizinhança, que também pode não levá-las até um serviço. A pandemia deixou isso visível, já que 2020 foi um dos anos com menos notificações, possivelmente por causa do isolamento. A própria Prefeitura atribui a queda de 2019 e 2020 à falta de acesso aos serviços.;;;;;Boletim Sisnov nº 19 (Campinas, 2026), Tabela 1, p. 5;;Boletim Sisnov nº 18 (Campinas, 2025);https://portal-adm.campinas.sp.gov.br/sites/default/files/secretarias/arquivos-avulsos/125/2025/12/02-151724/BoletimSISNOV_N18_DevisaSMS_Ano2025.pdf;Sobre o CVV, que atende com sigilo e anonimato (UFRGS, Humanista);https://www.ufrgs.br/humanista/?p=3525;;
+reconhecimento;casa;olhar;Ser reconhecida;Reconhecimento;não reconhecida;Para que o caso seja notificado, quem atende precisa reconhecer que a lesão foi autoprovocada. A suspeita já basta, porque a ficha vale para casos suspeitos ou confirmados. Em Campinas, a vigilância em saúde capacitou 288 profissionais em 2023, 255 em 2024 e 153 em 2025 (até a edição do Boletim nº 18) para identificar e notificar violências.;Se a mulher não conta o que aconteceu e ninguém percebe que a lesão foi autoprovocada, a tentativa pode ser registrada como outro tipo de violência, aparecer na ficha apenas como informação secundária ou nem chegar a ser registrada.;Quantos casos atendidos nunca são reconhecidos como tentativa de suicídio e, por isso, não aparecem com esse nome nos dados.;;;;;Instrutivo do Ministério da Saúde (2016), p. 18;https://monaco.saude.sp.gov.br/resources/ses/perfil/cidadao/homepage-new/outros-destaques/violencias/viva_instrutivo_violencia_interpessoal_autoprovocada_2ed.pdf;Manual instrutivo do Sisnov, p. 9;http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf;Boletim Sisnov nº 18 (Campinas, 2025);https://portal-adm.campinas.sp.gov.br/sites/default/files/secretarias/arquivos-avulsos/125/2025/12/02-151724/BoletimSISNOV_N18_DevisaSMS_Ano2025.pdf;;
+ficha;casa;ficha;Preencher a ficha;Ficha;só em outra ficha;Depois do atendimento, o profissional preenche a ficha de notificação em até 24 horas. A notificação é obrigatória e sigilosa e vai para a vigilância em saúde do município. Ela não é uma denúncia à polícia, e sim um registro que serve para cuidar da mulher e para acompanhar o problema na cidade.;O Sinan também tem uma ficha de intoxicação exógena, onde parte das tentativas é registrada. Quando só essa ficha é preenchida, o caso pode não aparecer no painel de violências. Além disso, alguns campos, como raça/cor, podem ficar em branco ou marcados como “ignorado”.;Se o painel de Campinas junta as duas fichas e como está a qualidade do preenchimento na cidade.;Manual instrutivo da ficha do Sisnov (Campinas);http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf;Instrutivo da ficha nacional (Ministério da Saúde, 2016);https://monaco.saude.sp.gov.br/resources/ses/perfil/cidadao/homepage-new/outros-destaques/violencias/viva_instrutivo_violencia_interpessoal_autoprovocada_2ed.pdf;Portaria GM/MS nº 1.271/2014, art. 4º;https://prefeitura.poa.br/sites/default/files/usu_doc/hotsites/sms/vigilancia-em-saude/Portaria%20N%C2%BA%201.271%2C%20de%206%20de%20Junho%20de%202014.pdf;Lei nº 13.819/2019, art. 6º;https://planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13819.htm;Boletim Sisnov nº 19 (Campinas, 2026), p. 18;;Prefeitura de São Paulo, orientação sobre notificação de lesão autoprovocada;https://prefeitura.sp.gov.br/web/saude/w/vigilancia_em_saude/doencas_e_agravos/263255
+classificacao;casa;tipo;Uma violência principal;Classificação;outra violência principal;No Sisnov, cada ficha registra uma única violência principal, que é aquela que levou ao atendimento, o que não quer dizer que seja a mais grave. Uma das opções é “Tentativa de suicídio/suicídio”, e é esse o filtro do nosso recorte. As mortes por suicídio não entram nessa ficha, porque são registradas em outro sistema, o Sistema de Informações sobre Mortalidade (SIM).;Quando a tentativa acontece por causa de outra violência, como a doméstica ou a sexual, essa outra violência pode ser registrada como principal, e a tentativa aparece apenas como consequência. Nesse caso ela fica fora do nosso filtro, e são justamente as tentativas ligadas à violência de gênero que se perdem dessa forma.;Quantas tentativas de suicídio estão registradas sob outra violência principal em Campinas.;;;;;Manual instrutivo do Sisnov, pp. 9 e 23;http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf;Nota Técnica CVDANT 01/2021 (SES-SP);https://www.saude.sp.gov.br/resources/cve-centro-de-vigilancia-epidemiologica/areas-de-vigilancia/violencias-e-acidentes/doc/nt012021cvdantnucleovigviol2021.pdf;;;;
+gaveta;gaveta;;Tipo em branco, a gaveta;Gaveta;tipo em branco;Na ficha nacional do Sinan não existe uma opção própria para tentativa de suicídio, então é preciso marcar “Outros” e escrever o tipo. Quando esse campo fica errado ou em branco, o caso cai numa espécie de gaveta e só volta ao caminho se alguém consultar o código CID ou ler o campo de observações.;No estado de São Paulo, em 2020, 10.127 notificações de lesão autoprovocada (36,57% do total) tinham o tipo de violência marcado como “não”, “ignorado” ou em branco. Só 1.359 delas foram reconhecidas como tentativa de suicídio depois da leitura do CID e das observações.;Se isso também acontece em Campinas. Como a ficha do Sisnov tem uma opção própria para tentativa, o problema pode ser menor, mas não há avaliação publicada.;;;;;Nota Técnica CVDANT 01/2021 (SES-SP);https://www.saude.sp.gov.br/resources/cve-centro-de-vigilancia-epidemiologica/areas-de-vigilancia/violencias-e-acidentes/doc/nt012021cvdantnucleovigviol2021.pdf;;;;;;
+sistema;casa;sistema;Entrar no sistema;Sistema;não digitada;Só os serviços cadastrados e autorizados podem notificar no Sisnov. A ficha pode ser preenchida direto na plataforma online ou em papel, e nesse caso alguém a digita depois, manualmente, no sistema. O Sisnov é integrado ao Sinan, e os dados seguem para o governo do estado e para o Ministério da Saúde.;Quando a ficha é feita em papel, a digitação manual pode atrasar e pode trazer erros, como um campo trocado ou deixado em branco. Serviços que não são cadastrados, ou que deixaram de notificar, não aparecem na base, como a Segurança Pública municipal, que não notifica desde 2023.;Quais serviços digitam a ficha direto no sistema e quais usam papel, porque não há fonte pública sobre isso.;;;;;Manual instrutivo do Sisnov, pp. 1 e 4;http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf;Santos et al., resumo de iniciação científica (Unicamp, 2025);https://prp.unicamp.br/inscricao-congresso/resumos/2025P25506A35862O5527.pdf;Gimenez e Gimeniz-Paschoal, Reflexão e Ação (2022), sobre problemas de qualidade em todas as etapas da notificação;https://www.redalyc.org/pdf/7225/722579573010.pdf;Boletim Sisnov nº 19 (Campinas, 2026), Tabela 1, p. 5;
+painel;casa;recorte;Virar número no painel;Painel;fora do recorte;A Prefeitura reúne as fichas, revisa a base e publica os números no painel. O nosso recorte usa as notificações feitas em Campinas de mulheres cuja violência principal foi tentativa de suicídio/suicídio, de 2017 a outubro de 2026.;Como filtramos pelo município onde a notificação foi feita, entram moradoras de outras cidades atendidas em Campinas e ficam de fora moradoras de Campinas atendidas em outros municípios. Em 2025, 8,2% de todas as notificações de violência foram de pessoas que não moram em Campinas. Também pode acontecer de a mesma mulher aparecer em duas fichas, e os anos mais recentes ainda recebem fichas atrasadas.;Como a Prefeitura trata as fichas repetidas e quando considera que um ano está fechado.;;;;;Boletim Sisnov nº 19 (Campinas, 2026), p. 3;;TabNet Campinas;https://saude.campinas.sp.gov.br/tabnet-home/index.htm;;;;
+obra;obra;;Virar girassol;Obra;;O dado chegou ao fim e virou girassol. No vídeo, cada girassol representa 10 notificações de mulheres que chegaram a um serviço, foram reconhecidas e tiveram a tentativa registrada. Por trás de cada uma há também o trabalho de quem atendeu e notificou.;Os casos que caíram nos buracos do caminho não viraram flor, por isso o número que mostramos é um piso, e não o total. A própria Prefeitura afirma que o crescimento das notificações não pode ser atribuído automaticamente a um aumento real dos casos. Além disso, a notificação registra apenas o momento do atendimento e não informa o que aconteceu depois com a mulher. Muitas vezes não há acompanhamento nem registro de desfecho, e o próprio Boletim nº 19 recomenda fortalecer o acompanhamento contínuo das pessoas atendidas.;Quantas mulheres ficaram nos buracos do caminho e o que aconteceu, depois da notificação, com as que chegaram até aqui.;;;;;Boletim Sisnov nº 19 (Campinas, 2026), pp. 17 e 18;;Manual instrutivo do Sisnov, p. 23 (a ficha não tem campo de desfecho);http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf;D'Ignazio e Klein, Data Feminism (MIT Press, 2020);;;
+
+</script>
+<script>
+(() => {
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const C = {semente:"#623c1f", folha:"#50722a", folhaEscura:"#2f4119", petala:"#e9b10d", titulo:"#3d2311", suave:"#695342",
+  fundo:"#fff8e8", cartao:"#fffdf7", linha:"#e0d5c0", linhaForte:"#c4b8a7", tabuleiro:"#fbf1da", trilha:"#f1e2bd",
+  casaA:"#f4dfa8", casaB:"#dfe6c4", visitada:"#eef0d8", buraco:"#3d2311"};
+
+/* ---------- geometria do tabuleiro ---------- */
+const ROTA = [[170,660],[730,660],[730,240],[170,240],[170,450],[376,450]];   /* trilha em caracol até a chegada */
+const CHEGADA = {x:450, y:450, r:74};
+const ORDEM = ["antes","atendimento","reconhecimento","ficha","classificacao","sistema","painel","obra"];
+const S_CASA = {atendimento:0, reconhecimento:280, ficha:560, classificacao:980, sistema:1260, painel:1540};
+const LADO = 120;
+const CARTA = {x:185, y:50};
+/* buraco (saída) de cada casa e onde fica a etiqueta */
+const SAIDA = {
+  atendimento:   {bx:170, by:744, de:[170,720], tx:194, ty:744, ancora:"start", max:18},
+  reconhecimento:{bx:450, by:744, de:[450,720], tx:474, ty:744, ancora:"start", max:18},
+  ficha:         {bx:730, by:744, de:[730,720], tx:696, ty:744, ancora:"end", max:12},
+  classificacao: {bx:730, by:150, de:[730,180], tx:696, ty:150, ancora:"end", max:16},
+  sistema:       {bx:450, by:150, de:[450,180], tx:474, ty:150, ancora:"start", max:18},
+  painel:        {bx:70,  by:240, de:[110,240], tx:70,  ty:276, ancora:"middle", max:9, abaixo:true}
+};
+const GAVETA = {x:548, y:330, w:136, h:64};
+const PIPS = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+const ROT = {0:[-24,-36],1:[0,0],2:[0,-90],3:[0,-180],4:[0,-270],5:[-90,0],6:[90,0]};
+
+let dados = {}, passo = 0, giros = 0, terminou = false, andando = false, pecaXY = [CARTA.x + 195, CARTA.y - 2];
+const perdidos = new Set();
+
+/* ---------- CSV ---------- */
+function lerCSV(texto){
+  texto = texto.replace(/^﻿/, "");
+  const linhas = []; let campo = "", linha = [], aspas = false;
+  for (let i = 0; i < texto.length; i++){
+    const c = texto[i];
+    if (aspas){ if (c === '"'){ if (texto[i+1] === '"'){ campo += '"'; i++; } else aspas = false; } else campo += c; }
+    else if (c === '"') aspas = true;
+    else if (c === ";"){ linha.push(campo); campo = ""; }
+    else if (c === "\n" || c === "\r"){ if (c === "\r" && texto[i+1] === "\n") i++; linha.push(campo); campo = ""; if (linha.some(v => v !== "")) linhas.push(linha); linha = []; }
+    else campo += c;
+  }
+  linha.push(campo); if (linha.some(v => v !== "")) linhas.push(linha);
+  const cab = linhas.shift().map(s => s.trim()), out = {};
+  for (const l of linhas){ const o = {}; cab.forEach((k, j) => o[k] = (l[j] || "").trim()); out[o.id] = o; }
+  return out;
+}
+async function carregar(){
+  const emb = document.getElementById("casas-embutido").textContent.trim();
+  if (emb) return lerCSV(emb);
+  const r = await fetch("casas.csv", {cache:"no-cache"});
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return lerCSV(await r.text());
+}
+
+/* ---------- utilidades de desenho ---------- */
+function el(tag, attrs = {}, pai){
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (pai) pai.appendChild(e);
+  return e;
+}
+function txt(pai, x, y, s, attrs = {}){ const t = el("text", Object.assign({x, y, fill:C.titulo}, attrs), pai); t.textContent = s; return t; }
+function quebrar(s, max){
+  const out = []; let at = "";
+  for (const p of s.split(" ")){ if ((at + " " + p).trim().length > max && at){ out.push(at); at = p; } else at = (at + " " + p).trim(); }
+  if (at) out.push(at); return out;
+}
+function comprimento(){ let s = 0; for (let i = 1; i < ROTA.length; i++) s += Math.hypot(ROTA[i][0]-ROTA[i-1][0], ROTA[i][1]-ROTA[i-1][1]); return s; }
+function ponto(s){
+  for (let i = 1; i < ROTA.length; i++){
+    const [x0,y0] = ROTA[i-1], [x1,y1] = ROTA[i], L = Math.hypot(x1-x0, y1-y0);
+    if (s <= L) return [x0 + (x1-x0)*s/L, y0 + (y1-y0)*s/L];
+    s -= L;
+  }
+  return ROTA[ROTA.length-1];
+}
+const TOTAL = comprimento();
+const S_CASAS = Object.values(S_CASA);
+const S_PEDRAS = [];
+for (let s = 0; s <= TOTAL - 18; s += 47){ if (S_CASAS.every(c => Math.abs(s - c) > 84)) S_PEDRAS.push(s); }
+
+/* folha, caule e girassol (mesmo vocabulário dos ícones da página) */
+function folha(pai, x, y, ang, esc = 1){
+  el("path", {d:"M0 0C-4 -7 -12 -9 -17 -7C-13 -2 -6 1 0 0Z", fill:C.folha, transform:`translate(${x} ${y}) rotate(${ang}) scale(${esc})`}, pai);
+}
+function cabeca(pai, x, y, r){
+  const g = el("g", {transform:`translate(${x} ${y})`}, pai);
+  const n = 13;
+  for (let i = 0; i < n; i++) el("ellipse", {cx:0, cy:-r*0.95, rx:r*0.32, ry:r*0.6, fill:C.petala, transform:`rotate(${i*360/n})`}, g);
+  el("circle", {r:r*0.52, fill:C.semente}, g);
+  return g;
+}
+function broto(pai, cx, cy, fase){
+  const g = el("g", {}, pai);
+  if (fase === 1){ el("ellipse", {cx, cy:cy+4, rx:6, ry:9, fill:C.semente, transform:`rotate(28 ${cx} ${cy+4})`}, g); return g; }
+  const alto = [0, 0, 16, 22, 26, 28, 30][fase];
+  el("path", {d:`M${cx} ${cy+14}C${cx+1} ${cy+6} ${cx-1} ${cy} ${cx} ${cy+14-alto}`, fill:"none", stroke:C.folha, "stroke-width":2.4, "stroke-linecap":"round"}, g);
+  folha(g, cx, cy+8, 0, 0.8);
+  if (fase >= 3) folha(g, cx, cy+3, 180, 0.8);
+  if (fase === 4) el("circle", {cx, cy:cy+14-alto, r:5.5, fill:C.folha}, g);
+  if (fase === 5) cabeca(g, cx, cy+14-alto, 8);
+  if (fase === 6) cabeca(g, cx, cy+14-alto, 11);
+  return g;
+}
+
+/* ---------- tabuleiro ---------- */
+function desenhar(){
+  const svg = document.getElementById("tab");
+  const defs = el("defs", {}, svg);
+  const m = el("marker", {id:"seta", viewBox:"0 0 10 10", refX:8, refY:5, markerWidth:6, markerHeight:6, orient:"auto-start-reverse"}, defs);
+  el("path", {d:"M2 1L8 5L2 9", fill:"none", stroke:"context-stroke", "stroke-width":1.6, "stroke-linecap":"round"}, m);
+  cabeca(el("g", {id:"flor-cabeca"}, defs), 0, 0, 22);
+
+  /* carta solta na mesa: fora do tabuleiro */
+  const carta = el("g", {class:"casa", "data-id":"antes", tabindex:-1, transform:`rotate(-2.5 ${CARTA.x} ${CARTA.y})`}, svg);
+  el("rect", {x:CARTA.x-147, y:CARTA.y-32, width:370, height:68, rx:12, fill:C.linha, transform:"translate(4 4)"}, carta);
+  el("rect", {x:CARTA.x-147, y:CARTA.y-32, width:370, height:68, rx:12, fill:C.cartao, stroke:C.linhaForte, "stroke-width":1.5, "stroke-dasharray":"6 5", class:"moldura"}, carta);
+  txt(carta, CARTA.x-128, CARTA.y-3, dados.antes.rotulo_tabuleiro, {class:"serif", "font-size":20, "font-weight":600});
+  txt(carta, CARTA.x-128, CARTA.y+21, dados.antes.saida_tabuleiro, {"font-size":14.5, fill:C.suave});
+
+  /* tabuleiro: sombra, moldura verde, miolo creme */
+  el("rect", {x:24, y:104, width:868, height:688, rx:30, fill:C.linha}, svg);
+  el("rect", {x:16, y:96, width:868, height:688, rx:30, fill:C.folha}, svg);
+  el("rect", {x:30, y:110, width:840, height:660, rx:20, fill:C.tabuleiro}, svg);
+  el("rect", {x:40, y:120, width:820, height:640, rx:14, fill:"none", stroke:C.linha, "stroke-width":1.5, "stroke-dasharray":"2 6", "stroke-linecap":"round"}, svg);
+
+  /* trilha */
+  const d = "M" + ROTA.map(p => p.join(" ")).join("L");
+  el("path", {d, fill:"none", stroke:C.trilha, "stroke-width":54, "stroke-linejoin":"round", "stroke-linecap":"round"}, svg);
+  el("path", {d, fill:"none", stroke:C.linha, "stroke-width":1.2, "stroke-dasharray":"1 9", "stroke-linecap":"round"}, svg);
+  S_PEDRAS.forEach((s, i) => { const [x, y] = ponto(s); el("rect", {x:x-15, y:y-15, width:30, height:30, rx:8, fill: i % 2 ? C.casaB : C.casaA, stroke:"#fff8e8", "stroke-width":2}, svg); });
+
+  /* início */
+  txt(svg, 64, 666, "início", {"text-anchor":"middle", "font-size":15, "font-weight":600, fill:C.folha});
+  el("path", {d:"M90 661H106", stroke:C.folha, "stroke-width":2, "marker-end":"url(#seta)"}, svg);
+
+  /* buracos (saídas) */
+  for (const [id, s] of Object.entries(SAIDA)){
+    el("path", {d:`M${s.de[0]} ${s.de[1]}L${s.bx} ${s.by}`, stroke:C.semente, "stroke-width":3, "stroke-dasharray":"0.1 8", "stroke-linecap":"round", fill:"none"}, svg);
+    const g = el("g", {class:"saida-g", "data-id":id}, svg);
+    el("ellipse", {cx:s.bx, cy:s.by+2, rx:19, ry:14, fill:C.linha}, g);
+    el("ellipse", {cx:s.bx, cy:s.by, rx:17, ry:12.5, fill:C.buraco}, g);
+    txt(g, s.bx, s.by+6, "?", {"text-anchor":"middle", class:"serif", "font-size":17, "font-weight":600, fill:C.fundo});
+    const linhas = quebrar(dados[id].saida_tabuleiro, s.max);
+    const y0 = s.abaixo ? s.ty : s.ty + 5 - (linhas.length - 1) * 8.5;
+    linhas.forEach((l, i) => txt(g, s.tx, y0 + i*17, l, {"text-anchor":s.ancora, "font-size":15, fill:C.suave, "font-style":"italic"}));
+  }
+
+  /* gaveta: o tipo em branco */
+  const gv = GAVETA;
+  el("path", {d:"M688 300Q676 322 650 330", fill:"none", stroke:C.semente, "stroke-width":3, "stroke-dasharray":"0.1 8", "stroke-linecap":"round"}, svg);
+  const gg = el("g", {class:"saida-g", "data-id":"gaveta"}, svg);
+  el("rect", {x:gv.x+4, y:gv.y+4, width:gv.w, height:gv.h, rx:8, fill:C.linha}, gg);
+  el("rect", {x:gv.x, y:gv.y, width:gv.w, height:gv.h, rx:8, fill:"#f6e9cc", stroke:C.semente, "stroke-width":1.6}, gg);
+  el("rect", {x:gv.x+50, y:gv.y+8, width:28, height:7, rx:3.5, fill:C.semente}, gg);
+  txt(gg, gv.x+gv.w/2, gv.y+35, "gaveta", {"text-anchor":"middle", class:"serif", "font-size":16, "font-weight":600});
+  txt(gg, gv.x+gv.w/2, gv.y+53, dados.gaveta.saida_tabuleiro, {"text-anchor":"middle", "font-size":13.5, fill:C.suave, "font-style":"italic"});
+  const lupa = el("g", {class:"lupa", opacity:0, transform:`translate(${gv.x-20} ${gv.y+30})`}, svg);
+  el("circle", {r:9, fill:C.cartao, stroke:C.folha, "stroke-width":2.6}, lupa);
+  el("line", {x1:6.5, y1:6.5, x2:13, y2:13, stroke:C.folha, "stroke-width":3.2, "stroke-linecap":"round"}, lupa);
+  const ret = el("g", {class:"retorno", opacity:0}, svg);
+  el("path", {d:`M572 ${gv.y}V272`, fill:"none", stroke:C.folha, "stroke-width":2, "stroke-dasharray":"4 4", "marker-end":"url(#seta)"}, ret);
+  txt(ret, 558, 314, "às vezes volta,", {"text-anchor":"end", "font-size":14, fill:C.folha, "font-style":"italic"});
+  txt(ret, 558, 330, "lendo as observações", {"text-anchor":"end", "font-size":14, fill:C.folha, "font-style":"italic"});
+
+  /* chegada no centro */
+  const ch = el("g", {class:"casa", "data-id":"obra", tabindex:-1, role:"button", "aria-label":dados.obra.titulo}, svg);
+  el("circle", {cx:CHEGADA.x+4, cy:CHEGADA.y+4, r:CHEGADA.r, fill:C.linha}, ch);
+  el("circle", {cx:CHEGADA.x, cy:CHEGADA.y, r:CHEGADA.r, fill:C.cartao, stroke:C.folha, "stroke-width":4, class:"moldura"}, ch);
+  el("circle", {cx:CHEGADA.x, cy:CHEGADA.y, r:CHEGADA.r-10, fill:"none", stroke:C.casaB, "stroke-width":2, "stroke-dasharray":"3 5"}, ch);
+  const contorno = el("g", {class:"contorno-flor", opacity:.18}, ch);
+  cabeca(contorno, CHEGADA.x, CHEGADA.y-14, 22);
+  const rot = el("g", {class:"rotulo-chegada"}, ch);
+  txt(rot, CHEGADA.x, CHEGADA.y+36, dados.obra.rotulo_tabuleiro, {"text-anchor":"middle", class:"serif", "font-size":20, "font-weight":600});
+  txt(rot, CHEGADA.x, CHEGADA.y+55, "vira girassol", {"text-anchor":"middle", "font-size":14, fill:C.suave});
+  const grande = el("g", {id:"flor-grande", opacity:0}, ch);
+  el("path", {d:`M${CHEGADA.x} ${CHEGADA.y+60}C${CHEGADA.x+3} ${CHEGADA.y+30} ${CHEGADA.x-3} ${CHEGADA.y+10} ${CHEGADA.x} ${CHEGADA.y-16}`, fill:"none", stroke:C.folha, "stroke-width":4, "stroke-linecap":"round"}, grande);
+  folha(grande, CHEGADA.x, CHEGADA.y+38, 10, 1.5);
+  folha(grande, CHEGADA.x, CHEGADA.y+24, 170, 1.5);
+  cabeca(grande, CHEGADA.x, CHEGADA.y-18, 27);
+
+  /* casas principais */
+  ORDEM.slice(1, 7).forEach((id, k) => {
+    const [x, y] = ponto(S_CASA[id]), d = dados[id], n = k + 1;
+    const g = el("g", {class:"casa", "data-id":id, tabindex:-1, role:"button", "aria-label":`Casa ${n}: ${d.titulo}`}, svg);
+    el("rect", {x:x-LADO/2-8, y:y-LADO/2-8, width:LADO+16, height:LADO+16, rx:24, fill:C.petala, opacity:0, class:"brilho"}, g);
+    el("rect", {x:x-LADO/2+4, y:y-LADO/2+4, width:LADO, height:LADO, rx:18, fill:C.linha}, g);
+    el("rect", {x:x-LADO/2, y:y-LADO/2, width:LADO, height:LADO, rx:18, fill:C.cartao, stroke:C.semente, "stroke-width":2, class:"moldura"}, g);
+    el("circle", {cx:x-LADO/2+17, cy:y-LADO/2+17, r:13, fill:C.folha}, g);
+    txt(g, x-LADO/2+17, y-LADO/2+22, String(n), {"text-anchor":"middle", "font-size":14, "font-weight":600, fill:C.fundo});
+    broto(g, x, y-22, n);
+    txt(g, x, y+26, d.rotulo_tabuleiro, {"text-anchor":"middle", class:"serif", "font-size": d.rotulo_tabuleiro.length > 12 ? 13 : 15, "font-weight":600});
+    txt(g, x, y+46, d.face, {"text-anchor":"middle", "font-size":13.5, fill:C.suave});
+  });
+
+  /* peça: um dadinho */
+  const pc = el("g", {id:"peca"}, svg);
+  el("ellipse", {cx:2, cy:15, rx:13, ry:4, fill:C.titulo, opacity:.18}, pc);
+  el("rect", {x:-13, y:-13, width:26, height:26, rx:6, fill:C.cartao, stroke:C.titulo, "stroke-width":2}, pc);
+  [[-6,-6],[0,0],[6,6]].forEach(([x,y]) => el("circle", {cx:x, cy:y, r:2.3, fill:C.semente}, pc));
+  pc.style.transform = `translate(${pecaXY[0]}px, ${pecaXY[1]}px)`;
+
+  svg.addEventListener("click", ev => {
+    const g = ev.target.closest(".casa, .saida-g"); if (!g || !terminou) return;
+    const id = g.dataset.id; mostrarPainel(id === "gaveta" ? "classificacao" : id, id === "gaveta");
+  });
+  svg.addEventListener("keydown", ev => {
+    if (!terminou || (ev.key !== "Enter" && ev.key !== " ")) return;
+    const g = ev.target.closest(".casa"); if (!g) return; ev.preventDefault(); mostrarPainel(g.dataset.id);
+  });
+}
+
+function montarCubo(){
+  const cubo = document.getElementById("cubo");
+  for (let n = 1; n <= 6; n++){
+    const f = document.createElement("div"); f.className = "face f" + n;
+    const p = document.createElement("div"); p.className = "pips";
+    for (let i = 0; i < 9; i++){ const d = document.createElement("span"); d.className = "pip" + (PIPS[n].includes(i) ? " on" : ""); p.appendChild(d); }
+    const s = document.createElement("small"); s.textContent = dados[ORDEM[n]].face;
+    f.append(p, s); cubo.appendChild(f);
+  }
+}
+
+/* ---------- movimento ---------- */
+const peca = () => document.getElementById("peca");
+function por(xy){ peca().style.transform = `translate(${xy[0]}px, ${xy[1]}px)`; pecaXY = xy; }
+async function pular(lista){
+  for (const alvo of lista){
+    if (reduz){ por(alvo); continue; }
+    const [x0, y0] = pecaXY, [x1, y1] = alvo, alto = Math.min(40, 12 + Math.hypot(x1-x0, y1-y0) / 10);
+    const a = peca().animate([
+      {transform:`translate(${x0}px, ${y0}px)`},
+      {transform:`translate(${(x0+x1)/2}px, ${(y0+y1)/2 - alto}px)`},
+      {transform:`translate(${x1}px, ${y1}px)`}
+    ], {duration: Math.min(420, 150 + Math.hypot(x1-x0, y1-y0)), easing:"ease-in-out"});
+    por(alvo); await a.finished;
+  }
+}
+function caminhoAte(id){
+  if (id === "atendimento") return [xyCasa("atendimento")];
+  const anterior = ORDEM[ORDEM.indexOf(id) - 1];
+  const s0 = S_CASA[anterior], s1 = id === "obra" ? TOTAL : S_CASA[id];
+  const lista = S_PEDRAS.filter(s => s > s0 && s < s1).map(ponto);
+  lista.push(xyCasa(id));
+  return lista;
+}
+function xyCasa(id){ if (id === "antes") return [CARTA.x + 195, CARTA.y - 2]; if (id === "obra") return [CHEGADA.x, CHEGADA.y]; const [x, y] = ponto(S_CASA[id]); return [x + LADO/2 - 8, y - LADO/2 + 8]; }
+
+function girar(n){
+  giros++;
+  const [bx, by] = ROT[n];
+  document.getElementById("cubo").style.transform = `rotateX(${bx + 360*giros}deg) rotateY(${by + 360*giros}deg)`;
+}
+function fantasma(de, para, cair){
+  const svg = document.getElementById("tab");
+  const g = el("g", {class:"fantasma", opacity:.8}, svg);
+  el("rect", {x:-11, y:-11, width:22, height:22, rx:5, fill:C.cartao, stroke:C.semente, "stroke-width":1.8, "stroke-dasharray":"3 2.5"}, g);
+  [[-5,-5],[0,0],[5,5]].forEach(([x,y]) => el("circle", {cx:x, cy:y, r:1.8, fill:C.semente}, g));
+  const fim = `translate(${para[0]}px, ${para[1]}px) scale(${cair ? .62 : .8}) rotate(${cair ? -18 : 0}deg)`;
+  g.style.transform = fim;
+  if (!reduz) g.animate([{transform:`translate(${de[0]}px, ${de[1]}px) scale(1)`, opacity:.9}, {transform:fim, opacity:.8}], {duration:900, easing:"cubic-bezier(.4,0,.6,1)"});
+}
+function perder(id){
+  if (perdidos.has(id)) return; perdidos.add(id);
+  const de = ponto(S_CASA[id]), s = SAIDA[id];
+  fantasma(de, [s.bx - 17, s.by - 11], true);
+  if (id === "classificacao"){
+    setTimeout(() => fantasma(de, [GAVETA.x + GAVETA.w - 14, GAVETA.y + 14], false), reduz ? 0 : 450);
+    setTimeout(() => { document.querySelector(".lupa").setAttribute("opacity", 1); document.querySelector(".retorno").setAttribute("opacity", 1); }, reduz ? 0 : 1300);
+  }
+}
+function marcarCasas(){
+  document.querySelectorAll(".casa").forEach(g => {
+    const id = g.dataset.id, i = ORDEM.indexOf(id);
+    if (id === "antes" || id === "obra") return;
+    g.querySelector(".brilho").setAttribute("opacity", i === passo ? .35 : 0);
+    const r = g.querySelector(".moldura");
+    r.setAttribute("stroke", i === passo ? C.petala : C.semente);
+    r.setAttribute("stroke-width", i === passo ? 4 : 2);
+    r.setAttribute("fill", i < passo ? C.visitada : C.cartao);
+  });
+}
+function rolarParaPeca(){
+  const rol = document.querySelector(".rolagem"), sv = document.getElementById("tab");
+  if (rol.scrollWidth <= rol.clientWidth) return;
+  const cx = pecaXY[0] / 900 * sv.getBoundingClientRect().width;
+  rol.scrollTo({left: Math.max(0, cx - rol.clientWidth / 2), behavior: reduz ? "auto" : "smooth"});
+}
+
+/* ---------- painel ---------- */
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function listaFontes(d){
+  const itens = [];
+  for (let i = 1; i <= 4; i++){
+    const r = d[`fonte${i}_rotulo`], u = d[`fonte${i}_url`];
+    if (r) itens.push(u ? `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(r)}</a></li>` : `<li>${esc(r)}</li>`);
+  }
+  return itens.length ? `<h3>Fontes</h3><ul class="fontes">${itens.join("")}</ul>` : "";
+}
+function blocos(d){
+  let docs = "";
+  for (let i = 1; i <= 2; i++){
+    const r = d[`doc${i}_rotulo`], u = d[`doc${i}_url`];
+    if (r && u) docs += `<a class="doc" href="${esc(u)}" target="_blank" rel="noopener"><span class="folha-pdf" aria-hidden="true"></span><span>${esc(r)}<br><small>abrir PDF</small></span></a>`;
+  }
+  return `<h3>O que acontece</h3><p>${esc(d.acontece)}</p>` +
+    (docs ? `<h3>Veja a ficha</h3><div class="docs">${docs}</div>` : "") +
+    `<div class="bloco-perda"><h3>Onde o caso pode cair</h3><p>${esc(d.perda)}</p></div>` +
+    `<div class="bloco-nao"><span class="buraco-mini" aria-hidden="true">?</span><div><h3>O que não sabemos</h3><p>${esc(d.nao_sabemos)}</p></div></div>` + listaFontes(d);
+}
+function mostrarPainel(id, focarGaveta){
+  const d = dados[id], n = ORDEM.indexOf(id);
+  const etapa = id === "antes" ? "Fora do tabuleiro" : id === "obra" ? "Chegada" : `Casa ${n} de 6 · face “${d.face}” do dado`;
+  let html = `<p class="etapa">${esc(etapa)}</p><h2>${esc(d.titulo)}</h2>`;
+  if (id === "antes" && passo === 0 && !terminou)
+    html += `<p style="margin-bottom:6px"><strong>Para jogar</strong>, clique no dado e avance uma casa por vez. Cada face do dado é uma etapa do registro, sempre na mesma ordem, e ao lado de cada casa um buraco mostra onde o caso pode sair do jogo.</p>`;
+  html += blocos(d);
+  if (id === "classificacao") html += `<div class="sub-gaveta" id="sub-gaveta"><p class="etapa">Saída especial</p><h2>${esc(dados.gaveta.titulo)}</h2>${blocos(dados.gaveta)}</div>`;
+  if (id === "obra") html += `<div class="ajuda"><strong>Se você precisar de ajuda, ligue 188.</strong><br>CVV – Centro de Valorização da Vida · Ligação gratuita, 24 horas · também por chat e e-mail em <a href="https://cvv.org.br">cvv.org.br</a></div>` +
+    (terminou ? `<p style="margin-top:14px;color:var(--suave)">Agora você pode clicar em qualquer casa, buraco ou na gaveta para rever.</p>` : "");
+  document.getElementById("painel").innerHTML = html;
+  if (focarGaveta) document.getElementById("sub-gaveta").scrollIntoView({behavior: reduz ? "auto" : "smooth", block:"start"});
+}
+
+function atualizarTextos(){
+  const id = ORDEM[passo], leg = document.getElementById("legenda-face");
+  marcarCasas(); mostrarPainel(id);
+  if (passo === 0) leg.textContent = "O dado ainda não rolou.";
+  else if (passo <= 6) leg.textContent = `Casa ${passo} de 6, face “${dados[id].face}” do dado.`;
+  document.getElementById("voltar").disabled = passo === 0 || terminou;
+}
+function florescer(){
+  terminou = true;
+  const svg = document.getElementById("tab");
+  svg.classList.add("explorar");
+  document.querySelectorAll(".casa").forEach(g => g.setAttribute("tabindex", 0));
+  document.querySelector(".rotulo-chegada").setAttribute("opacity", 0);
+  document.querySelector(".contorno-flor").setAttribute("opacity", 0);
+  peca().style.opacity = 0;
+  const fl = document.getElementById("flor-grande"); fl.setAttribute("opacity", 1);
+  if (!reduz) fl.animate([{transform:"scale(.1)"}, {transform:"scale(1.08)", offset:.75}, {transform:"scale(1)"}], {duration:1100, easing:"ease-out"});
+  const b = document.getElementById("dado");
+  b.classList.add("virou"); b.disabled = true; b.setAttribute("aria-label", "O dado virou girassol. Fim do caminho.");
+  document.getElementById("instrucao-titulo").textContent = "O dado virou girassol";
+  document.getElementById("legenda-face").textContent = "Clique nas casas, nos buracos ou na gaveta para rever.";
+  document.getElementById("voltar").disabled = true;
+  marcarCasas(); mostrarPainel("obra");
+}
+
+async function avancar(){
+  if (andando || passo >= 7) return;
+  andando = true; passo++;
+  const id = ORDEM[passo];
+  if (passo <= 6) girar(passo);
+  atualizarTextos();
+  await pular(caminhoAte(id));
+  rolarParaPeca();
+  if (passo <= 6) perder(id); else florescer();
+  andando = false;
+}
+function voltar(){
+  if (andando || passo === 0 || terminou) return;
+  passo--; girar(passo); por(xyCasa(ORDEM[passo])); atualizarTextos(); rolarParaPeca();
+}
+function recomecar(){
+  if (andando) return;
+  passo = 0; terminou = false; perdidos.clear();
+  document.querySelectorAll(".fantasma").forEach(f => f.remove());
+  document.querySelector(".lupa").setAttribute("opacity", 0);
+  document.querySelector(".retorno").setAttribute("opacity", 0);
+  document.getElementById("flor-grande").setAttribute("opacity", 0);
+  document.querySelector(".rotulo-chegada").setAttribute("opacity", 1);
+  document.querySelector(".contorno-flor").setAttribute("opacity", .18);
+  document.getElementById("tab").classList.remove("explorar");
+  document.querySelectorAll(".casa").forEach(g => g.setAttribute("tabindex", -1));
+  peca().style.opacity = 1; por(xyCasa("antes"));
+  const b = document.getElementById("dado");
+  b.classList.remove("virou"); b.disabled = false; b.setAttribute("aria-label", "Rolar o dado e avançar para a próxima casa");
+  document.getElementById("instrucao-titulo").textContent = "Clique no dado para avançar";
+  girar(0); atualizarTextos(); rolarParaPeca();
+}
+
+carregar().then(d => {
+  dados = d;
+  const falta = ORDEM.concat("gaveta").filter(id => !dados[id]);
+  if (falta.length) throw new Error("faltam no CSV: " + falta.join(", "));
+  desenhar(); montarCubo(); giros = -1; girar(0); atualizarTextos();
+  document.getElementById("dado").addEventListener("click", avancar);
+  document.getElementById("voltar").addEventListener("click", voltar);
+  document.getElementById("recomecar").addEventListener("click", recomecar);
+}).catch(e => {
+  document.getElementById("painel").innerHTML = `<h2>Não consegui ler casas.csv</h2><p>${esc(e.message || e)}</p><p>Se você abriu o arquivo direto do computador, o navegador bloqueia a leitura. Rode <code>python gerar_arquivo_unico.py</code> e abra o arquivo gerado, ou rode <code>python -m http.server</code> nesta pasta e acesse <code>http://localhost:8000</code>. No GitHub Pages funciona sem isso.</p>`;
+});
 })();
 </script>
 </body>
