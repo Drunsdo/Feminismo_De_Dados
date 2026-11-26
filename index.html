@@ -6,23 +6,25 @@
 <title>Trazer à Luz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Mundo visual único: papel claro por padrão (o que os dados mostram); a página escurece só quando a história fala do que os dados NÃO mostram, e amanhece de novo. Amarelo girassol = luz; vinho = alerta. */
-  --paper:#F7F3EB;
-  --night:#16130F;
-  --sun:#E8A838;
-  --amber:#9A5B00;
-  --wine:#8C2F39;
-  --leaf:#6E8B3D;
+  --paper:#fff8e8;
+  --night:#24170c;
+  --sun:#e9b10d;
+  --amber:#50722a;
+  --wine:#2f4119;
+  --leaf:#50722a;
   --display:'Fraunces',Georgia,'Times New Roman',serif;
-  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --text-serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --hand:'Inter',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   /* tokens que mudam com o tom (claro/escuro) */
-  --fg:#1F1A14; --muted:#6B6258; --card:#FFFDF8; --line:#E2D8C6; --accent:var(--amber); --track:#EFE7D8; --hatch:#9A8F80;
+  --fg:#3d2311; --muted:#695342; --card:#fffdf7; --line:#e0d5c0; --accent:var(--amber); --track:#f1e2bd; --hatch:#a8998a;
   color-scheme:light;
 }
-body.is-dark{--fg:#F3EDE2; --muted:#BDB2A3; --card:rgba(255,255,255,.055); --line:#3E362D; --accent:var(--sun); --track:#2C251E; color-scheme:dark}
+body.is-dark{--fg:#fff8e8; --muted:#d8c9b4; --card:rgba(255,248,232,.06); --line:#4a3624; --accent:var(--sun); --track:#3a2716; color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
@@ -43,15 +45,15 @@ p{margin:0}
 @media (max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
 .btn{font:inherit;font-weight:700;font-size:16px;border-radius:999px;padding:11px 22px;cursor:pointer;border:1.5px solid var(--accent);background:transparent;color:var(--fg)}
 .btn:hover{background:var(--accent);color:var(--paper)}
-.btn.solid{background:var(--sun);border-color:var(--sun);color:#1F1A14}
+.btn.solid{background:var(--sun);border-color:var(--sun);color:#3d2311}
 .chip{display:inline-block;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
 .chip.p{border-color:var(--accent);color:var(--accent)}
 .todo{border:1px dashed var(--amber);color:var(--amber);border-radius:6px;padding:0 5px;font-size:.92em}
-body.is-dark .todo{border-color:var(--sun);color:#F6D58E}
+body.is-dark .todo{border-color:var(--sun);color:#f4dfa8}
 
 /* ---------- cabeçalho com abas ---------- */
-header.top{position:sticky;top:0;z-index:40;background:rgba(247,243,235,.92);backdrop-filter:blur(8px);border-bottom:1px solid #E2D8C6;transition:background-color .5s,border-color .5s}
-body.is-dark header.top{background:rgba(22,19,15,.9);border-color:#3E362D}
+header.top{position:sticky;top:0;z-index:40;background:rgba(255,248,232,.94);backdrop-filter:blur(8px);border-bottom:1px solid #e0d5c0;transition:background-color .5s,border-color .5s}
+body.is-dark header.top{background:rgba(36,23,12,.92);border-color:#4a3624}
 .top .wrap{display:flex;align-items:center;gap:16px;min-height:62px}
 .brand{font-family:var(--display);font-weight:800;font-size:21px;white-space:nowrap;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:8px}
 .brand em{color:var(--amber);font-weight:600}
@@ -61,9 +63,9 @@ body.is-dark .brand em{color:var(--sun)}
 .navtabs a{font-size:14.5px;font-weight:700;color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:999px;white-space:nowrap}
 .navtabs a:hover{color:var(--fg)}
 .navtabs a[aria-current="page"]{background:var(--fg);color:var(--paper)}
-body.is-dark .navtabs a[aria-current="page"]{background:var(--sun);color:#1F1A14}
+body.is-dark .navtabs a[aria-current="page"]{background:var(--sun);color:#3d2311}
 .helpchip{font-size:13.5px;font-weight:800;color:var(--wine);border:1.5px solid var(--wine);border-radius:999px;padding:6px 12px;text-decoration:none;white-space:nowrap}
-body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
+body.is-dark .helpchip{color:#e9b10d;border-color:#e9b10d}
 .fullbtn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap}
 @media (max-width:700px){.fullbtn{display:none}}
 .progress{position:fixed;top:0;left:0;height:3px;background:var(--sun);width:0;z-index:60}
@@ -84,11 +86,11 @@ body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
 .next{margin-top:clamp(26px,4vh,44px);display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
 
 /* início */
-.hero{position:relative;overflow:hidden;min-height:calc(100vh - 62px);display:flex;align-items:center;background:radial-gradient(70% 60% at 82% 18%,rgba(232,168,56,.35) 0%,rgba(232,168,56,0) 70%),linear-gradient(180deg,#FBF6EA 0%,var(--paper) 100%)}
+.hero{position:relative;overflow:hidden;min-height:calc(100vh - 62px);display:flex;align-items:center;background:radial-gradient(70% 60% at 82% 18%,rgba(232,168,56,.35) 0%,rgba(232,168,56,0) 70%),linear-gradient(180deg,#fff8e8 0%,var(--paper) 100%)}
 .hero .wrap{position:relative;z-index:2;width:100%}
-.warn{display:flex;gap:12px;max-width:620px;font-size:15px;border:1px solid #E2D8C6;background:rgba(255,253,248,.85);border-radius:12px;padding:12px 16px;margin-bottom:clamp(24px,5vh,52px)}
+.warn{display:flex;gap:12px;max-width:620px;font-size:15px;border:1px solid #e0d5c0;background:rgba(255,253,248,.85);border-radius:12px;padding:12px 16px;margin-bottom:clamp(24px,5vh,52px)}
 .warn b{color:var(--wine)}
-.title{font-family:var(--display);font-weight:800;font-size:clamp(64px,10.5vw,184px);line-height:.88;letter-spacing:-.025em;margin:0;color:#1F1A14}
+.title{font-family:var(--display);font-weight:800;font-size:clamp(64px,10.5vw,184px);line-height:.88;letter-spacing:-.025em;margin:0;color:#3d2311}
 .title em{font-style:italic;font-weight:600;color:var(--sun);text-shadow:0 2px 0 rgba(154,91,0,.15)}
 .subtitle{font-size:clamp(19px,1.6vw,27px);max-width:min(34ch,48vw);margin-top:clamp(16px,3vh,28px)}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;max-width:min(620px,50vw)}
@@ -109,7 +111,7 @@ body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
 .guess{display:flex;flex-direction:column;gap:14px}
 .guess .q{font-family:var(--display);font-size:clamp(20px,1.55vw,26px);font-weight:600;line-height:1.2}
 .guess .val{font-family:var(--display);font-size:clamp(40px,3.5vw,58px);font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1}
-.guess input[type=range]{width:100%;accent-color:#B8730F;height:28px}
+.guess input[type=range]{width:100%;accent-color:#a87f00;height:28px}
 .guess .scale{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
 .reveal{display:none;border-top:1px dashed var(--line);padding-top:14px;gap:10px}
 .revealed .reveal{display:grid}
@@ -129,11 +131,11 @@ body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
 .player .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:#F3EDE2;background:radial-gradient(60% 70% at 50% 100%,#3A2A12 0%,#16130F 70%)}
 .player .ph-in{max-width:520px;display:grid;gap:10px;justify-items:center}
 .player .ph-in .big{font-family:var(--display);font-size:clamp(22px,2vw,32px);font-weight:600}
-.player .ph-in code{background:#2A241D;padding:2px 6px;border-radius:4px;font-size:.88em;color:#F6D58E}
+.player .ph-in code{background:#2A241D;padding:2px 6px;border-radius:4px;font-size:.88em;color:#f4dfa8}
 .player-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:14px;color:var(--muted)}
 .howto ol{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:12px}
 .howto li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;font-size:15.5px}
-.howto .ic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#F6E3B8;color:var(--amber);font-weight:800;font-family:var(--display)}
+.howto .ic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#f4dfa8;color:var(--amber);font-weight:800;font-family:var(--display)}
 .human{margin-top:clamp(28px,5vh,52px);display:grid;grid-template-columns:1fr;gap:clamp(18px,3vh,32px)}
 .human-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,3vw,48px);align-items:end}
 @media (max-width:800px){.human-top{grid-template-columns:1fr}}
@@ -142,7 +144,7 @@ body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
 .chart svg,#garden svg{display:block;width:100%;height:auto}
 .g-lbl{font-family:var(--body);font-size:13px;fill:var(--fg);text-anchor:middle;font-variant-numeric:tabular-nums}
 .g-year{font-family:var(--body);font-size:12.5px;fill:var(--muted);text-anchor:middle}
-.tip{position:absolute;pointer-events:none;background:#1F1A14;color:#F7F3EB;font-size:14px;line-height:1.35;padding:8px 11px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .12s;z-index:6;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.tip{position:absolute;pointer-events:none;background:#3d2311;color:#fff8e8;font-size:14px;line-height:1.35;padding:8px 11px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .12s;z-index:6;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .tip strong{display:block;font-size:15px}
 .tip.on{opacity:1}
 
@@ -152,28 +154,28 @@ body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
 .ctl-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:3px;gap:3px}
 .seg button{font:inherit;font-size:15px;font-weight:700;border:0;border-radius:7px;padding:8px 14px;background:transparent;color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{background:#1F1A14;color:#F6D58E}
+.seg button[aria-pressed="true"]{background:#3d2311;color:#f4dfa8}
 .map-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(16px,2vw,30px);align-items:start}
 @media (max-width:1000px){.map-grid{grid-template-columns:1fr}}
-.map-card{padding:12px 12px 16px;position:relative;background:#FFFDF8}
+.map-card{padding:12px 12px 16px;position:relative;background:#fffdf7}
 #map-wrap{position:relative;width:100%}
 #map-wrap svg{display:block;width:100%;height:auto;touch-action:manipulation}
-path.district{stroke:#5C4310;stroke-width:1.1;cursor:pointer;transition:filter .15s}
+path.district{stroke:#3d2311;stroke-width:1.1;cursor:pointer;transition:filter .15s}
 path.district:hover{filter:brightness(.95)}
-path.district.is-sel{stroke:#1F1A14;stroke-width:3.2}
+path.district.is-sel{stroke:#3d2311;stroke-width:3.2}
 path.district:focus-visible{outline:none;stroke:var(--wine);stroke-width:3.6}
-path.outline{fill:none;stroke:#1F1A14;stroke-width:1.8;pointer-events:none}
+path.outline{fill:none;stroke:#3d2311;stroke-width:1.8;pointer-events:none}
 .labels text{pointer-events:none;text-anchor:middle;font-family:var(--body)}
 .lab-name{font-weight:700}
 .lab-val{font-weight:800;font-variant-numeric:tabular-nums}
-.scalebar text{fill:#6B6258;font-size:12px;font-family:var(--body)}
-.legend{display:grid;gap:6px;padding:6px 6px 0;color:#1F1A14}
+.scalebar text{fill:#695342;font-size:12px;font-family:var(--body)}
+.legend{display:grid;gap:6px;padding:6px 6px 0;color:#3d2311}
 .legend-title{font-size:14px;font-weight:700}
 .grad-wrap{position:relative;height:28px}
-.grad{height:13px;border-radius:3px;border:1px solid #E2D8C6}
-.tick{position:absolute;top:0;width:2px;height:18px;background:#1F1A14;transform:translateX(-1px)}
-.grad-labels{display:flex;justify-content:space-between;font-size:13px;color:#6B6258}
-.map-note{font-size:14px;color:#6B6258;margin:12px 6px 0}
+.grad{height:13px;border-radius:3px;border:1px solid #e0d5c0}
+.tick{position:absolute;top:0;width:2px;height:18px;background:#3d2311;transform:translateX(-1px)}
+.grad-labels{display:flex;justify-content:space-between;font-size:13px;color:#695342}
+.map-note{font-size:14px;color:#695342;margin:12px 6px 0}
 .panel{display:grid;gap:16px}
 .bigv{font-family:var(--display);font-size:clamp(46px,4vw,64px);font-weight:800;line-height:1;color:var(--amber);font-variant-numeric:tabular-nums;margin-top:6px}
 .unit{font-size:14px;color:var(--muted);margin-top:4px}
@@ -185,20 +187,20 @@ path.outline{fill:none;stroke:#1F1A14;stroke-width:1.8;pointer-events:none}
 .rank-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .rank button{width:100%;font:inherit;display:grid;grid-template-columns:92px minmax(0,1fr) 66px;align-items:center;gap:10px;background:transparent;border:1px solid transparent;border-radius:8px;padding:6px 8px;color:var(--fg);cursor:pointer;text-align:left}
 .rank button:hover{background:var(--track)}
-.rank button[aria-pressed="true"]{border-color:#1F1A14;background:var(--track)}
+.rank button[aria-pressed="true"]{border-color:#3d2311;background:var(--track)}
 .rank .nm{font-size:15px;font-weight:700}
 .rank .track{height:13px;background:var(--track);border-radius:3px;overflow:hidden}
 .rank .fill{display:block;height:100%;border-radius:3px;border:1px solid rgba(92,67,16,.35)}
 .rank .v{font-size:15px;text-align:right;font-variant-numeric:tabular-nums}
-.alert{border:1.5px solid var(--wine);background:#FBEDEA;border-radius:14px}
-.alert summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:10px;align-items:center;font-weight:700;color:#1F1A14}
+.alert{border:1.5px solid var(--wine);background:#f6e9cc;border-radius:14px}
+.alert summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:10px;align-items:center;font-weight:700;color:#3d2311}
 .alert summary::-webkit-details-marker{display:none}
 .alert .sign{width:26px;height:26px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
-.alert .plus{margin-left:auto;color:#6B6258}
+.alert .plus{margin-left:auto;color:#695342}
 .alert[open] .plus{transform:rotate(45deg)}
-.alert .body{padding:0 16px 16px;display:grid;gap:10px;font-size:15px;color:#1F1A14}
+.alert .body{padding:0 16px 16px;display:grid;gap:10px;font-size:15px;color:#3d2311}
 .split{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
-.split .box{border:1px solid #E2C9C3;background:#FFF8F6;border-radius:10px;padding:10px;font-size:13.5px;text-align:center}
+.split .box{border:1px solid #e0d5c0;background:#fffdf7;border-radius:10px;padding:10px;font-size:13.5px;text-align:center}
 .split .box b{display:block;font-size:15px;margin-bottom:4px}
 .split .arrow{font-size:22px;color:var(--wine)}
 
@@ -207,22 +209,22 @@ path.outline{fill:none;stroke:#1F1A14;stroke-width:1.8;pointer-events:none}
 .axis text{fill:var(--muted);font-size:12.5px;font-family:var(--body)}
 .lbl{fill:var(--fg);font-size:12.5px;font-family:var(--body);font-variant-numeric:tabular-nums}
 .lbl.m{fill:var(--muted)}
-.series-line{fill:none;stroke:#B8730F;stroke-width:2.2}
+.series-line{fill:none;stroke:#a87f00;stroke-width:2.2}
 .series-line.partial{stroke-dasharray:4 4}
-.series-area{fill:#E8A838;opacity:.22}
+.series-area{fill:#e9b10d;opacity:.22}
 .ev-line{stroke:var(--wine);stroke-dasharray:3 3;stroke-width:1.4}
 .ev-dot{fill:var(--wine);stroke:var(--card);stroke-width:2;cursor:pointer}
-.ev-dot.on{fill:#1F1A14}
+.ev-dot.on{fill:#3d2311}
 .ev-num{fill:#fff;font-size:11px;font-weight:800;text-anchor:middle;pointer-events:none;font-family:var(--body)}
-.hov-dot{fill:#B8730F;stroke:#fff;stroke-width:2}
+.hov-dot{fill:#a87f00;stroke:#fff;stroke-width:2}
 .hov-line{stroke:var(--muted);stroke-width:1}
-.bar{fill:#D99A2B}
-.bar.soft{fill:#F2DDB0}
+.bar{fill:#e9b10d}
+.bar.soft{fill:#f4dfa8}
 .bar.hl{fill:var(--wine)}
-.bar.alt{fill:#6B6258}
-.c-branca{fill:#A8B4C0} .c-negra{fill:#2F4A66} .c-amarela{fill:#E8A838} .c-indigena{fill:#6E8B3D} .c-ign{fill:url(#hatch)}
+.bar.alt{fill:#695342}
+.c-branca{fill:#A8B4C0} .c-negra{fill:#2F4A66} .c-amarela{fill:#e9b10d} .c-indigena{fill:#50722a} .c-ign{fill:url(#hatch)}
 .sw{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
-.sw.c-branca{background:#A8B4C0} .sw.c-negra{background:#2F4A66} .sw.c-amarela{background:#E8A838} .sw.c-indigena{background:#6E8B3D}
+.sw.c-branca{background:#A8B4C0} .sw.c-negra{background:#2F4A66} .sw.c-amarela{background:#e9b10d} .sw.c-indigena{background:#50722a}
 .sw.c-ign,.hatched{background:repeating-linear-gradient(45deg,var(--hatch) 0 2px,transparent 2px 6px)}
 .chart-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin:0 0 10px}
 .fig-title{font-weight:700;font-size:17px;margin-bottom:10px}
@@ -272,8 +274,8 @@ figcaption,.cap{font-size:14.5px;color:var(--muted);margin-top:10px}
 .pr-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .pr-list button{width:100%;text-align:left;font:inherit;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font-weight:600;font-size:15.5px}
 .pr-list .n{font-family:var(--display);font-weight:800;font-size:22px;color:var(--amber)}
-.pr-list button[aria-selected="true"]{background:var(--sun);border-color:var(--sun);color:#1F1A14}
-.pr-list button[aria-selected="true"] .n{color:#1F1A14}
+.pr-list button[aria-selected="true"]{background:var(--sun);border-color:var(--sun);color:#3d2311}
+.pr-list button[aria-selected="true"] .n{color:#3d2311}
 .pr-list .star{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.8;display:block}
 .pr-panel{display:grid;gap:16px}
 .pr-panel .def{font-size:clamp(17px,1.3vw,21px);max-width:66ch}
@@ -293,7 +295,7 @@ figcaption,.cap{font-size:14.5px;color:var(--muted);margin-top:10px}
 .mini{display:grid;gap:7px}
 .mini-row{display:grid;grid-template-columns:150px minmax(0,1fr) 56px;gap:10px;align-items:center;font-size:14.5px}
 .mini-row .track{height:12px;background:var(--track);border-radius:3px;overflow:hidden}
-.mini-row .fill{display:block;height:100%;background:#D99A2B}
+.mini-row .fill{display:block;height:100%;background:#e9b10d}
 .mini-row .v{text-align:right;font-variant-numeric:tabular-nums}
 .quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 @media (max-width:800px){.quotes{grid-template-columns:1fr}}
@@ -324,7 +326,7 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
   --semente:#623c1f; --folha:#50722a; --folha-escura:#2f4119; --petala:#e9b10d;
   --tabuleiro:#fbf1da; --trilha:#f1e2bd; --casa-a:#f4dfa8; --casa-b:#dfe6c4; --visitada:#eef0d8;
   --perda-fundo:#f6e9cc; --buraco:#3d2311;
-  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --serif:var(--display);
   --sans:var(--body);}
 #p-caminho *{box-sizing:border-box;min-width:0}
 #p-caminho .cd{margin:0;background:var(--fundo);color:var(--texto);font:16px/1.6 var(--sans)}
@@ -401,6 +403,160 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 #p-caminho #painel h3{font-family:var(--sans)}
 #p-caminho .cd{background:transparent;color:var(--texto)}
 #p-caminho .cd h1{font-family:var(--display)}
+
+/* ================= Estilo do protótipo do grupo =================
+   Fraunces nos títulos, Inter no texto, fundo creme, réguas finas, poucos enfeites. */
+h1,h2{font-weight:500;letter-spacing:-.01em}
+h2{font-size:clamp(32px,3.8vw,56px);line-height:1.08}
+h3{font-family:var(--display);font-weight:600}
+.tag{display:none}
+.lead{font-size:clamp(17px,1.25vw,21px);color:var(--muted)}
+body.is-dark .lead{color:var(--muted)}
+.card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:18px 0 8px}
+.map-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 16px}
+.taped{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+body.is-dark .taped{background:#fffdf7;color:#3d2311;border-color:#fffdf7}
+body.is-dark .taped .muted{color:#695342}
+.btn{border-radius:8px;border:1.5px solid var(--fg);background:transparent;color:var(--fg);box-shadow:none;font-weight:600}
+.btn:hover{background:var(--fg);color:var(--paper)}
+.btn.solid,.btn.solid:hover{background:var(--fg);border-color:var(--fg);color:var(--paper)}
+body.is-dark .btn.solid{background:var(--sun);border-color:var(--sun);color:#3d2311}
+.seg{border-radius:8px;border:1px solid var(--line)}
+.seg button{border-radius:6px}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--paper)}
+.rank button,.pr-list button,.matrix button,.evbtns button,.alert,.split .box{border-radius:8px}
+.navtabs a{color:var(--fg);font-weight:500;border-radius:0;padding:8px 10px}
+.navtabs a[aria-current="page"],body.is-dark .navtabs a[aria-current="page"]{background:none;color:var(--fg);box-shadow:inset 0 -2px 0 var(--fg)}
+.brand{font-family:var(--display);font-weight:500;font-size:22px;gap:10px}
+.brand em{font-style:normal;color:inherit;font-weight:500}
+.brand svg{width:28px;height:34px}
+.helpchip,body.is-dark .helpchip{border:1px solid var(--line);color:var(--fg);border-radius:8px;font-weight:600}
+.fullbtn{border-radius:8px}
+.chip{border:0;padding:0;border-radius:0;font-weight:400;font-size:14.5px}
+.meta .chip:not(:last-child)::after{content:"  ·";white-space:pre;color:var(--muted)}
+.hero{background:none}
+.title{font-weight:600;font-size:clamp(60px,9vw,150px);line-height:.95;color:var(--fg)}
+.title em{font-style:normal;color:inherit;text-shadow:none}
+.warn{border-radius:8px;border:1px solid var(--line);border-left:3px solid var(--sun);background:var(--card);padding:10px 14px}
+.warn b{color:var(--fg)}
+.bigclock,.bigv,.guess .val,.big,.help-grid .card b{font-family:var(--display);font-weight:600;color:var(--fg)}
+.player{border-radius:12px;box-shadow:none;border:1px solid var(--line)}
+.howto .ic{border-radius:50%;background:#f4dfa8;border:0;color:var(--fg);font-family:var(--body);font-weight:600}
+.letter{max-width:64ch;font-size:clamp(17px,1.25vw,20px);line-height:1.65}
+.letter p+p{margin-top:14px}
+.sign{display:block;margin-top:14px;font-size:15px;color:var(--muted)}
+.hand{font-family:var(--body);font-style:italic;font-weight:500;fill:var(--muted);font-size:13.5px}
+body.is-dark .hand{fill:var(--muted)}
+.hand-arrow{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-linecap:round}
+body.is-dark .hand-arrow{stroke:var(--muted)}
+.big-quiet{font-style:normal;font-family:var(--display);font-weight:500;font-size:clamp(22px,2vw,30px);max-width:40ch}
+.bordado{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;align-items:center}
+@media (max-width:800px){.bordado{grid-template-columns:1fr}}
+.bordado img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+.bordado[hidden]{display:none}
+.vnote,.alert{background:#f6e9cc}
+.ev-dot.on{fill:var(--fg)}
+.c-negra{fill:#2F4A66} .sw.c-negra{background:#2F4A66}
+/* 7 princípios em acordeão */
+.pr-wrap{max-width:900px;margin:0 auto}
+.pr-acc{margin-top:clamp(26px,4vh,44px);border-top:1px solid var(--line)}
+.pr-item{border-bottom:1px solid var(--line)}
+.pr-head{width:100%;display:grid;grid-template-columns:34px 56px minmax(0,1fr) auto 24px;align-items:center;gap:14px;padding:22px 4px;background:none;border:0;color:var(--fg);font:inherit;cursor:pointer;text-align:left}
+.pr-head:hover .pr-title{color:var(--leaf)}
+.pr-num{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.pr-ico{width:46px;height:54px;display:block}
+.pr-title{font-family:var(--display);font-weight:500;font-size:clamp(21px,1.9vw,28px);line-height:1.2;transition:color .15s}
+.pr-focus{font-size:12.5px;font-weight:600;color:var(--leaf);border:1px solid var(--leaf);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pr-focus:empty{display:none}
+.pr-chev{width:20px;height:20px;transition:transform .2s;color:var(--fg)}
+.pr-head[aria-expanded="true"] .pr-chev{transform:rotate(180deg)}
+.pr-head[aria-expanded="true"] .pr-title{color:var(--fg)}
+.pr-body{padding:0 4px 34px 108px;display:grid;gap:18px}
+.pr-body[hidden]{display:none}
+.pr-body .def{font-size:clamp(17px,1.25vw,20px);max-width:62ch}
+@media (max-width:640px){.pr-head{grid-template-columns:26px 40px minmax(0,1fr) 20px;gap:10px}.pr-focus{display:none}.pr-ico{width:36px;height:44px}.pr-body{padding-left:4px}}
+
+/* foto do bordado */
+.bordado{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;align-items:center}
+@media (max-width:800px){.bordado{grid-template-columns:1fr}}
+.bordado img{width:100%;height:auto;display:block;background:#fffdf7;padding:10px 10px 34px;box-shadow:0 14px 26px -16px rgba(60,40,10,.5);transform:rotate(-1.2deg)}
+.bordado[hidden]{display:none}
+
+/* ---------- O girassol dos determinantes (seção do grupo, estilos com escopo) ---------- */
+#p-dss{color-scheme:light;
+  --fundo:#fff8e8; --cartao:#fffdf7; --linha:#e0d5c0; --linha-forte:#c4b8a7;
+  --titulo:#3d2311; --suave:#695342; --semente:#623c1f; --folha:#50722a; --folha-escura:#2f4119;
+  --petala:#e9b10d; --petala-clara:#fbefc6; --verde-claro:#eef0d8; --areia:#fbf1da;
+  --serif:var(--display);
+  --sans:var(--body);}
+#p-dss *{box-sizing:border-box;min-width:0}
+#p-dss .dss{margin:0;background:var(--fundo);color:var(--titulo);font:16px/1.6 var(--sans)}
+#p-dss .dss{max-width:1340px;margin:0 auto;padding:32px 20px 48px}
+#p-dss h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,4.4vw,48px);line-height:1.05;margin:0 0 10px}
+#p-dss .lead{color:var(--suave);max-width:760px;margin:0 0 26px;font-size:17px}
+#p-dss .layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:960px){#p-dss .layout{grid-template-columns:minmax(0,1fr)}}
+#p-dss .area{background:var(--cartao);border:1px solid var(--linha);border-radius:18px;padding:12px 12px 16px}
+#p-dss .rolagem{overflow-x:auto}
+#p-dss svg#dss-flor{width:100%;min-width:560px;height:auto;display:block}
+#p-dss .serif{font-family:var(--serif)}
+#p-dss .parte{cursor:pointer;outline:none}
+#p-dss .parte .forma{transition:stroke-width .2s, filter .2s}
+#p-dss .parte:hover .forma{filter:brightness(1.04)}
+#p-dss .parte.sel .forma{stroke:var(--titulo) !important;stroke-width:3.5 !important;stroke-dasharray:none !important}
+#p-dss .parte:focus-visible .forma{stroke:var(--titulo) !important;stroke-width:3.5 !important}
+#p-dss .petala-g{transform-box:fill-box;transform-origin:center}
+@media (prefers-reduced-motion: no-preference){#p-dss .abrir .petala-g{animation:dssAbrir .7s cubic-bezier(.3,1.3,.5,1) both}@keyframes dssAbrir{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}}
+#p-dss .legenda{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px;color:var(--suave);margin:8px 6px 0}
+#p-dss .legenda span{display:inline-flex;align-items:center;gap:8px}
+#p-dss .legenda svg{flex:none}
+#p-dss .navegar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 6px 0}
+#p-dss .navegar button{font:500 14px var(--sans);background:transparent;color:var(--titulo);border:1.5px solid var(--titulo);border-radius:999px;padding:8px 16px;min-height:40px;cursor:pointer}
+#p-dss .navegar button.forte{background:var(--titulo);color:var(--fundo)}
+#p-dss .navegar button:disabled{opacity:.35;cursor:default}
+#p-dss .navegar button:focus-visible{outline:3px solid var(--petala);outline-offset:2px}
+#p-dss .navegar .passo{font-size:14px;color:var(--suave);margin-left:auto}
+#p-dss #dss-painel{background:var(--cartao);border:1px solid var(--linha);border-radius:18px;padding:24px 26px;min-height:460px}
+#p-dss #dss-painel .etapa{font-size:13px;color:var(--suave);margin:0}
+#p-dss #dss-painel h2{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.15;margin:4px 0 12px}
+#p-dss #dss-painel h3{font-size:14px;font-weight:600;margin:18px 0 4px;color:var(--folha)}
+#p-dss #dss-painel p{margin:0}
+#p-dss .selo{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;border-radius:999px;padding:4px 12px 4px 8px;margin-bottom:6px}
+#p-dss .selo i{width:16px;height:16px;border-radius:50%;display:inline-block}
+#p-dss .selo.cheia{background:var(--petala-clara);color:var(--semente)}
+#p-dss .selo.cheia i{background:var(--petala);border:1.5px solid var(--semente)}
+#p-dss .selo.contorno{background:var(--verde-claro);color:var(--folha-escura)}
+#p-dss .selo.contorno i{background:var(--cartao);border:2px solid var(--petala)}
+#p-dss .selo.vazia{background:#f1ece2;color:var(--suave)}
+#p-dss .selo.vazia i{background:transparent;border:1.5px dashed var(--linha-forte)}
+#p-dss .bloco-ficha{border-left:4px solid var(--semente);background:#f6e9cc;padding:12px 14px;border-radius:0 10px 10px 0;margin-top:16px}
+#p-dss .bloco-ficha h3{margin-top:0 !important;color:var(--semente) !important}
+#p-dss .contagem{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 6px}
+#p-dss .contagem div{border:1px solid var(--linha);border-radius:12px;padding:10px 12px;background:var(--fundo)}
+#p-dss .contagem b{display:block;font:600 28px/1.1 var(--serif)}
+#p-dss .contagem small{font-size:13px;color:var(--suave);line-height:1.3;display:block}
+#p-dss .fontes{font-size:14px;color:var(--suave);padding-left:18px;margin:4px 0 0}
+#p-dss .fontes a{color:inherit}
+#p-dss .nota{font-size:14px;color:var(--suave);margin-top:16px !important}
+#p-dss .intro{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;align-items:start;margin:0 0 26px}
+@media (max-width:960px){#p-dss .intro{grid-template-columns:minmax(0,1fr);gap:14px}}
+#p-dss .intro .lead{margin:0}
+#p-dss .intro .lead + .lead{margin-top:10px;font-size:16px}
+#p-dss .lead a,#p-dss .bloco-ficha a{color:var(--semente);font-weight:600}
+#p-dss .cartao-ficha{display:flex;gap:14px;align-items:flex-start;background:var(--cartao);border:1.5px solid var(--semente);border-radius:16px;padding:14px 16px;color:var(--titulo);text-decoration:none}
+#p-dss .cartao-ficha svg{flex:none;margin-top:2px}
+#p-dss .cartao-ficha b{display:block;font:600 17px/1.25 var(--serif)}
+#p-dss .cartao-ficha small{display:block;font-size:14px;color:var(--suave);line-height:1.4;margin-top:4px}
+#p-dss .cartao-ficha .abrir-pdf:focus-visible,#p-dss .bloco-ficha a:focus-visible{outline:3px solid var(--petala);outline-offset:2px}
+#p-dss .cartao-ficha .abrir-pdf{display:block;width:max-content;max-width:100%;margin-top:8px;font-size:14px;font-weight:600;color:var(--semente);text-decoration:underline}
+#p-dss .cartao-ficha .secundario{font-weight:500;color:var(--suave);margin-top:4px}
+#p-dss .bloco-ficha .links-ficha{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:10px;font-size:14px}
+#p-dss .bloco-ficha .links-ficha .manual{font-weight:500;color:var(--suave)}
+#p-dss .rodape{margin-top:28px;font-size:14px;color:var(--suave)}
+#p-dss .rodape a{color:var(--folha)}
+#p-dss .dss{background:transparent;color:var(--titulo)}
+#p-dss #dss-painel h3{font-family:var(--sans)}
+#p-dss .cartao-ficha b{font-family:var(--display)}
 </style>
 </head>
 <body>
@@ -408,7 +564,7 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
   <defs>
     <pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
       <rect width="6" height="6" fill="none"></rect>
-      <line x1="0" y1="0" x2="0" y2="6" stroke="#9A8F80" stroke-width="2"></line>
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#a8998a" stroke-width="2"></line>
     </pattern>
     <g id="sf">
       <g class="petals"></g>
@@ -420,11 +576,12 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#inicio" data-tab="inicio">Trazer <em>à luz</em></a>
+    <a class="brand" href="#inicio" data-tab="inicio" id="brand">Trazer <em>à luz</em></a>
     <nav class="navtabs" aria-label="Seções do site" id="navtabs">
       <a href="#inicio" data-tab="inicio">Início</a>
       <a href="#historia" data-tab="historia">A história</a>
       <a href="#caminho" data-tab="caminho">O caminho do dado</a>
+      <a href="#dss" data-tab="dss">Determinantes</a>
       <a href="#comparacoes" data-tab="comparacoes">Comparações</a>
       <a href="#principios" data-tab="principios">7 princípios</a>
       <a href="#apoio" data-tab="apoio">Apoio</a>
@@ -443,16 +600,15 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
     <div class="wrap">
       <div class="warn" role="note"><span aria-hidden="true">◐</span><p>Este trabalho trata de <b>tentativas de suicídio</b> e violência autoprovocada. Se você precisar conversar, o <b>CVV</b> atende 24 horas pelo <b>188</b>, ligação gratuita, ou em <a href="https://cvv.org.br">cvv.org.br</a>.</p></div>
       <h1 class="title">Trazer<br><em>à luz.</em></h1>
-      <p class="subtitle">Um campo de girassóis para olhar com cuidado as notificações de tentativa de suicídio de mulheres em Campinas.</p>
+      <p class="subtitle">As tentativas de suicídio de mulheres notificadas em Campinas entre 2017 e 2026, contadas em girassóis.</p>
       <div class="meta"><span class="chip" id="meta-periodo"></span><span class="chip">Fonte: SISNOV/Sinan · Prefeitura de Campinas</span><span class="chip" id="meta-disc"></span></div>
       <div class="next" style="justify-content:flex-start"><a class="btn solid" href="#historia" data-tab="historia" style="text-decoration:none">Começar a história →</a></div>
     </div>
   </section>
   <section class="chap short" data-tone="0">
     <div class="wrap">
-      <span class="tag">Entre dados e vidas</span>
-      <h2>Dados que pedem um olhar de cuidado.</h2>
-      <p class="lead">Cada notificação é uma mulher que chegou a um serviço de saúde. Lemos esses registros sem perder de vista as pessoas, o contexto e o que ficou de fora.</p>
+      <span class="tag">uma nota antes de começar</span>
+      <div class="letter"><p>Este site é o trabalho final do nosso grupo na disciplina MO810. Pedimos os dados à Prefeitura de Campinas e não tivemos resposta, então trabalhamos com o painel público de violências e com o boletim do SISNOV.</p><p>Usamos girassóis porque eles crescem em direção à luz, e o projeto trata de dar visibilidade a notificações que costumam aparecer apenas como totais em tabelas. Cada registro corresponde a uma mulher que foi atendida em um serviço de saúde.</p><span class="sign" id="assinatura"></span></div>
       <div class="doors" id="doors"></div>
     </div>
   </section>
@@ -460,24 +616,14 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 
 <!-- ============ A HISTÓRIA ============ -->
 <div class="page" id="p-historia" hidden>
-  <section class="chap" data-tone="0" id="h-palpite">
-    <div class="wrap">
-      <span class="tag">1 · Adivinhe primeiro</span>
-      <h2>Antes dos gráficos, o seu palpite.</h2>
-      <p class="lead">Mova os controles. Depois revelamos o que os registros de Campinas mostram.</p>
-      <div class="guesses" id="guesses"></div>
-      <div class="next" style="justify-content:flex-start"><button type="button" class="btn solid" id="btn-reveal">Revelar dados</button><button type="button" class="btn" id="btn-reset" hidden>Tentar de novo</button></div>
-    </div>
-  </section>
-
   <section class="chap" data-tone="0" id="h-jardim">
     <div class="wrap">
-      <span class="tag">2 · O jardim · Princípio 3</span>
-      <h2>Um girassol a cada 10 notificações.</h2>
-      <p class="lead">Nossa obra transforma as notificações num jardim: cada canteiro é um ano, e cada girassol, 10 mulheres notificadas. Um ano passa como um dia, com uma composição sonora feita a partir dos dados.</p>
+      <span class="tag">a nossa obra</span>
+      <h2>Um girassol a cada 10 notificações</h2>
+      <p class="lead">No vídeo, cada canteiro é um ano e cada girassol representa 10 notificações. Cada ano passa como um dia, acompanhado de uma composição sonora feita a partir dos dados.</p>
       <div class="cinema">
         <div><div class="player" id="player"></div><div class="player-meta"><span id="video-title"></span><span id="video-link"></span></div></div>
-        <div class="card howto"><h3>Como ver e ouvir esta obra</h3><ol id="howto"></ol></div>
+        <div class="card howto taped" style="--rot:.8deg"><h3>Como ver e ouvir esta obra</h3><ol id="howto"></ol></div>
       </div>
       <div class="human">
         <div class="human-top">
@@ -495,9 +641,9 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 
   <section class="chap" data-tone="0" id="h-mapa">
     <div class="wrap">
-      <span class="tag">3 · O território</span>
-      <h2>Onde essas mulheres moravam.</h2>
-      <p class="lead">Os seis distritos de saúde de Campinas, nos tons do Setembro Amarelo. Clique em um distrito, no mapa ou na lista.</p>
+      <span class="tag">o território</span>
+      <h2>Onde elas moravam</h2>
+      <p class="lead">Os seis distritos de saúde de Campinas, coloridos em tons de amarelo, em referência ao Setembro Amarelo. Clique em um distrito, no mapa ou na lista.</p>
       <div class="controls">
         <div class="ctl"><span class="ctl-label" id="lbl-metric">Indicador</span><div class="seg" role="group" aria-labelledby="lbl-metric"><button type="button" data-metric="inc" aria-pressed="true">Incidência</button><button type="button" data-metric="casos" aria-pressed="false">Notificações</button></div></div>
         <div class="ctl"><span class="ctl-label" id="lbl-idade">Idade</span><div class="seg" role="group" aria-labelledby="lbl-idade"><button type="button" data-idade="todas" aria-pressed="true">Todas as idades</button><button type="button" data-idade="20" aria-pressed="false">20 anos ou mais</button></div></div>
@@ -522,14 +668,15 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
           </details>
         </div>
       </div>
+      <figure class="bordado" id="bordado" hidden><img id="bordado-img" alt=""><figcaption class="letter" id="bordado-cap"></figcaption></figure>
     </div>
   </section>
 
   <section class="chap" data-tone="0" id="h-tempo">
     <div class="wrap">
-      <span class="tag">4 · No tempo · Princípio 6</span>
-      <h2>Mais notificações, ou mais gente vendo?</h2>
-      <p class="lead">As notificações quadruplicaram depois de 2020. Clique nos marcadores para ver o que mudou na rede em cada momento.</p>
+      <span class="tag">ao longo do tempo</span>
+      <h2>Quatro vezes mais registros desde 2020</h2>
+      <p class="lead">O aumento pode refletir mais casos ou mais notificação, e os dados não permitem separar as duas coisas. Os marcadores numerados indicam mudanças na rede em cada período.</p>
       <div class="card" style="margin-top:24px">
         <div class="chart" id="chart-mes" role="img" aria-label="Linha com as notificações mensais"></div>
         <div class="evbtns" id="evbtns"></div>
@@ -540,36 +687,37 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 
   <section class="chap" data-tone="0.25" id="h-quem">
     <div class="wrap">
-      <span class="tag">5 · Quem são</span>
-      <h2>Jovens, e mais mulheres negras nos últimos anos.</h2>
+      <span class="tag">quem aparece</span>
+      <h2>Quem aparece nos registros</h2>
       <div class="grid2" style="margin-top:24px">
         <figure class="card"><p class="fig-title">Faixa etária</p><div class="chart" id="chart-idade" role="img" aria-label="Barras por faixa etária"></div><figcaption>As barras claras ficam fora de um recorte só de adultas (20 anos ou mais). A faixa de 0 a 9 anos foi agrupada para evitar células pequenas.</figcaption></figure>
         <figure class="card"><p class="fig-title">Raça/cor por ano</p><div class="chart-legend" id="raca-legend"></div><div class="chart" id="chart-raca" role="img" aria-label="Composição de raça/cor por ano"></div><figcaption id="raca-cap"></figcaption></figure>
       </div>
+      <div class="next"><button type="button" class="btn" data-jump="comparacoes">Comparar com a população e o Censo →</button></div>
     </div>
   </section>
 
   <section class="chap" data-tone="1" id="h-sombra">
     <div class="wrap">
-      <span class="tag">6 · O que os dados não mostram · Princípio 4</span>
-      <h2>Onde a luz não chega.</h2>
-      <p class="lead">Até aqui, vimos o que foi registrado. Mas cada gráfico tem uma sombra: quem não chegou a um serviço, quem não coube nas categorias e os campos que ficaram em branco.</p>
+      <span class="tag">o que fica no escuro</span>
+      <h2>O que os dados não mostram</h2>
+      <p class="lead">Os gráficos anteriores mostram apenas o que foi registrado. Ficam de fora as mulheres que não chegaram a um serviço, quem não se encaixa nas categorias da ficha e os campos deixados em branco.</p>
       <div class="void-grid">
         <div class="card"><p class="fig-title" id="void-title"></p><div class="gaps" id="gaps"></div><p class="cap">Hachurado = "ignorado". Em dados de violência, campo vazio também é informação.</p></div>
         <div class="void-cards" id="void-cards"></div>
       </div>
-      <p class="big-quiet">Nenhum gráfico desta página mostra as tentativas que nunca chegaram a um serviço.</p>
-      <div class="next" style="justify-content:flex-start"><a class="btn" href="#caminho" data-tab="caminho" style="text-decoration:none;color:inherit">Siga o caminho de uma notificação e veja onde ela pode se perder →</a></div>
+      <p class="big-quiet">Nenhum gráfico deste site inclui as tentativas que não chegaram a um serviço de saúde.</p>
+      <div class="next" style="justify-content:flex-start"><a class="btn" href="#caminho" data-tab="caminho" style="text-decoration:none;color:inherit">O caminho de uma notificação →</a><a class="btn" href="#dss" data-tab="dss" style="text-decoration:none;color:inherit">O que a ficha não registra sobre a vida dessas mulheres →</a></div>
     </div>
   </section>
 
   <section class="chap dawn" data-tone="0" id="h-luz">
     <div class="wrap">
-      <span class="tag">7 · Trazer à luz</span>
-      <h2>O que dá para iluminar.</h2>
-      <p class="lead">Os dados disponíveis já permitem perguntas melhores. O que falta pode ser cobrado, coletado e cuidado.</p>
+      <span class="tag">e agora?</span>
+      <h2>Recomendações</h2>
+      <p class="lead">Algumas perguntas já podem ser respondidas com os dados disponíveis. Outras dependem de mudanças na coleta e na publicação.</p>
       <div class="grid2" style="margin-top:24px">
-        <div class="card"><h3 style="margin-bottom:12px">O que pedimos à rede e ao painel</h3><ul class="todo-list" id="todo-list"></ul></div>
+        <div class="card"><h3 style="margin-bottom:12px">Para a rede e para o painel</h3><ul class="todo-list" id="todo-list"></ul></div>
         <div class="card"><h3 style="margin-bottom:12px">Para continuar</h3><p style="font-size:16px">Veja o caminho que cada notificação percorre, as comparações que fizemos com os dados disponíveis e os canais de apoio.</p>
           <div class="next" style="justify-content:flex-start"><a class="btn" href="#caminho" data-tab="caminho" style="text-decoration:none">O caminho do dado →</a><a class="btn" href="#comparacoes" data-tab="comparacoes" style="text-decoration:none">Comparações →</a><a class="btn solid" href="#apoio" data-tab="apoio" style="text-decoration:none">Apoio e saúde →</a></div>
         </div>
@@ -583,7 +731,7 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 <div class="page" id="p-caminho" hidden>
   <section class="chap short" data-tone="0">
     <div class="cd">
-  <span class="tag">O caminho do dado · Princípios 6 e 7</span>
+  <span class="tag">do atendimento ao painel</span>
   <h1>O caminho do dado</h1>
   <p class="lead">Antes de virar girassol no nosso vídeo, cada notificação percorre um caminho. Em cada casa, um caso pode cair num buraco e sair do jogo, e não sabemos quantos caem.</p>
 
@@ -613,9 +761,59 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
           <button id="recomecar" type="button">Recomeçar</button>
         </div>
       </div>
-    </section>
+    <div class="wrap"><div class="next"><button type="button" class="btn solid" data-jump="dss">O girassol dos determinantes →</button></div></div>
+  </section>
 
     <aside id="painel" aria-live="polite"><p>Carregando…</p></aside>
+  </div>
+
+  <p class="rodape">Se você precisar de ajuda, ligue 188 · CVV – Centro de Valorização da Vida · Ligação gratuita, 24 horas · também por chat e e-mail em <a href="https://cvv.org.br">cvv.org.br</a></p>
+</div>
+  </section>
+</div>
+
+
+<!-- ============ O GIRASSOL DOS DETERMINANTES (seção do grupo) ============ -->
+<div class="page" id="p-dss" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="dss">
+  <h1>O girassol dos determinantes</h1>
+  <div class="intro">
+    <div>
+      <p class="lead">Uma tentativa de suicídio nunca tem uma causa só. Este girassol mostra as camadas da vida que, segundo a Organização Mundial da Saúde, influenciam a saúde de uma pessoa, e quanto delas a ficha de notificação consegue registrar.</p>
+      <p class="lead">Determinantes sociais da saúde são as condições em que as pessoas nascem, crescem, vivem, trabalham e envelhecem, e também as forças que moldam essas condições, como a economia, as políticas públicas e as normas sociais. Saiba mais na <a href="https://www.who.int/health-topics/social-determinants-of-health" target="_blank" rel="noopener">página da OMS sobre determinantes sociais da saúde</a> (em inglês).</p>
+    </div>
+    <div class="cartao-ficha">
+      <svg width="34" height="40" viewBox="0 0 34 40" aria-hidden="true"><path d="M3 2h20l8 8v28H3z" fill="#fbefc6" stroke="#623c1f" stroke-width="2" stroke-linejoin="round"/><path d="M23 2v8h8" fill="none" stroke="#623c1f" stroke-width="2" stroke-linejoin="round"/><path d="M9 18h16M9 24h16M9 30h10" stroke="#623c1f" stroke-width="2" stroke-linecap="round"/></svg>
+      <span><b>A ficha de notificação do Sisnov</b><small>Os textos citam os campos desta ficha, com a folha onde cada um aparece e a página do manual que explica como preenchê-lo.</small>
+        <a class="abrir-pdf" href="ficha_sisnov_sinan2015.pdf" target="_blank" rel="noopener">Abrir a ficha (PDF, 2 folhas) ↗</a>
+        <a class="abrir-pdf secundario" href="http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf" target="_blank" rel="noopener">Abrir o manual de preenchimento (PDF) ↗</a></span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="area" aria-label="Girassol">
+      <div class="rolagem">
+        <svg id="dss-flor" viewBox="0 40 900 560" role="img" aria-labelledby="flor-titulo flor-desc">
+          <title id="flor-titulo">Girassol dos determinantes sociais da saúde</title>
+          <desc id="flor-desc">Semicírculo em camadas. No centro, a mulher. Em volta, um anel verde com os determinantes intermediários, seis pétalas com os determinantes estruturais e uma faixa externa com o contexto político e econômico. O caule representa a coesão social. Cada parte está cheia, só contornada ou vazia, conforme a informação está na ficha de notificação e nos painéis públicos, só na ficha, ou em nenhum dos dois.</desc>
+        </svg>
+      </div>
+      <div class="legenda" aria-hidden="true">
+        <span><svg width="22" height="22"><circle cx="11" cy="11" r="9" fill="#e9b10d" stroke="#623c1f" stroke-width="1.5"/></svg>está na ficha e aparece nos painéis da prefeitura</span>
+        <span><svg width="22" height="22"><circle cx="11" cy="11" r="9" fill="#fffdf7" stroke="#e9b10d" stroke-width="2.5"/></svg>está na ficha, mas não aparece nos painéis (ou aparece só em parte)</span>
+        <span><svg width="22" height="22"><circle cx="11" cy="11" r="9" fill="none" stroke="#c4b8a7" stroke-width="1.5" stroke-dasharray="3 3"/></svg>não está na ficha</span>
+      </div>
+      <div class="navegar">
+        <button id="dss-anterior" type="button">← Anterior</button>
+        <button id="dss-proximo" type="button" class="forte">Percorrer do centro para fora →</button>
+        <button id="dss-geral" type="button">Visão geral</button>
+        <span class="passo" id="dss-passo" aria-live="polite"></span>
+      </div>
+    <div class="wrap"><div class="next"><button type="button" class="btn solid" data-jump="principios">Os 7 princípios →</button></div></div>
+  </section>
+
+    <aside id="dss-painel" aria-live="polite"><p>Carregando…</p></aside>
   </div>
 
   <p class="rodape">Se você precisar de ajuda, ligue 188 · CVV – Centro de Valorização da Vida · Ligação gratuita, 24 horas · também por chat e e-mail em <a href="https://cvv.org.br">cvv.org.br</a></p>
@@ -628,11 +826,12 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
   <section class="chap short" data-tone="0">
     <div class="wrap">
       <div class="cmp-intro">
-        <div><span class="tag">Comparações</span><h2>Um número sozinho não diz muito.</h2><p class="lead">Colocamos os dados lado a lado com outros: população, Censo, recortes de idade, tempo, sexo e o Brasil. Cada comparação tem a sua ressalva.</p></div>
+        <div><span class="tag">lado a lado</span><h2>Colocando lado a lado</h2><p class="lead">Comparamos as notificações com a população dos distritos, o Censo, recortes de idade, o calendário, os homens e o Brasil. Cada comparação traz a sua ressalva.</p></div>
         <p class="muted" style="font-size:15px">Todas as comparações usam dados públicos já citados. As que dependem de uma nova extração estão no fim da página.</p>
       </div>
       <div class="cmp-grid" id="cmp-grid"></div>
       <div class="card" style="margin-top:28px"><h3 style="margin-bottom:12px">Comparações que pedem nova extração</h3><ul class="todo-cmp" id="todo-cmp"></ul></div>
+      <div class="next"><button type="button" class="btn solid" data-jump="historia#h-sombra">Voltar à história: o que os dados não mostram →</button></div>
     </div>
   </section>
 </div>
@@ -641,9 +840,13 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 <div class="page" id="p-principios" hidden>
   <section class="chap short" data-tone="0">
     <div class="wrap">
-      <span class="tag">Os 7 princípios do Feminismo de Dados</span>
-      <h2>Quem, como, para quem e por quê.</h2>
-      <div class="pr-layout"><ul class="pr-list" role="tablist" aria-label="Princípios" id="pr-list"></ul><div class="pr-panel" role="tabpanel" id="pr-panel" aria-live="polite"></div></div>
+      <div class="pr-wrap">
+        <span class="tag">os 7 princípios</span>
+        <h2>Quem, como, para quem e por quê</h2>
+        <p class="lead">Os sete princípios do Feminismo de Dados aplicados ao SISNOV.</p>
+        <div class="pr-acc" id="pr-acc"></div>
+        <div class="next"><button type="button" class="btn solid" data-jump="historia#h-luz">Recomendações →</button></div>
+      </div>
     </div>
   </section>
 </div>
@@ -652,9 +855,9 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 <div class="page" id="p-apoio" hidden>
   <section class="chap short" data-tone="0">
     <div class="wrap">
-      <span class="tag">Apoio e saúde</span>
-      <h2>Ninguém precisa passar por isso só.</h2>
-      <p class="lead">Se você ou alguém próximo estiver em sofrimento, procure ajuda. Conversar é um primeiro passo.</p>
+      <span class="tag">se precisar</span>
+      <h2>Apoio e saúde</h2>
+      <p class="lead">Se você ou alguém próximo estiver em sofrimento, estes serviços podem ajudar.</p>
       <div class="help-grid" id="help-grid"></div>
       <div class="grid2" style="margin-top:28px">
         <div class="card"><h3 style="margin-bottom:10px">Em Campinas</h3><p style="font-size:16px">Os Centros de Saúde e os CAPS (Centros de Atenção Psicossocial) fazem parte da rede de cuidado em saúde mental do SUS. Em emergência, procure uma UPA ou o pronto-socorro mais próximo, ou ligue 192.</p></div>
@@ -668,8 +871,8 @@ footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px soli
 <div class="page" id="p-equipe" hidden>
   <section class="chap short" data-tone="0">
     <div class="wrap">
-      <span class="tag">Equipe e fontes · Princípio 7: tornar o trabalho visível</span>
-      <h2>De onde vêm estes números.</h2>
+      <span class="tag">quem fez e de onde veio</span>
+      <h2>De onde vêm estes números</h2>
       <div class="bio" id="bio"></div>
       <div class="credits">
         <div class="card"><h3>Equipe</h3><ul id="equipe-list"></ul></div>
@@ -728,6 +931,10 @@ const DATA_CONFIG = {
     {nome:'Suleste',  casos:419,  inc:225.38, casos20:336, inc20:180.7}
   ],
   paletaMapa: ['#FFF3B0','#FFE066','#FFC93C','#F5A800','#D98200','#9C5A00'],
+  /* Foto do mapa bordado: coloque a imagem na mesma pasta e escreva o nome do arquivo, ex.: 'mapa-bordado.jpg'.
+     Vazio = a seção não aparece. */
+  fotoBordado: '',
+  legendaBordado: 'O mesmo mapa, impresso em A3 e bordado pelo grupo.',
 
   /* ---------- SÉRIE MENSAL [ano, mês, notificações] (out/2026 incompleto) ---------- */
   mensal: [[2017,1,15],[2017,2,25],[2017,3,20],[2017,4,20],[2017,5,28],[2017,6,25],[2017,7,15],[2017,8,22],[2017,9,15],[2017,10,29],[2017,11,27],[2017,12,18],[2018,1,38],[2018,2,29],[2018,3,23],[2018,4,32],[2018,5,24],[2018,6,24],[2018,7,12],[2018,8,37],[2018,9,17],[2018,10,24],[2018,11,15],[2018,12,40],[2019,1,24],[2019,2,23],[2019,3,7],[2019,4,18],[2019,5,13],[2019,6,23],[2019,7,9],[2019,8,14],[2019,9,21],[2019,10,23],[2019,11,17],[2019,12,16],[2020,1,13],[2020,2,17],[2020,3,18],[2020,4,43],[2020,5,9],[2020,6,13],[2020,7,8],[2020,8,15],[2020,9,11],[2020,10,20],[2020,11,11],[2020,12,17],[2021,1,10],[2021,2,26],[2021,3,16],[2021,4,6],[2021,5,18],[2021,6,4],[2021,7,32],[2021,8,21],[2021,9,27],[2021,10,48],[2021,11,36],[2021,12,65],[2022,1,24],[2022,2,30],[2022,3,20],[2022,4,25],[2022,5,34],[2022,6,43],[2022,7,38],[2022,8,51],[2022,9,29],[2022,10,47],[2022,11,57],[2022,12,35],[2023,1,42],[2023,2,70],[2023,3,66],[2023,4,45],[2023,5,46],[2023,6,54],[2023,7,53],[2023,8,61],[2023,9,57],[2023,10,62],[2023,11,76],[2023,12,91],[2024,1,67],[2024,2,71],[2024,3,60],[2024,4,72],[2024,5,57],[2024,6,57],[2024,7,63],[2024,8,83],[2024,9,73],[2024,10,83],[2024,11,72],[2024,12,34],[2025,1,46],[2025,2,61],[2025,3,71],[2025,4,58],[2025,5,43],[2025,6,60],[2025,7,70],[2025,8,89],[2025,9,74],[2025,10,94],[2025,11,88],[2025,12,89],[2026,1,98],[2026,2,83],[2026,3,97],[2026,4,83],[2026,5,69],[2026,6,61],[2026,7,68],[2026,8,104],[2026,9,87],[2026,10,28]],
@@ -738,13 +945,6 @@ const DATA_CONFIG = {
   ignorado: [['Orientação sexual',1908],['Identidade de gênero',1868],['Violência de repetição',1837],['Motivação',1667],['Encaminhamento',1347],['Situação conjugal',1307],['Escolaridade',1133],['Raça/cor',176],['Local de ocorrência',156]],
   identidade: {mulherTrans:66, homemTrans:13},
   unidadeNotificadora: [['Hospitais',4354],['Centros de saúde',310],['Assistência social',131],['Educação',45],['Outros',15]],
-
-  /* ---------- PALPITES ---------- */
-  palpites: [
-    {id:'g1', pergunta:'Em 2025, quantas tentativas de suicídio de mulheres foram notificadas em Campinas?', min:0, max:2000, passo:10, inicial:300, real:843, sufixo:'', comentario:'Foram 843 notificações em 2025, mais de quatro vezes as 195 de 2020.'},
-    {id:'g2', pergunta:'Que parcela dessas notificações é de meninas e jovens com menos de 20 anos?', min:0, max:100, passo:1, inicial:10, real:26.3, sufixo:'%', comentario:'26,3% (1.275 notificações). Um recorte só de adultas deixa esse grupo de fora.'},
-    {id:'g3', pergunta:'Que parcela das notificações vem de hospitais?', min:0, max:100, passo:1, inicial:50, real:89.7, sufixo:'%', comentario:'89,7%. O sistema enxerga sobretudo quem chega à urgência; centros de saúde respondem por 6,4%.'}
-  ],
 
   /* ---------- MARCOS DA LINHA DO TEMPO ---------- */
   marcos: [
@@ -766,7 +966,7 @@ const DATA_CONFIG = {
   negraAPS: {Noroeste:42.8, Sudoeste:38.3, Sul:37.4, Leste:21.0},   // % da população cadastrada na APS que se declara negra, por distrito (Boletim nº 1 SPN/DEVISA, 2024)
 
   /* ---------- EQUIPE E DISCIPLINA ---------- */
-  equipe: ['Rogério Matheus Gomes Moura','Letízia Manuella','[EDITAR: Nome Sobrenome]','[EDITAR: Nome Sobrenome]'],
+  equipe: ['Cristina Oliveira Romanin','Letízia Manuella Serqueira Eugênio','Rogério Matheus Gomes Moura'],
   disciplina: ['MO810 · Feminismo de Dados','Profa. Sandra Avila','Instituto de Computação, UNICAMP','Segundo semestre de 2026'],
 
   /* ---------- CANAIS DE AJUDA ---------- */
@@ -785,7 +985,7 @@ const NF1 = new Intl.NumberFormat('pt-BR',{minimumFractionDigits:1,maximumFracti
 const P1 = v => NF1.format(v*100) + '%';
 const small = v => (v > 0 && v < 5) ? '<5' : NF.format(v);
 const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-const PAPER = '#F7F3EB', NIGHT = '#16130F';
+const PAPER = '#fff8e8', NIGHT = '#24170c';
 function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; }
 function txtWithTodo(node, s){ s.split(/(\[EDITAR[^\]]*\])/).forEach(p => { if(!p) return; if(p.startsWith('[EDITAR')) node.append(el('span','todo',p)); else node.append(document.createTextNode(p)); }); }
 const tipOn = (tip, host, ev, title, body) => {
@@ -798,7 +998,7 @@ const tipOn = (tip, host, ev, title, body) => {
 
 /* ---------- girassol ---------- */
 function sunflower(g, cx, baseY, topY, r, o){
-  o = Object.assign({partial:false, petals:18, petal:'#E8A838', center:'#3B2A1A', stem:'#6E8B3D', spin:false, spinCls:'spin'}, o||{});
+  o = Object.assign({partial:false, petals:18, petal:'#e9b10d', center:'#623c1f', stem:'#50722a', spin:false, spinCls:'spin'}, o||{});
   const s = g.append('g'), stemH = baseY - topY;
   if(stemH > 0){
     s.append('path').attr('d',`M${cx},${baseY} C${cx-6},${baseY-stemH*0.4} ${cx+6},${baseY-stemH*0.7} ${cx},${topY+r*0.6}`).attr('fill','none').attr('stroke',o.stem).attr('stroke-width',Math.max(2,r*0.16)).attr('stroke-dasharray',o.partial?'5 5':null).attr('stroke-linecap','round');
@@ -808,10 +1008,11 @@ function sunflower(g, cx, baseY, topY, r, o){
   const rot = head.append('g').attr('class', o.spin ? o.spinCls : null);
   for(let i=0;i<o.petals;i++){ rot.append('ellipse').attr('cx',0).attr('cy',-r*0.78).attr('rx',r*0.24).attr('ry',r*0.52).attr('transform',`rotate(${i*360/o.petals})`).attr('fill',o.petal).attr('fill-opacity',o.partial?.35:1).attr('stroke',o.partial?o.petal:'none').attr('stroke-dasharray',o.partial?'2 2':null); }
   rot.append('circle').attr('r',r*0.5).attr('fill',o.center);
-  rot.append('circle').attr('r',r*0.5).attr('fill','none').attr('stroke','#5A4127').attr('stroke-dasharray','1.5 2.5');
-  rot.append('circle').attr('r',r*0.18).attr('cx',r*0.12).attr('cy',-r*0.1).attr('fill','#5A4127');
+  rot.append('circle').attr('r',r*0.5).attr('fill','none').attr('stroke','#623c1f').attr('stroke-dasharray','1.5 2.5');
+  rot.append('circle').attr('r',r*0.18).attr('cx',r*0.12).attr('cy',-r*0.1).attr('fill','#623c1f');
   return s;
 }
+(function(){ const b = document.getElementById('brand'); const s = d3.create('svg').attr('viewBox','-16 -16 32 40').attr('aria-hidden','true'); s.append('line').attr('x1',0).attr('x2',0).attr('y1',6).attr('y2',24).attr('stroke','#50722a').attr('stroke-width',2.4); s.append('path').attr('d','M0,16 q-7,-5 -11,-1 q5,4 11,1').attr('fill','#50722a'); sunflower(s.append('g'),0,0,0,11,{petals:14}); b.prepend(s.node()); })();
 // girassol do canto
 (function(){
   const svg = d3.select('#corner').append('svg').attr('viewBox','-50 -50 100 100');
@@ -822,7 +1023,7 @@ const anual = d3.rollups(C.mensal, v => d3.sum(v, d => d[2]), d => d[0]).map(([y
 const ultimoAno = anual[anual.length-1].y;
 
 /* ---------- abas (páginas) ---------- */
-const TABS = ['inicio','historia','caminho','comparacoes','principios','apoio','equipe'];
+const TABS = ['inicio','historia','caminho','dss','comparacoes','principios','apoio','equipe'];
 let curTab = 'inicio';
 function showTab(id, push){
   if(!TABS.includes(id)) id = 'inicio';
@@ -834,6 +1035,10 @@ function showTab(id, push){
   requestAnimationFrame(() => { drawVisible(); onScroll(); });
 }
 document.querySelectorAll('[data-tab]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showTab(a.dataset.tab); }));
+document.querySelectorAll('[data-jump]').forEach(b => b.addEventListener('click', () => {
+  const [tab, chap] = b.dataset.jump.split('#'); showTab(tab);
+  if(chap) setTimeout(() => { const c = document.getElementById(chap); if(c) window.scrollTo({top: c.getBoundingClientRect().top + window.scrollY - 62, behavior:'instant'}); onScroll(); }, 80);
+}));
 window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if(TABS.includes(h) && h !== curTab) showTab(h, false); });
 
 /* ---------- tom do fundo: degradê claro → escuro → claro conforme o scroll ---------- */
@@ -883,6 +1088,17 @@ document.getElementById('btn-full').addEventListener('click', async () => {
   catch(err){ document.getElementById('btn-full').textContent = 'Use F11'; }
 });
 
+/* ---------- assinatura e bordado ---------- */
+document.getElementById('assinatura').textContent = 'Cristina, Letízia e Rogério';
+if(C.fotoBordado){ const im = document.getElementById('bordado-img'); im.src = C.fotoBordado; im.alt = 'Mapa dos distritos de Campinas bordado em tecido'; document.getElementById('bordado-cap').textContent = C.legendaBordado; document.getElementById('bordado').hidden = false; }
+function handNote(svg, x, y, tx, ty, text, anchor){
+  const mx = (x + tx)/2 + (ty - y)*0.08, my = (y + ty)/2 - (tx - x)*0.06;
+  svg.append('path').attr('class','hand-arrow').attr('d',`M${tx},${ty} Q${mx},${my} ${x},${y}`);
+  const a = Math.atan2(y - my, x - mx), L = 9;
+  svg.append('path').attr('class','hand-arrow').attr('d',`M${x - L*Math.cos(a - .45)},${y - L*Math.sin(a - .45)} L${x},${y} L${x - L*Math.cos(a + .45)},${y - L*Math.sin(a + .45)}`);
+  svg.append('text').attr('class','hand').attr('x',tx).attr('y',ty + (ty < y ? -4 : 18)).attr('text-anchor',anchor || 'middle').text(text);
+}
+
 /* ---------- início ---------- */
 document.getElementById('meta-periodo').textContent = C.periodo.texto;
 document.getElementById('meta-disc').textContent = C.disciplina[0];
@@ -901,8 +1117,9 @@ function drawHero(){
 }
 (function(){
   const DOORS = [
-    ['historia','A história','Do palpite ao mapa, do que os dados mostram ao que eles escondem.'],
+    ['historia','A história','Do vídeo ao mapa, do que os dados mostram ao que eles deixam de fora.'],
     ['caminho','O caminho do dado','Um tabuleiro: do atendimento ao painel, onde cada caso pode se perder.'],
+    ['dss','O girassol dos determinantes','As camadas da vida que influenciam a saúde e quais delas a ficha registra.'],
     ['principios','Os 7 princípios','Como o Feminismo de Dados muda as perguntas que fazemos ao SISNOV.'],
     ['apoio','Apoio e saúde','Canais de escuta e de cuidado, sempre à mão.']
   ];
@@ -914,36 +1131,6 @@ function drawHero(){
     a.append(el('b',null,t), el('span',null,s)); box.append(a);
   });
 })();
-
-/* ---------- palpites ---------- */
-const fmtG = (g,v) => (g.sufixo === '%' ? NF1.format(v).replace(',0','') : NF.format(v)) + g.sufixo;
-const gBox = document.getElementById('guesses');
-C.palpites.forEach(g => {
-  const c = el('div','card guess'); c.id = 'card-' + g.id;
-  const lab = el('label','q',g.pergunta); lab.htmlFor = g.id;
-  const val = el('div','val', fmtG(g, g.inicial));
-  const inp = document.createElement('input'); Object.assign(inp, {type:'range', id:g.id, min:g.min, max:g.max, step:g.passo, value:g.inicial});
-  inp.addEventListener('input', () => { val.textContent = fmtG(g, +inp.value); });
-  const sc = el('div','scale'); sc.append(el('span',null,fmtG(g,g.min)), el('span',null,fmtG(g,g.max)));
-  const rv = el('div','reveal');
-  const row = (k,cls) => { const r = el('div','rv-row'), tr = el('span','tr'), f = el('span','f ' + cls); tr.append(f); r.append(el('span',null,k), tr, el('span','v','')); return r; };
-  rv.append(row('Seu palpite','you'), row('Dado real','real'), el('p'));
-  c.append(lab, val, inp, sc, rv); gBox.append(c);
-});
-document.getElementById('btn-reveal').addEventListener('click', () => {
-  C.palpites.forEach(g => {
-    const c = document.getElementById('card-' + g.id), you = +document.getElementById(g.id).value, rows = c.querySelectorAll('.rv-row');
-    c.classList.add('revealed');
-    rows[0].querySelector('.v').textContent = fmtG(g, you); rows[1].querySelector('.v').textContent = fmtG(g, g.real);
-    c.querySelector('.reveal p').textContent = g.comentario;
-    requestAnimationFrame(() => { rows[0].querySelector('.f').style.width = ((you-g.min)/(g.max-g.min)*100) + '%'; rows[1].querySelector('.f').style.width = ((g.real-g.min)/(g.max-g.min)*100) + '%'; });
-  });
-  document.getElementById('btn-reset').hidden = false;
-});
-document.getElementById('btn-reset').addEventListener('click', () => {
-  C.palpites.forEach(g => { const c = document.getElementById('card-' + g.id); c.classList.remove('revealed'); c.querySelectorAll('.f').forEach(f => f.style.width = '0%'); });
-  document.getElementById('btn-reset').hidden = true;
-});
 
 /* ---------- vídeo e jardim ---------- */
 (function(){
@@ -981,7 +1168,7 @@ document.getElementById('btn-reset').addEventListener('click', () => {
   const horas = 365*24 / last.n, hh = Math.floor(horas), mm = Math.round((horas-hh)*60);
   document.getElementById('hum-ano').textContent = last.y;
   document.getElementById('hum-clock').textContent = `1 a cada ${hh}h${String(mm).padStart(2,'0')}`;
-  document.getElementById('hum-text').textContent = `Foram ${NF.format(last.n)} notificações de tentativa de suicídio de mulheres em ${last.y}: em média, uma a cada ${hh} horas e ${mm} minutos, dia e noite, o ano inteiro.`;
+  document.getElementById('hum-text').textContent = `Foram ${NF.format(last.n)} notificações de tentativa de suicídio de mulheres em ${last.y}: em média, uma a cada ${hh} horas e ${mm} minutos, `;
 })();
 const garden = document.getElementById('garden'), gTip = el('div','tip'); garden.append(gTip);
 let plantAnim = false;
@@ -996,22 +1183,22 @@ function drawGarden(){
   anual.forEach((d,i) => {
     const y0 = m.t + i*rowH, base = y0 + rowH - 4, nf = Math.floor(d.n/10), rest = d.n % 10, partial = d.y === ultimoAno;
     const g = svg.append('g').attr('tabindex',0).attr('role','img').attr('aria-label', `${d.y}: ${NF.format(d.n)} notificações, ${nf} girassóis${rest ? ' e um broto' : ''}`);
-    g.append('rect').attr('x',m.l-4).attr('y',base).attr('width',avail+8).attr('height',3).attr('rx',1.5).attr('fill','#8A6A3E').attr('opacity',.55);
+    g.append('rect').attr('x',m.l-4).attr('y',base).attr('width',avail+8).attr('height',3).attr('rx',1.5).attr('fill','#c4b8a7').attr('opacity',.55);
     g.append('text').attr('class','g-year').attr('x',m.l-12).attr('y',base-2).attr('text-anchor','end').text(w < 520 ? "'" + String(d.y).slice(2) : d.y + (partial ? '*' : ''));
     const fl = g.append('g');
     for(let k=0;k<nf;k++){
       const cx = m.l + k*sp + sp/2, top = base - rowH*0.62;
       const one = fl.append('g');
-      one.append('line').attr('x1',cx).attr('x2',cx).attr('y1',base).attr('y2',top).attr('stroke','#5E7F34').attr('stroke-width',Math.max(1,r*0.35));
-      one.append('circle').attr('cx',cx).attr('cy',top).attr('r',r).attr('fill','#E8A838');
-      one.append('circle').attr('cx',cx).attr('cy',top).attr('r',r*0.45).attr('fill','#4A3320');
+      one.append('line').attr('x1',cx).attr('x2',cx).attr('y1',base).attr('y2',top).attr('stroke','#50722a').attr('stroke-width',Math.max(1,r*0.35));
+      one.append('circle').attr('cx',cx).attr('cy',top).attr('r',r).attr('fill','#e9b10d');
+      one.append('circle').attr('cx',cx).attr('cy',top).attr('r',r*0.45).attr('fill','#623c1f');
       if(plantAnim) one.attr('opacity',0).transition().delay(i*420 + k*(380/Math.max(nf,1))).duration(160).attr('opacity',1);
     }
     if(rest){
       const cx = m.l + nf*sp + sp/2, top = base - rowH*0.38;
       const b = fl.append('g');
-      b.append('line').attr('x1',cx).attr('x2',cx).attr('y1',base).attr('y2',top).attr('stroke','#5E7F34').attr('stroke-width',Math.max(1,r*0.35));
-      b.append('circle').attr('cx',cx).attr('cy',top).attr('r',Math.max(1.4,r*0.45)).attr('fill','#7FA347');
+      b.append('line').attr('x1',cx).attr('x2',cx).attr('y1',base).attr('y2',top).attr('stroke','#50722a').attr('stroke-width',Math.max(1,r*0.35));
+      b.append('circle').attr('cx',cx).attr('cy',top).attr('r',Math.max(1.4,r*0.45)).attr('fill','#7fa347');
       if(plantAnim) b.attr('opacity',0).transition().delay(i*420 + 400).duration(160).attr('opacity',1);
     }
     g.append('text').attr('class','g-lbl').attr('x', m.l + (nf + (rest?1:0))*sp + 9).attr('y',base-2).attr('text-anchor','start').attr('font-weight',700).text(NF.format(d.n));
@@ -1019,6 +1206,7 @@ function drawGarden(){
       .on('pointermove', ev => tipOn(gTip, garden, ev, String(d.y) + (partial ? ' (jan a out)' : ''), `${NF.format(d.n)} notificações = ${nf} girassóis${rest ? ' + 1 broto (' + rest + ')' : ''}`))
       .on('pointerleave', () => gTip.classList.remove('on'));
   });
+  const r24 = anual.find(d => d.y === 2020); if(r24 && w > 600){ const i = anual.indexOf(r24), yy = m.t + i*rowH + rowH/2, xx = m.l + (Math.floor(r24.n/10)+1)*sp + 50; svg.append('text').attr('class','hand').attr('x',xx).attr('y',yy+6).text('← o canteiro mais vazio'); }
   plantAnim = false;
 }
 document.getElementById('btn-plant').addEventListener('click', () => { plantAnim = true; drawGarden(); });
@@ -1057,7 +1245,7 @@ function drawMap(){
   const fs = Math.max(10, Math.min(16, w/40));
   const lg = svg.selectAll('g.labels').data([0]).join('g').attr('class','labels').attr('aria-hidden','true');
   const L = lg.selectAll('g.lab').data(D, d => d.nome).join(en => { const e = en.append('g').attr('class','lab'); e.append('text').attr('class','lab-name'); e.append('text').attr('class','lab-val'); return e; });
-  const tc = d => tOf(d) > 0.72 ? '#FFFFFF' : '#1F1A14';
+  const tc = d => tOf(d) > 0.72 ? '#FFFFFF' : '#3d2311';
   L.select('.lab-name').attr('y',-fs*0.3).style('font-size',fs+'px').attr('fill',tc).text(d => d.nome);
   L.select('.lab-val').attr('y',fs*0.98).style('font-size',(fs*1.08)+'px').attr('fill',tc).text(d => fmtVal(val(d)));
   L.each(function(d){
@@ -1069,8 +1257,8 @@ function drawMap(){
   });
   const px = proj.scale()*10, sx = 14, sy = h - 22;
   const sb = svg.selectAll('g.scalebar').data([0]).join('g').attr('class','scalebar').attr('aria-hidden','true'); sb.selectAll('*').remove();
-  sb.append('rect').attr('x',sx).attr('y',sy).attr('width',px/2).attr('height',6).attr('fill','#1F1A14');
-  sb.append('rect').attr('x',sx+px/2).attr('y',sy).attr('width',px/2).attr('height',6).attr('fill','#fff').attr('stroke','#1F1A14');
+  sb.append('rect').attr('x',sx).attr('y',sy).attr('width',px/2).attr('height',6).attr('fill','#3d2311');
+  sb.append('rect').attr('x',sx+px/2).attr('y',sy).attr('width',px/2).attr('height',6).attr('fill','#fff').attr('stroke','#3d2311');
   [[0,'0'],[px/2,'5'],[px,'10 km']].forEach(([dx,t]) => sb.append('text').attr('x',sx+dx).attr('y',sy-5).attr('text-anchor', dx === 0 ? 'start' : 'middle').text(t));
 }
 function drawLegend(){
@@ -1146,6 +1334,12 @@ function drawMes(){
       .on('click', () => { evSel = i; drawMes(); }).on('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); evSel = i; drawMes(); } });
     svg.append('text').attr('class','ev-num').attr('x',ex).attr('y',m.t-8).text(i+1);
   });
+  if(w > 560){
+    const vale = mensal.filter(d => d.y === 2020).reduce((a,b) => b.n < a.n ? b : a);
+    handNote(svg, x(vale.date) - 2, y(vale.n) - 6, x(vale.date) - 40, y(y.domain()[1]*0.78), 'o isolamento esvaziou os serviços', 'end');
+    const pico = mensal.reduce((a,b) => b.n > a.n ? b : a);
+    handNote(svg, x(pico.date) - 5, y(pico.n) - 2, x(pico.date) - 150, y(y.domain()[1]*0.97), `${MESES[pico.m-1]}/${pico.y}, o maior mês: ${pico.n}`, 'end');
+  }
   evbtns.querySelectorAll('button').forEach((b,i) => b.setAttribute('aria-pressed', String(i === evSel)));
   document.getElementById('evtext').textContent = C.marcos[evSel].texto;
 }
@@ -1198,13 +1392,13 @@ function drawRaca(){
   C.ignorado.forEach(([k,n]) => { const r = el('div','gap-row'), tr = el('span','track'), f = el('span','fill hatched'); f.style.width = (n/C.totalNotificacoes*100) + '%'; tr.append(f); r.append(el('span',null,k), tr, el('span','v', P1(n/C.totalNotificacoes))); gw.append(r); });
   const hosp = C.unidadeNotificadora[0][1] / d3.sum(C.unidadeNotificadora, d => d[1]);
   const VOID = [
-    ['O filtro é binário', `O painel filtra por "sexo: feminino". Nessa seleção aparecem ${C.identidade.mulherTrans} mulheres trans e ${C.identidade.homemTrans} homens trans: a ficha registra o sexo, e a identidade de gênero fica num campo à parte, vazio em 38,5% dos casos.`],
-    ['A rede vê a urgência', `${P1(hosp)} das notificações vêm de hospitais. Quem sofre em silêncio, ou é acolhida na atenção básica sem notificação, não aparece.`],
-    ['Sem o denominador certo', 'O painel divide pela população total do distrito, não pela de mulheres. Sem esse dado, não há taxa por 100 mil mulheres, nem por idade ou raça.'],
-    ['Por quê? Quase nunca se sabe', 'Em 75,1% das notificações a motivação é "outros" ou não foi informada. Sexismo aparece em 2,2%.']
+    ['Sexo binário na ficha', `O painel filtra por "sexo: feminino". Nessa seleção aparecem ${C.identidade.mulherTrans} mulheres trans e ${C.identidade.homemTrans} homens trans: a ficha registra o sexo, e a identidade de gênero fica num campo à parte, vazio em 38,5% dos casos.`],
+    ['Notificações concentradas nos hospitais', `${P1(hosp)} das notificações vêm de hospitais. Casos acolhidos na atenção básica sem notificação, ou que não chegam a nenhum serviço, não aparecem.`],
+    ['Denominador', 'O painel divide pela população total do distrito, não pela de mulheres. Sem esse dado, não há taxa por 100 mil mulheres, nem por idade ou raça.'],
+    ['Motivação sem registro', 'Em 75,1% das notificações a motivação é "outros" ou não foi informada. Sexismo aparece em 2,2%.']
   ];
   const vc = document.getElementById('void-cards');
-  VOID.forEach(([t,s]) => { const c = el('div','card'); c.append(el('h3',null,t), el('p',null,s)); vc.append(c); });
+  VOID.forEach(([t,s]) => { const c = el('div','card taped'); c.append(el('h3',null,t), el('p',null,s)); vc.append(c); });
   const TODO = [
     'Publicar a população feminina por distrito, idade e raça, para taxas corretas.',
     'Tornar identidade de gênero e orientação sexual campos realmente preenchidos, com formação para perguntar com cuidado.',
@@ -1234,13 +1428,13 @@ cmpCard('Distritos', 'Parte da população × parte das notificações', ch => {
   const rowH = 34, m = {t:24, r:118, b:6, l:84}, h = m.t + rows.length*rowH + m.b;
   const x = d3.scaleLinear().domain([0.05, 0.27]).range([m.l, w-m.r]);
   const svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
-  svg.append('circle').attr('cx',m.l).attr('cy',9).attr('r',5).attr('fill','#9A8F80'); svg.append('text').attr('class','lbl m').attr('x',m.l+9).attr('y',13).text('população');
+  svg.append('circle').attr('cx',m.l).attr('cy',9).attr('r',5).attr('fill','#a8998a'); svg.append('text').attr('class','lbl m').attr('x',m.l+9).attr('y',13).text('população');
   svg.append('circle').attr('cx',m.l+96).attr('cy',9).attr('r',5).attr('fill','var(--wine)'); svg.append('text').attr('class','lbl m').attr('x',m.l+105).attr('y',13).text('notificações');
   rows.forEach((d,i) => {
     const yy = m.t + i*rowH + rowH/2;
     svg.append('text').attr('class','lbl').attr('x',m.l-10).attr('y',yy+4).attr('text-anchor','end').attr('font-weight',700).text(d.nome);
-    svg.append('line').attr('x1',x(d.pp)).attr('x2',x(d.pc)).attr('y1',yy).attr('y2',yy).attr('stroke', d.pc > d.pp ? 'var(--wine)' : '#9A8F80').attr('stroke-width',3);
-    svg.append('circle').attr('cx',x(d.pp)).attr('cy',yy).attr('r',6).attr('fill','#9A8F80');
+    svg.append('line').attr('x1',x(d.pp)).attr('x2',x(d.pc)).attr('y1',yy).attr('y2',yy).attr('stroke', d.pc > d.pp ? 'var(--wine)' : '#a8998a').attr('stroke-width',3);
+    svg.append('circle').attr('cx',x(d.pp)).attr('cy',yy).attr('r',6).attr('fill','#a8998a');
     svg.append('circle').attr('cx',x(d.pc)).attr('cy',yy).attr('r',6).attr('fill','var(--wine)');
     const right = d.pc > d.pp; svg.append('text').attr('class','lbl').attr('x', x(Math.max(d.pc,d.pp)) + 10).attr('y',yy+4).text(`${P1(d.pp)} → ${P1(d.pc)}`);
   });
@@ -1255,7 +1449,7 @@ cmpCard('Raça/cor', 'Mulheres negras nas notificações × pessoas negras na ci
   [0,.2,.4,.6].forEach(t => { gy.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(t)).attr('y2',y(t)); ax.append('text').attr('x',m.l-6).attr('y',y(t)+4).attr('text-anchor','end').text(t*100 + '%'); });
   data.forEach((d,i) => { if(w > 520 || i % 2 === 0) ax.append('text').attr('x',x(d.y)).attr('y',h-7).attr('text-anchor','middle').text(d.y); });
   const yc = y(C.censo2022.negraPct/100);
-  svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',yc).attr('y2',yc).attr('stroke','#9A8F80').attr('stroke-width',2).attr('stroke-dasharray','5 4');
+  svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',yc).attr('y2',yc).attr('stroke','#a8998a').attr('stroke-width',2).attr('stroke-dasharray','5 4');
   svg.append('text').attr('class','lbl m').attr('x',w-m.r+4).attr('y',yc+4).text('Censo ' + NF1.format(C.censo2022.negraPct) + '%');
   svg.append('path').attr('d', d3.line().x(d => x(d.y)).y(d => y(d.p))(data)).attr('fill','none').attr('stroke','#2F4A66').attr('stroke-width',2.5);
   data.forEach(d => svg.append('circle').attr('cx',x(d.y)).attr('cy',y(d.p)).attr('r',4).attr('fill','#2F4A66'));
@@ -1285,7 +1479,7 @@ cmpCard('Setembro Amarelo', 'Há mais notificações em setembro?', ch => {
   svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(1)).attr('y2',y(1)).attr('stroke','var(--muted)').attr('stroke-dasharray','4 3');
   svg.append('text').attr('class','lbl m').attr('x',m.l-4).attr('y',y(1)+4).attr('text-anchor','end').text('média');
   idx.forEach(d => { svg.append('rect').attr('class','bar' + (d.mo === 9 ? ' hl' : (d.v < 1 ? ' soft' : ''))).attr('x',x(d.mo)).attr('y',y(d.v)).attr('width',x.bandwidth()).attr('height',h-m.b-y(d.v)).attr('rx',2); svg.append('text').attr('class','lbl m').attr('x',x(d.mo)+x.bandwidth()/2).attr('y',h-8).attr('text-anchor','middle').style('font-size','11px').text(MESES[d.mo-1]); });
-}, 'Não. Setembro fica abaixo da média mensal (0,91); outubro (1,29) e dezembro (1,24) ficam acima. A campanha não aparece como pico de notificações, e o padrão pode refletir rotinas de registro, não só de sofrimento.', 'Índice = notificações do mês ÷ média mensal do ano, médio entre 2017 e 2025.');
+}, 'Não. Setembro fica abaixo da média mensal (0,91); outubro (1,29) e dezembro (1,23) ficam acima. A campanha não aparece como pico de notificações, e o padrão pode refletir rotinas de registro, não só de sofrimento.', 'Índice = notificações do mês ÷ média mensal do ano, médio entre 2017 e 2025.');
 // 6. mulheres × homens e Campinas × Brasil (boletim)
 cmpCard('Sexo e Brasil', 'Mulheres × homens, Campinas × Brasil', ch => {
   const w = ch.clientWidth; if(!w) return; const b = C.boletim;
@@ -1294,7 +1488,7 @@ cmpCard('Sexo e Brasil', 'Mulheres × homens, Campinas × Brasil', ch => {
   svg.append('text').attr('class','lbl').attr('font-weight',700).attr('x',m).attr('y',16).text('Tentativas notificadas, 2019–2024');
   const xs = d3.scaleLinear().domain([0, tot]).range([m, m+half]);
   svg.append('rect').attr('x',m).attr('y',30).attr('width',xs(b.tentMulheres)-m).attr('height',34).attr('fill','var(--wine)').attr('rx',3);
-  svg.append('rect').attr('x',xs(b.tentMulheres)).attr('y',30).attr('width',xs(tot)-xs(b.tentMulheres)).attr('height',34).attr('fill','#9A8F80').attr('rx',3);
+  svg.append('rect').attr('x',xs(b.tentMulheres)).attr('y',30).attr('width',xs(tot)-xs(b.tentMulheres)).attr('height',34).attr('fill','#a8998a').attr('rx',3);
   svg.append('text').attr('class','lbl').attr('x',m).attr('y',84).text(`Mulheres ${NF.format(b.tentMulheres)} (${P1(b.tentMulheres/tot)})`);
   svg.append('text').attr('class','lbl m').attr('x',m).attr('y',102).text(`Homens ${NF.format(b.tentHomens)} (${P1(b.tentHomens/tot)})`);
   svg.append('text').attr('class','lbl m').attr('x',m).attr('y',128).style('font-size','12px').text('Óbitos por suicídio: maiores entre homens');
@@ -1303,7 +1497,7 @@ cmpCard('Sexo e Brasil', 'Mulheres × homens, Campinas × Brasil', ch => {
   const yb = d3.scaleLinear().domain([0,80]).range([h-30, 40]), bw = Math.min(34, half/6);
   [['10–19',0],['20–59',1]].forEach(([k,i]) => {
     const gx = ox + 10 + i*(half/2);
-    [[b.idadeCampinas[k],'var(--wine)','Campinas'],[b.idadeBrasil[k],'#9A8F80','Brasil']].forEach(([v,c,lab],j) => {
+    [[b.idadeCampinas[k],'var(--wine)','Campinas'],[b.idadeBrasil[k],'#a8998a','Brasil']].forEach(([v,c,lab],j) => {
       svg.append('rect').attr('x',gx + j*(bw+4)).attr('y',yb(v)).attr('width',bw).attr('height',h-30-yb(v)).attr('fill',c).attr('rx',2);
       svg.append('text').attr('class','lbl').style('font-size','11.5px').attr('x',gx + j*(bw+4) + bw/2).attr('y',yb(v)-5).attr('text-anchor','middle').text(NF1.format(v) + '%');
     });
@@ -1321,33 +1515,40 @@ TODO_CMP.forEach(([t,s]) => { const li = el('li'); li.append(el('b',null,t), el(
 
 /* ---------- princípios ---------- */
 const PR = [
-  {n:1, t:'Examinar o poder', def:'O Feminismo de Dados começa analisando como o poder opera no mundo, e quem ele favorece e desfavorece.', q:{quem:'Quem decide o que entra na ficha de notificação: o Ministério da Saúde (Sinan) e a SMS de Campinas, não as mulheres notificadas.', como:'Por campos fixos e categorias fechadas, preenchidos sobretudo na urgência hospitalar.', paraquem:'Para a vigilância epidemiológica e a gestão, que usam o dado para planejar serviços.', porque:'Porque o que não está na ficha não vira política pública.'}, viz:'matriz'},
-  {n:2, t:'Desafiar o poder', def:'Examinar o poder não basta: é preciso agir contra estruturas desiguais, inclusive produzindo contra-dados.', q:{quem:'Nós, como grupo, reorganizando dados públicos com outras perguntas.', como:'Mostrando o que o painel esconde: a parcela "ignorado", o denominador da incidência, o efeito de excluir menores de 20 anos.', paraquem:'Para a turma, para a rede de cuidado e para quem lê o boletim sem essas perguntas.', porque:'Porque um painel sem contexto parece neutro, e a neutralidade aparente esconde escolhas.'}, viz:'contra'},
-  {n:3, t:'Elevar a emoção e a corporificação', star:true, def:'Conhecimento também vem de pessoas, corpos e afetos. A visualização pode fazer sentir, não só informar, rompendo o "truque de deus" da visão neutra de lugar nenhum.', q:{quem:'Mulheres reais por trás de cada ponto; e nós, que escolhemos como mostrá-las.', como:'Com um jardim em que cada girassol são 10 mulheres, um ano que passa como um dia, som feito de dados e a escala humana: uma notificação a cada poucas horas.', paraquem:'Para que a turma sinta o peso dos números antes de analisá-los.', porque:'Porque tabelas frias permitem olhar sem se implicar.'}, viz:'pontos'},
-  {n:4, t:'Repensar binários e hierarquias', def:'Questionar classificações binárias e hierárquicas que contam algumas pessoas e apagam outras.', q:{quem:'Quem não cabe nas caixas: pessoas trans, quem tem a raça ou a orientação sexual "ignorada".', como:'O filtro do painel é "sexo: feminino", binário; identidade de gênero e orientação sexual ficam em campos separados e frequentemente vazios.', paraquem:'Para quem decide que categorias a ficha tem e quais são obrigatórias.', porque:'Porque o que fica em branco não pode ser cuidado.'}, viz:'apaga'},
-  {n:5, t:'Abraçar o pluralismo', def:'O conhecimento mais completo vem da síntese de muitas perspectivas, com prioridade para os saberes locais e de quem vive o problema.', q:{quem:'Profissionais de CAPS e centros de saúde, conselheiras tutelares, coletivos de mulheres das periferias, sobreviventes.', como:'Ouvindo quem atende e quem é atendida, e não só lendo o painel.', paraquem:'Para que a análise não seja só de quem está longe do território.', porque:'Porque a diferença entre distritos pode ser de acesso aos serviços, e isso só quem está na ponta explica.'}, viz:'vozes'},
+  {n:1, t:'Examinar o poder', def:'O Feminismo de Dados começa analisando como o poder opera no mundo, e quem ele favorece e desfavorece.', q:{quem:'Quem decide o que entra na ficha de notificação: o Ministério da Saúde (Sinan) e a SMS de Campinas, não as mulheres notificadas.', como:'Por campos fixos e categorias fechadas, preenchidos sobretudo na urgência hospitalar.', paraquem:'Para a vigilância epidemiológica e a gestão, que usam o dado para planejar serviços.', porque:'Porque as categorias da ficha definem o que pode ser contado e, assim, o que entra nos relatórios e no planejamento.'}, viz:'matriz'},
+  {n:2, t:'Desafiar o poder', def:'Examinar o poder não basta: é preciso agir contra estruturas desiguais, inclusive produzindo contra-dados.', q:{quem:'Nós, como grupo, reorganizando dados públicos com outras perguntas.', como:'Mostrando o que o painel esconde: a parcela "ignorado", o denominador da incidência, o efeito de excluir menores de 20 anos.', paraquem:'Para a turma, para a rede de cuidado e para quem lê o boletim sem essas perguntas.', porque:'Porque o painel apresenta os números sem dizer como foram produzidos nem o que ficou de fora.'}, viz:'contra'},
+  {n:3, t:'Valorizar a emoção e a corporificação', star:true, def:'Conhecimento também vem de pessoas, corpos e afetos. A visualização pode fazer sentir, não só informar, rompendo o "truque de deus" da visão neutra de lugar nenhum.', q:{quem:'As mulheres por trás de cada notificação e o grupo, que escolheu como representá-las.', como:'Com um jardim em que cada girassol são 10 mulheres, um ano que passa como um dia, som feito de dados e a escala humana: uma notificação a cada poucas horas.', paraquem:'Para que quem assiste perceba a dimensão dos números antes da análise.', porque:'Porque um total anual numa tabela esconde a escala do que está sendo contado.'}, viz:'pontos'},
+  {n:4, t:'Repensar binarismos e hierarquias', def:'Questionar classificações binárias e hierárquicas que contam algumas pessoas e apagam outras.', q:{quem:'Quem não cabe nas caixas: pessoas trans, quem tem a raça ou a orientação sexual "ignorada".', como:'O filtro do painel é "sexo: feminino", binário; identidade de gênero e orientação sexual ficam em campos separados e frequentemente vazios.', paraquem:'Para quem decide que categorias a ficha tem e quais são obrigatórias.', porque:'Porque, sem esses campos preenchidos, não é possível saber se pessoas trans ou LGBTQIA+ estão mais expostas.'}, viz:'apaga'},
+  {n:5, t:'Abraçar o pluralismo', def:'O conhecimento mais completo vem da síntese de muitas perspectivas, com prioridade para os saberes locais e de quem vive o problema.', q:{quem:'Profissionais de CAPS e centros de saúde, conselheiras tutelares, coletivos de mulheres das periferias, sobreviventes.', como:'Comparando os distritos e reconhecendo que o painel, sozinho, não explica as diferenças entre eles.', paraquem:'Para que a análise não seja só de quem está longe do território.', porque:'Porque a diferença entre distritos pode ser de acesso aos serviços, e isso só quem está na ponta explica.'}, viz:'vozes'},
   {n:6, t:'Considerar o contexto', def:'Dados não são neutros nem objetivos: são produtos de relações sociais desiguais, e o contexto é essencial para analisá-los com ética.', q:{quem:'A rede que notifica, que mudou ao longo do tempo.', como:'Lendo cada número com o que aconteceu: pandemia, capacitações, nova divisão de distritos, mudanças na lei.', paraquem:'Para evitar conclusões erradas, como "a violência caiu no Sul".', porque:'Porque notificação não é ocorrência.'}, viz:'contexto'},
-  {n:7, t:'Tornar o trabalho visível', def:'O trabalho da ciência de dados é feito por muitas mãos. O Feminismo de Dados torna esse trabalho visível para que seja reconhecido e valorizado.', q:{quem:'Profissionais de enfermagem, médicas, assistentes sociais, educadoras, equipes do DEVISA/CIE, e o cuidado não pago das famílias.', como:'Cada notificação é uma ficha preenchida por alguém, em geral no meio de um plantão.', paraquem:'Para que se reconheça quem produz o dado, e não só quem o publica.', porque:'Porque sem esse trabalho não existiria nenhum destes gráficos.'}, viz:'trabalho'}
+  {n:7, t:'Tornar o trabalho visível', def:'O trabalho da ciência de dados é feito por muitas mãos. O Feminismo de Dados torna esse trabalho visível para que seja reconhecido e valorizado.', q:{quem:'Profissionais de enfermagem, médicas, assistentes sociais, educadoras, equipes do DEVISA/CIE, e o cuidado não pago das famílias.', como:'Cada notificação é uma ficha preenchida por um profissional depois do atendimento.', paraquem:'Para que se reconheça quem produz o dado, e não só quem o publica.', porque:'Porque os números do painel dependem desse trabalho, que raramente aparece nos relatórios.'}, viz:'trabalho'}
 ];
 const MATRIZ = [['Estrutural','Leis e políticas que organizam quem é contado: Sinan, notificação compulsória, Lei 13.931/2019, financiamento do SUS.'],['Disciplinar','Regras e rotinas que aplicam a estrutura: campos da ficha, protocolos da urgência, o que é obrigatório e o que pode ficar "ignorado".'],['Hegemônico','Ideias que circulam como normais: o estigma do suicídio, a ideia de sexo binário, o hospital como lugar "certo" da notificação.'],['Interpessoal','O encontro entre profissional e paciente: tempo, vínculo e confiança decidem o que é perguntado e o que é registrado.']];
-const prList = document.getElementById('pr-list'), prPanel = document.getElementById('pr-panel');
-let prSel = 2, mxSel = 0;
-PR.forEach((p,i) => {
-  const li = el('li'), b = el('button'); b.type = 'button'; b.setAttribute('role','tab'); b.id = 'pr-' + p.n;
-  b.append(el('span','n',String(p.n))); const sp = el('span'); if(p.star) sp.append(el('span','star','Nosso foco')); sp.append(document.createTextNode(p.t)); b.append(sp);
-  b.addEventListener('click', () => { prSel = i; drawPrinciple(); }); li.append(b); prList.append(li);
-});
-function drawPrinciple(){
-  const p = PR[prSel];
-  prList.querySelectorAll('button').forEach((b,i) => b.setAttribute('aria-selected', String(i === prSel)));
-  prPanel.setAttribute('aria-labelledby','pr-' + p.n); prPanel.replaceChildren();
-  prPanel.append(el('h3',null, p.n + '. ' + p.t), el('p','def muted', p.def));
-  const q = el('div','qwh'); [['Quem',p.q.quem],['Como',p.q.como],['Para quem',p.q.paraquem],['Por quê',p.q.porque]].forEach(([k,v]) => { const c = el('div','card'); c.append(el('b',null,k), el('p',null,v)); q.append(c); }); prPanel.append(q);
-  const viz = el('div','card'); prPanel.append(viz);
+const acc = document.getElementById('pr-acc');
+let mxSel = 0, prOpen = -1;
+/* ícones: do grão (1) ao jardim (7) */
+function growthIcon(svgSel, i){
+  const g = svgSel.append('g'), base = 50, stem = '#50722a', leaf = '#50722a';
+  const st = (h) => g.append('path').attr('d',`M23,${base} C21,${base-h*0.4} 25,${base-h*0.7} 23,${base-h}`).attr('fill','none').attr('stroke',stem).attr('stroke-width',2.2).attr('stroke-linecap','round');
+  const lf = (y, dir) => g.append('path').attr('d', dir > 0 ? `M23,${y} q7,-7 13,-3 q-6,6 -13,3` : `M23,${y} q-7,-7 -13,-3 q6,6 13,3`).attr('fill',leaf);
+  if(i === 0){ g.append('ellipse').attr('cx',23).attr('cy',40).attr('rx',5).attr('ry',7.5).attr('transform','rotate(28 23 40)').attr('fill','#6B4423'); g.append('path').attr('d','M18,48 q5,-3 10,0').attr('stroke','#c4b8a7').attr('stroke-width',1.5).attr('fill','none'); return; }
+  if(i === 1){ st(20); lf(38,-1); return; }
+  if(i === 2){ st(24); lf(38,-1); lf(34,1); return; }
+  if(i === 3){ st(30); lf(42,-1); lf(36,1); g.append('circle').attr('cx',23).attr('cy',base-31).attr('r',5).attr('fill',leaf); return; }
+  if(i === 4){ st(30); lf(42,-1); sunflower(g, 23, 0, base-32, 9, {petals:9}); return; }
+  if(i === 5){ st(32); lf(42,-1); lf(38,1); sunflower(g, 23, 0, base-34, 12, {petals:16}); return; }
+  [[14,24,7],[32,20,7],[23,12,8]].forEach(([x,y,r]) => { g.append('line').attr('x1',x).attr('x2',x).attr('y1',y).attr('y2',base).attr('stroke',stem).attr('stroke-width',1.6); sunflower(g, x, 0, y, r, {petals:12}); });
+}
+function renderPrinciple(idx, panel){
+  const p = PR[idx];
+  panel.replaceChildren();
+  panel.append(el('p','def muted', p.def));
+  const q = el('div','qwh'); [['Quem',p.q.quem],['Como',p.q.como],['Para quem',p.q.paraquem],['Por quê',p.q.porque]].forEach(([k,v]) => { const c = el('div','card'); c.append(el('b',null,k), el('p',null,v)); q.append(c); }); panel.append(q);
+  const viz = el('div','card'); panel.append(viz);
   const note = t => { const pp = el('p','muted',t); pp.style.cssText = 'font-size:15px;margin-top:12px'; viz.append(pp); };
   if(p.viz === 'matriz'){
     viz.append(el('p','fig-title','Matriz da dominação (Patricia Hill Collins) aplicada ao SISNOV · clique nos domínios'));
-    const mx = el('div','matrix'); MATRIZ.forEach(([k,v],i) => { const b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', String(i === mxSel)); b.append(el('b',null,k), el('span',null,v)); b.addEventListener('click', () => { mxSel = i; drawPrinciple(); }); mx.append(b); }); viz.append(mx);
+    const mx = el('div','matrix'); MATRIZ.forEach(([k,v],i) => { const b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', String(i === mxSel)); b.append(el('b',null,k), el('span',null,v)); b.addEventListener('click', () => { mxSel = i; renderPrinciple(idx, panel); }); mx.append(b); }); viz.append(mx);
     note('Perigo do privilégio: quem projeta o sistema raramente é quem é notificado nele, e por isso os pontos cegos passam despercebidos.');
   } else if(p.viz === 'contra'){
     viz.append(el('p','fig-title','O que este trabalho faz que o painel não faz')); const ul = el('ul','checklist');
@@ -1362,9 +1563,11 @@ function drawPrinciple(){
     const gw = el('div','gaps'); C.ignorado.slice(0,4).forEach(([k,n]) => { const r = el('div','gap-row'), tr = el('span','track'), f = el('span','fill hatched'); f.style.width = (n/C.totalNotificacoes*100) + '%'; tr.append(f); r.append(el('span',null,k), tr, el('span','v', P1(n/C.totalNotificacoes))); gw.append(r); }); viz.append(gw);
     note(`Dentro do filtro "sexo: feminino" aparecem ${C.identidade.mulherTrans} mulheres trans e ${C.identidade.homemTrans} homens trans.`);
   } else if(p.viz === 'vozes'){
-    viz.append(el('p','fig-title','Vozes da ponta · relatos incluídos com consentimento'));
-    const qs = el('div','quotes'); for(let i=0;i<3;i++){ const b = el('blockquote'); txtWithTodo(b,'[EDITAR: trecho de entrevista ou relato]'); const c = el('cite'); txtWithTodo(c,'[EDITAR: função, serviço, distrito]'); b.append(c); qs.append(b); } viz.append(qs);
-    note('Diferenças entre distritos no mapa podem refletir acesso e cobertura da rede. Quem atende no território ajuda a explicar.');
+    viz.append(el('p','fig-title','Incidência acumulada por distrito, por 100 mil habitantes (todas as idades)'));
+    const mi = el('div','mini'), mx = d3.max(D, d => d.inc);
+    D.slice().sort((a,b) => b.inc - a.inc).forEach(d => { const r = el('div','mini-row'), tr = el('span','track'), f = el('span','fill'); f.style.width = (d.inc/mx*100) + '%'; tr.append(f); r.append(el('span',null,d.nome), tr, el('span','v',NF1.format(d.inc))); mi.append(r); });
+    viz.append(mi);
+    note('A incidência no Sul é quase três vezes a do Suleste. Parte dessa diferença pode vir do acesso aos serviços e da cobertura da rede, algo que o painel não mostra.');
   } else if(p.viz === 'contexto'){
     viz.append(el('p','fig-title','Antes de interpretar um número, pergunte')); const ul = el('ul','checklist');
     ['A rede passou a notificar mais? (capacitações de 2023 e 2024, escolas notificando)','O acesso aos serviços mudou? (pandemia em 2020)','O território mudou? (Suleste criado em 2024)','Qual é o denominador? (população total, não a de mulheres)','O ano está completo? (2026 vai só até outubro)'].forEach(t => ul.append(el('li',null,t))); viz.append(ul);
@@ -1374,7 +1577,27 @@ function drawPrinciple(){
     note('No conjunto das violências, a Rede Mário Gatti de Urgência e Emergência fez 6.619 notificações entre 2019 e 2024, e a equipe da CIE/DEVISA organizou o boletim que usamos.');
   }
 }
-drawPrinciple();
+PR.forEach((p,i) => {
+  const item = el('div','pr-item'), head = el('button','pr-head'), panel = el('div','pr-body');
+  head.type = 'button'; head.id = 'pr-h' + p.n; panel.id = 'pr-b' + p.n; panel.hidden = true;
+  head.setAttribute('aria-expanded','false'); head.setAttribute('aria-controls', panel.id);
+  panel.setAttribute('role','region'); panel.setAttribute('aria-labelledby', head.id);
+  head.append(el('span','pr-num', String(p.n).padStart(2,'0')));
+  const ic = d3.select(head).append('svg').attr('class','pr-ico').attr('viewBox','5 4 36 48').attr('aria-hidden','true'); growthIcon(ic, i);
+  head.append(el('span','pr-title', p.t));
+  head.append(el('span','pr-focus', p.star ? 'foco do grupo' : ''));
+  const ch = d3.select(head).append('svg').attr('class','pr-chev').attr('viewBox','0 0 20 20').attr('aria-hidden','true');
+  ch.append('path').attr('d','M5 8 L10 13 L15 8').attr('fill','none').attr('stroke','currentColor').attr('stroke-width',1.8).attr('stroke-linecap','round').attr('stroke-linejoin','round');
+  head.addEventListener('click', () => {
+    const open = head.getAttribute('aria-expanded') === 'true';
+    acc.querySelectorAll('.pr-head').forEach(h => h.setAttribute('aria-expanded','false'));
+    acc.querySelectorAll('.pr-body').forEach(b => { b.hidden = true; });
+    if(!open){ head.setAttribute('aria-expanded','true'); panel.hidden = false; renderPrinciple(i, panel); prOpen = i;
+      requestAnimationFrame(() => { const r = head.getBoundingClientRect(); if(r.top < 70 || r.top > window.innerHeight*0.6) window.scrollTo({top: r.top + window.scrollY - 80, behavior:'smooth'}); }); }
+    else prOpen = -1;
+  });
+  item.append(head, panel); acc.append(item);
+});
 
 /* ---------- apoio, equipe, fontes ---------- */
 C.ajuda.forEach(([n,t]) => { const d = el('div','card'); d.append(el('b',null,n), el('span',null,t)); document.getElementById('help-grid').append(d); });
@@ -1400,13 +1623,14 @@ const REFS = [
   ['Brasil. Lei nº 13.931, de 10 de dezembro de 2019.', null]
 ];
 REFS.forEach(([t,u]) => { const li = el('li'); if(u){ const a = el('a',null,t); a.href = u; a.rel = 'noopener'; li.append(a); } else li.textContent = t; document.getElementById('refs').append(li); });
-document.getElementById('foot').textContent = `Trazer à Luz · ${C.disciplina.join(' · ')}. Dados públicos agregados; nenhuma informação individual foi usada. CVV 188.`;
+document.getElementById('foot').textContent = `Cristina Oliveira Romanin, Letízia Manuella Serqueira Eugênio e Rogério Matheus Gomes Moura, ${C.disciplina[0]} (${C.disciplina[2]}), em novembro de 2026. Usamos só dados públicos agregados. Se precisar conversar, ligue 188.`;
 
 /* ---------- desenho ---------- */
 function drawVisible(){
   if(curTab === 'inicio') drawHero();
   if(curTab === 'historia'){ drawGarden(); renderMap(); drawMes(); drawIdade(); drawRaca(); }
   if(curTab === 'comparacoes') CMP.forEach(f => f());
+  if(curTab === 'dss' && window.dssCentrar) window.dssCentrar();
 }
 showTab(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'inicio', false);
 let raf = 0, lastW = document.documentElement.clientWidth;
@@ -1822,6 +2046,238 @@ carregar().then(d => {
   document.getElementById("recomecar").addEventListener("click", recomecar);
 }).catch(e => {
   document.getElementById("painel").innerHTML = `<h2>Não consegui ler casas.csv</h2><p>${esc(e.message || e)}</p><p>Se você abriu o arquivo direto do computador, o navegador bloqueia a leitura. Rode <code>python gerar_arquivo_unico.py</code> e abra o arquivo gerado, ou rode <code>python -m http.server</code> nesta pasta e acesse <code>http://localhost:8000</code>. No GitHub Pages funciona sem isso.</p>`;
+});
+})();
+</script>
+<!-- Conteúdo do girassol dos determinantes (cópia de determinantes.csv; para editar, troque o texto abaixo) -->
+<script type="text/plain" id="dss-dados">
+﻿id;parte;ordem;rotulo;titulo;estado;o_que_e;literatura;ficha;ficha_folhas;manual_paginas;fonte1_rotulo;fonte1_url;fonte2_rotulo;fonte2_url;fonte3_rotulo;fonte3_url
+miolo;miolo;0;A mulher;No centro, a mulher;cheia;No centro do girassol está a mulher que chegou a um serviço de saúde. No modelo da OMS, é aqui que aparecem os efeitos de todas as camadas sobre a saúde e o bem-estar.;A ficha de notificação foi feita para registrar este ponto, com dados como idade, sexo, raça/cor e o momento do atendimento. Quanto mais longe do centro, menos a ficha enxerga.;Sim. A ficha do Sisnov registra quem foi atendida, com campos como sexo, raça/cor, idade e estado civil, além da data do atendimento.;1;4, 5;Solar e Irwin, modelo de determinantes sociais da OMS (2010);https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf;Manual instrutivo da ficha de notificação do Sisnov, Campinas;http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf;;
+psicossociais;anel;1;Fatores psicossociais;Fatores psicossociais;contorno;São o estresse, a falta de apoio e a violência sofrida. Para a OMS, grupos sociais diferentes têm chances diferentes de sofrer violência.;Em mulheres, a violência por parceiro íntimo está associada a novas tentativas de suicídio. Em Campinas, ter sofrido essa violência foi fator de risco para o suicídio feminino.;Em parte. A ficha registra o tipo de violência, o provável autor, as violências concorrentes e se a violência “ocorreu outras vezes”. A motivação também existe, mas na lesão autoprovocada ela é marcada como “não se aplica”. Como só um tipo entra como principal, uma tentativa ligada a outra violência pode ficar fora do nosso recorte. A ficha, por exemplo, tem “tentativa de suicídio” entre as consequências da violência sexual.;1, 2;9, 12, 13, 16;Solar e Irwin (2010), pp. 38–39 · modelo conceitual;https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf;Devries et al., PLoS Medicine (2013) · revisão sistemática;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3646718/;Estudo caso-controle com mulheres de Campinas, Ciência & Saúde Coletiva;https://www.scielo.br/j/csc/a/x69whbtpcrbWhVDFj7JdFwp/?lang=en
+sistema;anel;2;Sistema de saúde;Sistema de saúde;contorno;Para a OMS, o próprio sistema de saúde é um determinante, porque pode reduzir ou agravar os efeitos das outras camadas.;No Brasil, municípios com mais cobertura de CAPS tiveram menos internações por tentativa de suicídio, mas não uma queda estatisticamente significativa nas mortes.;Em parte. A ficha registra a unidade que notificou, se a pessoa frequenta alguma unidade de saúde ou de assistência social e os encaminhamentos feitos pela unidade notificadora, como para a rede de saúde ou de assistência social. Não registra o acompanhamento nem o desfecho.;1, 2;4, 8, 16;Solar e Irwin (2010), p. 39 · modelo conceitual;https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf;Machado et al. (2018), CAPS e suicídio no Brasil · estudo ecológico;https://researchonline.lshtm.ac.uk/id/eprint/4524445;;
+comportamentos;anel;3;Comportamentos e biologia;Comportamentos e fatores biológicos;contorno;Inclui hábitos, como o uso de álcool, e condições do corpo, como a gestação ou uma deficiência.;Em Campinas, o uso problemático de álcool e o uso de antidepressivos foram fatores de risco para o suicídio feminino. A tentativa anterior continua sendo o principal preditor de morte por suicídio.;Em parte. Há campos para gestação e para deficiência ou transtorno, e a dependência de álcool e drogas entra como transtorno mental. Existem ainda os campos “Suspeita de uso de álcool pelo autor(es)” e “Suspeita de uso de outras drogas pelo autor(es)”, que perguntam se quem cometeu a violência tinha usado essas substâncias. Na tentativa de suicídio, quem comete é a própria mulher, e a tabela de relacionamento da ficha tem a opção “Sozinho/Própria pessoa”. O campo “Ocorreu outras vezes?” pode indicar tentativas anteriores.;1, 2;6, 7, 13, 16, 18;Estudo caso-controle com mulheres de Campinas, Ciência & Saúde Coletiva;https://www.scielo.br/j/csc/a/x69whbtpcrbWhVDFj7JdFwp/?lang=en;Baca-Garcia et al. (2020), capítulo de revisão sobre gênero e suicídio;https://link.springer.com/chapter/10.1007/7854_2020_165;;
+materiais;anel;4;Condições materiais;Condições materiais de vida;contorno;São as condições concretas do dia a dia, como moradia, trabalho e alimentação.;Moradia inadequada e superlotação estão ligadas a transtornos mentais comuns. A insegurança alimentar também, em países de renda baixa e média, e as dívidas estão associadas à depressão e à ideação suicida.;Só de forma indireta. A ficha registra onde a pessoa mora (bairro, distrito e zona), com quem mora (“Reside com”) e se dorme na rua. Não registra as condições da moradia, a alimentação ou as dívidas.;1;8;Lund et al., Lancet Psychiatry (2018) · revisão sistemática;https://haushofer.ne.su.se/publications/Lund_et_al_LancetPsychiatry_2018.pdf;;;;
+genero;petala;5;Gênero;Gênero;cheia;Para a OMS, gênero são as características de mulheres e homens construídas pela sociedade, diferentes do sexo biológico. Ele organiza quem tem acesso a recursos, trabalho e proteção.;As mulheres são mais notificadas por tentativa de suicídio e os homens morrem mais por suicídio, o chamado paradoxo de gênero. Esse padrão muda de uma cultura para outra, o que indica uma origem social. Em mulheres, a violência por parceiro íntimo está associada a novas tentativas.;Sim. A ficha tem os campos sexo, orientação sexual, identidade de gênero e nome social. A motivação “sexismo” existe, mas na lesão autoprovocada a motivação é marcada como “não se aplica”. O nosso recorte usa apenas o sexo.;1, 2;4, 6, 12;Canetto (2024), do paradoxo de gênero ao suicídio como roteiro cultural;https://drees.solidarites-sante.gouv.fr/sites/default/files/2024-09/Canetto%20Suicide%20as%20Culturally%20Scripted%20Paris%202024.pdf;Lund et al., Lancet Psychiatry (2018) · revisão sistemática;https://haushofer.ne.su.se/publications/Lund_et_al_LancetPsychiatry_2018.pdf;Devries et al., PLoS Medicine (2013) · revisão sistemática;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3646718/
+raca;petala;6;Raça/cor;Raça/cor e racismo;cheia;A OMS trata raça e etnia como categorias sociais, e não biológicas, marcadas pelo racismo.;Em 2016, o risco de suicídio entre adolescentes e jovens negras foi 20% maior do que entre brancas. Um estudo nacional sobre lesões autoprovocadas de 2014 a 2023 defende olhar raça/cor e sexo juntos, por causa da desigualdade que atinge mulheres pretas e pardas.;Sim. A ficha registra a raça/cor declarada pela própria pessoa. A motivação “racismo” existe, mas na lesão autoprovocada a motivação é marcada como “não se aplica”.;1, 2;4, 12;Ministério da Saúde e UnB (2018), óbitos por suicídio entre jovens negros, via reportagem;https://apatria.org/pesquisa-aponta-que-a-principal-vitima-de-suicidio-no-brasil-e-o-jovem-homem-negro/?format=pdf;Cadernos de Saúde Pública (2025), raça/cor e sexo nas lesões autoprovocadas · estudo ecológico;https://new.scielo.br/j/csp/a/SxmfNDy4WKp3CHv9Yzvk3Wq/?ilang=en;Solar e Irwin (2010), p. 34 · modelo conceitual;https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf
+escolaridade;petala;7;Escolaridade;Escolaridade;cheia;A escolaridade influencia o trabalho, a renda e o acesso à informação e aos serviços.;A baixa escolaridade está associada ao suicídio, mais em homens do que em mulheres. Nos municípios brasileiros, ter mais pessoas com pouca escolaridade se associou a taxas mais altas.;Sim. A escolaridade fica no bloco “Dados complementares” da ficha e aparece nos painéis da prefeitura. Quando a pessoa não sabe ou não pode informar, o campo é marcado como “ignorado”.;1;5;Lund et al., Lancet Psychiatry (2018) · revisão sistemática;https://haushofer.ne.su.se/publications/Lund_et_al_LancetPsychiatry_2018.pdf;Machado et al., PLoS One (2015) · estudo ecológico;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4416030/;;
+ocupacao;petala;8;Ocupação;Ocupação e trabalho;contorno;A ocupação diz respeito ao trabalho, à sua estabilidade e à renda que ele traz.;Desemprego e pouca riqueza estão associados à ideação e ao comportamento suicida, sobretudo em países de renda baixa e média. Num estudo com mulheres de Campinas, ter trabalho foi fator de proteção contra o suicídio.;Sim, mas não aparece nos painéis. A ficha tem três campos. “Trabalha atualmente” é marcado como sim para qualquer ocupação ou emprego, seja qual for a natureza ou o vínculo. “É remunerado” é marcado como sim para qualquer pagamento, em dinheiro, mercadorias ou benefícios como moradia, comida e roupas. Em “Ocupação/Atividade” se escreve a ocupação como a vítima, o denunciante ou o acompanhante a descreve.;1;6;Lund et al., Lancet Psychiatry (2018) · revisão sistemática;https://haushofer.ne.su.se/publications/Lund_et_al_LancetPsychiatry_2018.pdf;Estudo caso-controle com mulheres de Campinas, Ciência & Saúde Coletiva;https://www.scielo.br/j/csc/a/x69whbtpcrbWhVDFj7JdFwp/?lang=en;;
+renda;petala;9;Renda;Renda;vazia;A renda define o acesso a moradia, alimentação, transporte e cuidado.;Nos municípios brasileiros, entre 2000 e 2011, mais desigualdade de renda e menos renda por pessoa estiveram associadas a taxas de suicídio mais altas. A pobreza está ligada a transtornos mentais comuns, com efeito mais forte em mulheres e adolescentes.;Não. A ficha não tem campo de renda. O mais próximo é o campo “É remunerado”, que diz se a pessoa recebe algo pelo trabalho, mas não quanto.;1;6;Machado et al., PLoS One (2015) · estudo ecológico;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4416030/;Lund et al., Lancet Psychiatry (2018) · revisão sistemática;https://haushofer.ne.su.se/publications/Lund_et_al_LancetPsychiatry_2018.pdf;;
+classe;petala;10;Classe social;Classe social;vazia;Para a OMS, a classe social é um dos eixos centrais que dividem a sociedade em posições com mais ou menos poder e recursos.;Os estudos brasileiros sobre o tema costumam medir a classe de forma indireta, pela renda e pela escolaridade.;Não. A ficha não tem campo para classe social.;;;Solar e Irwin (2010) · modelo conceitual;https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf;;;;
+coesao;caule;11;Coesão social;Coesão social e apoio;vazia;São os laços, a confiança e as redes de apoio. Para a OMS, a coesão social atravessa todas as outras camadas, por isso aparece como o caule.;Pouco apoio do parceiro ou de outras pessoas e não ser casada aumentam o risco de transtornos mentais comuns e de pensamentos suicidas em mulheres. O capital social está associado a menos depressão.;Não. Há o estado civil e o campo “Reside com”, que diz com quem a pessoa mora, mas nenhum deles mede apoio.;1;5, 8;Lund et al., Lancet Psychiatry (2018), p. 362 · revisão sistemática;https://haushofer.ne.su.se/publications/Lund_et_al_LancetPsychiatry_2018.pdf;Solar e Irwin (2010), p. 7 · modelo conceitual;https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf;;
+protecao;faixa;12;Proteção social;Políticas de proteção social;vazia;São as políticas que garantem renda e direitos, como os programas de transferência de renda.;Um estudo acompanhou cerca de 114 milhões de brasileiros, quase metade da população, de 2004 a 2015. Esse tipo de estudo, que segue o mesmo grupo de pessoas ao longo do tempo, se chama coorte. Nele, quem recebia o Bolsa Família teve taxa de suicídio menor do que quem não recebia, e a associação foi mais forte entre mulheres.;Não.;;;Machado et al., PLoS Medicine (2022) · estudo quase-experimental;https://pmc.ncbi.nlm.nih.gov/articles/PMC9162363;;;;
+desigualdade;faixa;13;Desigualdade econômica;Desigualdade econômica;vazia;É a distância entre quem tem mais e quem tem menos renda numa sociedade, que depende das políticas econômicas.;Nos municípios brasileiros, mais desigualdade de renda esteve associada a taxas de suicídio mais altas.;Não.;;;Machado et al., PLoS One (2015) · estudo ecológico;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4416030/;;;;
+racismo;faixa;14;Racismo estrutural;Racismo estrutural;vazia;É o racismo presente nas instituições e nas regras da sociedade, e não só em atitudes individuais.;O relatório mundial da OMS de 2025 destaca que o racismo estrutural e a herança do colonialismo pioram a saúde, sobretudo na América Latina, a região mais desigual do mundo.;Não. A ficha registra a raça/cor da pessoa, mas não o contexto de racismo em que ela vive.;;;OMS, relatório mundial sobre determinantes sociais da equidade em saúde (2025);https://www.who.int/teams/social-determinants-of-health/world-report-on-social-determinants-of-health-equity;OPAS, notícia sobre o relatório (2025);https://www.paho.org/en/news/6-5-2025-health-inequities-are-shortening-lives-decades;;
+cultura;faixa;15;Normas de gênero;Cultura e normas de gênero;vazia;São os valores e as expectativas que cada sociedade tem sobre como mulheres e homens devem ser e agir.;O padrão de quem tenta e de quem morre muda de uma cultura para outra, ligado ao que cada cultura espera de homens e de mulheres.;Não.;;;Canetto (2024), do paradoxo de gênero ao suicídio como roteiro cultural;https://drees.solidarites-sante.gouv.fr/sites/default/files/2024-09/Canetto%20Suicide%20as%20Culturally%20Scripted%20Paris%202024.pdf;;;;
+
+</script>
+<script>
+(() => {
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const C = {semente:"#623c1f", folha:"#50722a", folhaEscura:"#2f4119", petala:"#e9b10d", petalaClara:"#fbefc6",
+  titulo:"#3d2311", suave:"#695342", fundo:"#fff8e8", cartao:"#fffdf7", linha:"#e0d5c0", linhaForte:"#c4b8a7",
+  verdeClaro:"#eef0d8", verdeMedio:"#c9d7a4", areia:"#fbf1da"};
+const CX = 450, CY = 470;
+const R = {miolo:86, anelIn:90, anelOut:196, petalaBase:200, petalaPonta:334, faixaIn:346, faixaOut:398};
+const NOME_PARTE = {miolo:"Centro", anel:"Anel verde · determinante intermediário", petala:"Pétala · determinante estrutural", caule:"Caule · atravessa todas as camadas", faixa:"Faixa externa · contexto político e econômico"};
+const SELO = {cheia:"Está na ficha e nos painéis", contorno:"Está na ficha, mas não nos painéis (ou só em parte)", vazia:"Não está na ficha"};
+const MANUAL = "http://sisnov.campinas.sp.gov.br/pdf/instrutivo_sisnov-2015.pdf";
+const FICHA = "ficha_sisnov_sinan2015.pdf";
+
+let itens = [], porId = {}, atual = -1;
+
+/* ---------- CSV ---------- */
+function lerCSV(texto){
+  texto = texto.replace(/^﻿/, "");
+  const linhas = []; let campo = "", linha = [], aspas = false;
+  for (let i = 0; i < texto.length; i++){
+    const c = texto[i];
+    if (aspas){ if (c === '"'){ if (texto[i+1] === '"'){ campo += '"'; i++; } else aspas = false; } else campo += c; }
+    else if (c === '"') aspas = true;
+    else if (c === ";"){ linha.push(campo); campo = ""; }
+    else if (c === "\n" || c === "\r"){ if (c === "\r" && texto[i+1] === "\n") i++; linha.push(campo); campo = ""; if (linha.some(v => v !== "")) linhas.push(linha); linha = []; }
+    else campo += c;
+  }
+  linha.push(campo); if (linha.some(v => v !== "")) linhas.push(linha);
+  const cab = linhas.shift().map(s => s.trim());
+  return linhas.map(l => { const o = {}; cab.forEach((k, j) => o[k] = (l[j] || "").trim()); return o; });
+}
+async function carregar(){
+  const emb = document.getElementById("dss-dados").textContent.trim();
+  if (emb) return lerCSV(emb);
+  const r = await fetch("determinantes.csv", {cache:"no-cache"});
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return lerCSV(await r.text());
+}
+
+/* ---------- geometria ---------- */
+function el(tag, attrs = {}, pai){ const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (pai) pai.appendChild(e); return e; }
+function txt(pai, x, y, s, attrs = {}){ const t = el("text", Object.assign({x, y, fill:C.titulo}, attrs), pai); t.textContent = s; return t; }
+const rad = g => g * Math.PI / 180;
+const pt = (r, g) => [CX + r * Math.cos(rad(g)), CY - r * Math.sin(rad(g))];
+function setor(rIn, rOut, g1, g2){
+  const [a,b] = pt(rOut, g1), [c,d] = pt(rOut, g2), [e,f] = pt(rIn, g2), [g,h] = pt(rIn, g1);
+  return `M${a} ${b}A${rOut} ${rOut} 0 0 1 ${c} ${d}L${e} ${f}A${rIn} ${rIn} 0 0 0 ${g} ${h}Z`;
+}
+function arco(r, g1, g2){ const [a,b] = pt(r, g1), [c,d] = pt(r, g2); return `M${a} ${b}A${r} ${r} 0 0 1 ${c} ${d}`; }
+function quebrar(s, max){ const out = []; let at = ""; for (const p of s.split(" ")){ if ((at + " " + p).trim().length > max && at){ out.push(at); at = p; } else at = (at + " " + p).trim(); } if (at) out.push(at); return out; }
+function estilo(estado, parte){
+  const cor = parte === "anel" ? {cheio:C.folha, claro:C.verdeClaro, borda:C.folha} : parte === "faixa" ? {cheio:C.petala, claro:C.areia, borda:C.petala} : {cheio:C.petala, claro:C.cartao, borda:C.petala};
+  if (estado === "cheia") return {fill:cor.cheio, stroke:C.semente, "stroke-width":1.6};
+  if (estado === "contorno") return {fill:cor.claro, stroke:cor.borda, "stroke-width":2.6};
+  return {fill:C.fundo, stroke:C.linhaForte, "stroke-width":1.5, "stroke-dasharray":"5 4"};
+}
+function parteG(svg, item){
+  const g = el("g", {class:"parte", tabindex:0, role:"button", "data-id":item.id, "aria-label":`${item.titulo}. ${SELO[item.estado]}.`}, svg);
+  g.addEventListener("click", () => ir(item.ordem));
+  g.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); ir(item.ordem); } });
+  return g;
+}
+
+/* ---------- desenho ---------- */
+function desenhar(){
+  const svg = document.getElementById("dss-flor");
+  const defs = el("defs", {}, svg);
+  const corPorEstado = e => e === "cheia" ? C.titulo : e === "contorno" ? C.titulo : C.suave;
+
+  /* faixa externa: contexto */
+  const faixa = itens.filter(i => i.parte === "faixa");
+  const passoF = 180 / faixa.length;
+  faixa.forEach((it, k) => {
+    const g1 = 180 - k*passoF, g2 = g1 - passoF;
+    const g = parteG(svg, it);
+    el("path", Object.assign({d:setor(R.faixaIn, R.faixaOut, g1 - 0.6, g2 + 0.6), class:"forma"}, estilo(it.estado, "faixa")), g);
+    const id = "dss-arco-" + it.id;
+    el("path", {id, d:arco((R.faixaIn + R.faixaOut)/2 - 6, g1, g2), fill:"none"}, defs);
+    const t = el("text", {"font-size":17, fill:corPorEstado(it.estado), "font-style": it.estado === "vazia" ? "italic" : "normal", "text-anchor":"middle"}, g);
+    const tp = el("textPath", {href:"#" + id, startOffset:"50%"}, t); tp.textContent = it.rotulo;
+  });
+
+  /* pétalas: determinantes estruturais */
+  const petalas = itens.filter(i => i.parte === "petala");
+  const passoP = 180 / petalas.length;
+  const grupoPetalas = el("g", {class:"abrir"}, svg);
+  const deco = el("g", {"aria-hidden":"true", "pointer-events":"none"}, grupoPetalas);
+  for (let k = 0; k <= petalas.length; k++){
+    const a = 180 - k * passoP, hd = passoP * 0.22, r0 = R.petalaBase, r1 = R.petalaPonta - 34, L = r1 - r0;
+    if (a <= 2 || a >= 178) continue;
+    const P = (r, g) => pt(r, g).join(" ");
+    el("path", {d:`M${P(r0, a + hd)}C${P(r0 + L*0.5, a + hd*1.4)} ${P(r1 - L*0.2, a + hd)} ${P(r1, a)}C${P(r1 - L*0.2, a - hd)} ${P(r0 + L*0.5, a - hd*1.4)} ${P(r0, a - hd)}Z`, fill:"#f6e6b4", opacity:.7}, deco);
+  }
+  petalas.forEach((it, k) => {
+    const ang = 180 - (k + 0.5) * passoP, h = passoP / 2 * 0.94;
+    const r0 = R.petalaBase, r1 = R.petalaPonta;
+    const P = (r, a) => pt(r, a).join(" ");
+    const L = r1 - r0;
+    const d = `M${P(r0, ang + h*0.8)}C${P(r0 + L*0.45, ang + h*1.08)} ${P(r1 - L*0.22, ang + h*0.75)} ${P(r1, ang)}C${P(r1 - L*0.22, ang - h*0.75)} ${P(r0 + L*0.45, ang - h*1.08)} ${P(r0, ang - h*0.8)}Z`;
+    const [px, py] = pt(r0 + (r1 - r0) * 0.52, ang);
+    const g = parteG(grupoPetalas, it);
+    const pg = el("g", {class:"petala-g", style:`animation-delay:${k*90}ms`}, g);
+    el("path", Object.assign({d, class:"forma"}, estilo(it.estado, "petala")), pg);
+    const linhas = quebrar(it.rotulo, 11);
+    linhas.forEach((l, i) => txt(pg, px, py + 6 + (i - (linhas.length-1)/2) * 19, l, {"text-anchor":"middle", class:"serif", "font-size": l.length > 10 ? 14 : 17, "font-weight":600, fill:corPorEstado(it.estado), "font-style": it.estado === "vazia" ? "italic" : "normal"}));
+  });
+
+  /* anel verde: determinantes intermediários */
+  const anel = itens.filter(i => i.parte === "anel");
+  const passoA = 180 / anel.length;
+  anel.forEach((it, k) => {
+    const g1 = 180 - k*passoA, g2 = g1 - passoA;
+    const g = parteG(svg, it);
+    el("path", Object.assign({d:setor(R.anelIn, R.anelOut, g1 - 0.8, g2 + 0.8), class:"forma"}, estilo(it.estado, "anel")), g);
+    const linhas = quebrar(it.rotulo, 14);
+    const raios = linhas.length === 1 ? [146] : [158, 134];
+    linhas.forEach((l, i) => {
+      const id = `dss-arco-${it.id}-${i}`;
+      el("path", {id, d:arco(raios[i], g1, g2), fill:"none"}, defs);
+      const t = el("text", {"font-size": l.length > 12 ? 12.5 : 14, "font-weight":600, fill: it.estado === "cheia" ? C.fundo : C.folhaEscura, "text-anchor":"middle"}, g);
+      const tp = el("textPath", {href:"#" + id, startOffset:"50%"}, t); tp.textContent = l;
+    });
+  });
+
+  /* miolo */
+  const mi = porId.miolo, gm = parteG(svg, mi);
+  el("path", {d:`M${CX-R.miolo} ${CY}A${R.miolo} ${R.miolo} 0 0 1 ${CX+R.miolo} ${CY}Z`, fill:C.semente, stroke:C.semente, "stroke-width":1.6, class:"forma"}, gm);
+  for (let rr = 22; rr < R.miolo - 8; rr += 13){
+    for (let a = 8; a < 180; a += 1800 / (rr * 2.2)){ const [x, y] = pt(rr, a); if (y < CY - 40 || Math.abs(x - CX) > 46) el("circle", {cx:x, cy:y, r:1.8, fill:"#8a5a2e"}, gm); }
+  }
+  txt(gm, CX, CY - 22, mi.rotulo, {"text-anchor":"middle", class:"serif", "font-size":19, "font-weight":600, fill:C.fundo});
+
+  /* chão e caule: coesão social */
+  el("line", {x1:40, y1:CY, x2:860, y2:CY, stroke:C.linhaForte, "stroke-width":1.2}, svg);
+  const co = porId.coesao, gc = parteG(svg, co);
+  const st = estilo(co.estado, "caule");
+  el("path", {d:`M${CX} ${CY}C${CX+4} ${CY+40} ${CX-4} ${CY+70} ${CX} ${CY+108}`, fill:"none", stroke:C.folha, "stroke-width":7, "stroke-linecap":"round", class:"forma"}, gc);
+  el("path", {d:`M${CX} ${CY+52}C${CX-18} ${CY+36} ${CX-48} ${CY+40} ${CX-58} ${CY+52}C${CX-40} ${CY+64} ${CX-16} ${CY+62} ${CX} ${CY+52}Z`, fill: co.estado === "vazia" ? C.fundo : C.folha, stroke:C.folha, "stroke-width":2, "stroke-dasharray": co.estado === "vazia" ? "4 3" : "none", class:"forma"}, gc);
+  el("path", {d:`M${CX} ${CY+80}C${CX+18} ${CY+64} ${CX+48} ${CY+68} ${CX+58} ${CY+80}C${CX+40} ${CY+92} ${CX+16} ${CY+90} ${CX} ${CY+80}Z`, fill: co.estado === "vazia" ? C.fundo : C.folha, stroke:C.folha, "stroke-width":2, "stroke-dasharray": co.estado === "vazia" ? "4 3" : "none", class:"forma"}, gc);
+  el("rect", {x:CX-70, y:CY+4, width:140, height:110, fill:"transparent"}, gc);
+  txt(gc, CX + 74, CY + 58, co.rotulo, {class:"serif", "font-size":17, "font-weight":600, fill:C.suave, "font-style":"italic"});
+  txt(gc, CX + 74, CY + 80, "atravessa todas as camadas", {"font-size":14, fill:C.suave});
+  void st;
+
+}
+
+/* ---------- painel ---------- */
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function fontes(it){
+  const li = [];
+  for (let i = 1; i <= 3; i++){ const r = it[`fonte${i}_rotulo`], u = it[`fonte${i}_url`]; if (r) li.push(u ? `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(r)}</a></li>` : `<li>${esc(r)}</li>`); }
+  return li.length ? `<h3>Fontes</h3><ul class="fontes">${li.join("")}</ul>` : "";
+}
+function visaoGeral(){
+  const sem = itens.filter(i => i.parte !== "miolo");
+  const n = e => sem.filter(i => i.estado === e).length;
+  document.getElementById("dss-painel").innerHTML =
+    `<p class="etapa">Como ler</p><h2>O que a ficha enxerga</h2>` +
+    `<p>O girassol segue o modelo de determinantes sociais da saúde da OMS. De fora para dentro, ele vai do contexto político e econômico até a vida de cada mulher, passando pela posição social (as pétalas) e pelas condições de vida (o anel verde). A coesão social atravessa tudo e aparece como o caule.</p>` +
+    `<div class="contagem"><div><b>${n("cheia")}</b><small>estão na ficha e aparecem nos painéis</small></div><div><b>${n("contorno")}</b><small>estão na ficha, mas fora dos painéis ou só em parte</small></div><div><b>${n("vazia")}</b><small>não estão na ficha</small></div></div>` +
+    `<p>Dos ${sem.length} determinantes do desenho, a ficha de notificação do Sisnov registra ${n("cheia") + n("contorno")}, e só ${n("cheia")} aparecem por inteiro nos painéis públicos. O contexto e a coesão social ficam inteiramente de fora.</p>` +
+    `<p class="nota">Clique numa parte do girassol ou use o botão para percorrer do centro para fora. Todas as pétalas têm o mesmo tamanho porque não medimos o peso de cada determinante, e nenhuma delas explica sozinha uma tentativa de suicídio.</p>` +
+    `<h3>Fonte do modelo</h3><ul class="fontes"><li><a href="https://dssbr.ensp.fiocruz.br/wp-content/uploads/2013/03/9789241500852_eng.pdf" target="_blank" rel="noopener">Solar e Irwin, A conceptual framework for action on the social determinants of health (OMS, 2010)</a></li></ul>`;
+}
+function lista(v){ return (v || "").split(",").map(p => p.trim()).filter(Boolean); }
+function rotPag(pgs, um, varios){ return pgs.length === 1 ? `${um} ${pgs[0]}` : `${varios} ${pgs.slice(0, -1).join(", ")} e ${pgs[pgs.length - 1]}`; }
+function linkManual(it){
+  const fo = lista(it.ficha_folhas), mp = lista(it.manual_paginas);
+  const ficha = fo.length
+    ? `<a href="${FICHA}#page=${esc(fo[0])}" target="_blank" rel="noopener">Ver na ficha do Sisnov, ${esc(rotPag(fo, "folha", "folhas"))} ↗</a>`
+    : `<a href="${FICHA}" target="_blank" rel="noopener">Ver a ficha do Sisnov ↗</a>`;
+  const manual = mp.length
+    ? `<a class="manual" href="${MANUAL}#page=${esc(mp[0])}" target="_blank" rel="noopener">Como preencher: manual, ${esc(rotPag(mp, "p.", "pp."))} ↗</a>` : "";
+  return `<div class="links-ficha">${ficha}${manual}</div>`;
+}
+function mostrar(it){
+  document.getElementById("dss-painel").innerHTML =
+    `<p class="etapa">${esc(NOME_PARTE[it.parte])}</p><h2>${esc(it.titulo)}</h2>` +
+    `<span class="selo ${esc(it.estado)}"><i></i>${esc(SELO[it.estado])}</span>` +
+    `<h3>O que é</h3><p>${esc(it.o_que_e)}</p>` +
+    `<h3>O que os estudos dizem</h3><p>${esc(it.literatura)}</p>` +
+    `<div class="bloco-ficha"><h3>A ficha registra?</h3><p>${esc(it.ficha)}</p>${linkManual(it)}</div>` + fontes(it);
+}
+function ir(n){
+  atual = n;
+  document.querySelectorAll("#p-dss .parte").forEach(g => g.classList.toggle("sel", +porId[g.dataset.id].ordem === n));
+  const passo = document.getElementById("dss-passo"), ant = document.getElementById("dss-anterior"), prox = document.getElementById("dss-proximo");
+  if (n < 0){ visaoGeral(); passo.textContent = ""; ant.disabled = true; prox.textContent = "Percorrer do centro para fora →"; return; }
+  mostrar(itens[n]);
+  passo.textContent = `${n + 1} de ${itens.length}`;
+  ant.disabled = false;
+  prox.textContent = n === itens.length - 1 ? "Voltar à visão geral" : "Próximo →";
+}
+
+carregar().then(lista => {
+  itens = lista.map(i => Object.assign(i, {ordem: +i.ordem})).sort((a, b) => a.ordem - b.ordem);
+  itens.forEach((it, k) => { it.ordem = k; porId[it.id] = it; });
+  if (!porId.miolo || !porId.coesao) throw new Error("o CSV precisa das linhas miolo e coesao");
+  desenhar(); ir(-1);
+  const rol = document.querySelector("#p-dss .rolagem");
+  rol.scrollLeft = (rol.scrollWidth - rol.clientWidth) / 2;
+  window.dssCentrar = () => { rol.scrollLeft = (rol.scrollWidth - rol.clientWidth) / 2; };
+  document.getElementById("dss-proximo").addEventListener("click", () => ir(atual >= itens.length - 1 ? -1 : atual + 1));
+  document.getElementById("dss-anterior").addEventListener("click", () => ir(atual - 1));
+  document.getElementById("dss-geral").addEventListener("click", () => ir(-1));
+}).catch(e => {
+  document.getElementById("dss-painel").innerHTML = `<h2>Não consegui ler determinantes.csv</h2><p>${esc(e.message || e)}</p><p>Se você abriu o arquivo direto do computador, o navegador bloqueia a leitura. Rode <code>python gerar_arquivo_unico.py</code> e abra o arquivo gerado, ou rode <code>python -m http.server</code> nesta pasta. No GitHub Pages funciona sem isso.</p>`;
 });
 })();
 </script>
