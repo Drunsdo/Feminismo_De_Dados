@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trazer à Luz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Mundo visual único: papel claro por padrão (o que os dados mostram); a página escurece só quando a história fala do que os dados NÃO mostram, e amanhece de novo. Amarelo girassol = luz; vinho = alerta. */
+  --paper:#F7F3EB;
+  --night:#16130F;
+  --sun:#E8A838;
+  --amber:#9A5B00;
+  --wine:#8C2F39;
+  --leaf:#6E8B3D;
+  --display:'Fraunces',Georgia,'Times New Roman',serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  /* tokens que mudam com o tom (claro/escuro) */
+  --fg:#1F1A14; --muted:#6B6258; --card:#FFFDF8; --line:#E2D8C6; --accent:var(--amber); --track:#EFE7D8; --hatch:#9A8F80;
+  color-scheme:light;
+}
+body.is-dark{--fg:#F3EDE2; --muted:#BDB2A3; --card:rgba(255,255,255,.055); --line:#3E362D; --accent:var(--sun); --track:#2C251E; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--fg);font-family:var(--body);font-size:clamp(16px,1.12vw,20px);line-height:1.55;transition:background-color .5s,color .5s}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.08;margin:0;text-wrap:balance}
+h2{font-size:clamp(32px,4.2vw,64px);letter-spacing:-.01em}
+h3{font-size:clamp(21px,1.7vw,28px)}
+p{margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(18px,4vw,56px)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(16px,1.6vw,26px);transition:background-color .5s,border-color .5s}
+.muted{color:var(--muted)}
+.tag{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block}
+.lead{font-size:clamp(18px,1.4vw,23px);max-width:62ch;margin-top:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,30px)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px)}
+@media (max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.btn{font:inherit;font-weight:700;font-size:16px;border-radius:999px;padding:11px 22px;cursor:pointer;border:1.5px solid var(--accent);background:transparent;color:var(--fg)}
+.btn:hover{background:var(--accent);color:var(--paper)}
+.btn.solid{background:var(--sun);border-color:var(--sun);color:#1F1A14}
+.chip{display:inline-block;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.p{border-color:var(--accent);color:var(--accent)}
+.todo{border:1px dashed var(--amber);color:var(--amber);border-radius:6px;padding:0 5px;font-size:.92em}
+body.is-dark .todo{border-color:var(--sun);color:#F6D58E}
+
+/* ---------- cabeçalho com abas ---------- */
+header.top{position:sticky;top:0;z-index:40;background:rgba(247,243,235,.92);backdrop-filter:blur(8px);border-bottom:1px solid #E2D8C6;transition:background-color .5s,border-color .5s}
+body.is-dark header.top{background:rgba(22,19,15,.9);border-color:#3E362D}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:62px}
+.brand{font-family:var(--display);font-weight:800;font-size:21px;white-space:nowrap;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand em{color:var(--amber);font-weight:600}
+body.is-dark .brand em{color:var(--sun)}
+.navtabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;padding:6px 0}
+.navtabs::-webkit-scrollbar{display:none}
+.navtabs a{font-size:14.5px;font-weight:700;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.navtabs a:hover{color:var(--fg)}
+.navtabs a[aria-current="page"]{background:var(--fg);color:var(--paper)}
+body.is-dark .navtabs a[aria-current="page"]{background:var(--sun);color:#1F1A14}
+.helpchip{font-size:13.5px;font-weight:800;color:var(--wine);border:1.5px solid var(--wine);border-radius:999px;padding:6px 12px;text-decoration:none;white-space:nowrap}
+body.is-dark .helpchip{color:#F2A3AB;border-color:#F2A3AB}
+.fullbtn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+@media (max-width:700px){.fullbtn{display:none}}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--sun);width:0;z-index:60}
+
+/* girassol do canto: gira devagar e acompanha o scroll */
+#corner{position:fixed;right:18px;bottom:18px;width:66px;height:66px;z-index:45;pointer-events:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.18))}
+#corner svg{width:100%;height:100%;display:block}
+@media (max-width:600px){#corner{width:48px;height:48px;right:10px;bottom:10px}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 26s linear infinite}
+.spin.slow{animation-duration:40s}
+.spin.rev{animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- páginas (abas) ---------- */
+.page[hidden]{display:none}
+.chap{padding:clamp(56px,9vh,110px) 0;min-height:88vh;scroll-margin-top:62px}
+.chap.short{min-height:0}
+.next{margin-top:clamp(26px,4vh,44px);display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+
+/* início */
+.hero{position:relative;overflow:hidden;min-height:calc(100vh - 62px);display:flex;align-items:center;background:radial-gradient(70% 60% at 82% 18%,rgba(232,168,56,.35) 0%,rgba(232,168,56,0) 70%),linear-gradient(180deg,#FBF6EA 0%,var(--paper) 100%)}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.warn{display:flex;gap:12px;max-width:620px;font-size:15px;border:1px solid #E2D8C6;background:rgba(255,253,248,.85);border-radius:12px;padding:12px 16px;margin-bottom:clamp(24px,5vh,52px)}
+.warn b{color:var(--wine)}
+.title{font-family:var(--display);font-weight:800;font-size:clamp(64px,10.5vw,184px);line-height:.88;letter-spacing:-.025em;margin:0;color:#1F1A14}
+.title em{font-style:italic;font-weight:600;color:var(--sun);text-shadow:0 2px 0 rgba(154,91,0,.15)}
+.subtitle{font-size:clamp(19px,1.6vw,27px);max-width:min(34ch,48vw);margin-top:clamp(16px,3vh,28px)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;max-width:min(620px,50vw)}
+#hero-field{position:absolute;right:0;bottom:0;width:min(48vw,820px);height:86%;z-index:1;pointer-events:none}
+#hero-field svg{width:100%;height:100%;display:block}
+@media (max-width:900px){#hero-field{width:100%;height:55%;opacity:.35}.subtitle,.meta{max-width:none}}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px);margin-top:clamp(24px,4vh,40px)}
+@media (max-width:900px){.doors{grid-template-columns:1fr}}
+.door{display:grid;gap:10px;text-decoration:none;color:var(--fg);transition:transform .2s}
+.door:hover{transform:translateY(-3px)}
+.door .ico{width:52px;height:52px}
+.door b{font-family:var(--display);font-size:24px}
+.door span{color:var(--muted);font-size:15.5px}
+
+/* palpites */
+.guesses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px);margin-top:clamp(22px,3vh,38px)}
+@media (max-width:1000px){.guesses{grid-template-columns:1fr}}
+.guess{display:flex;flex-direction:column;gap:14px}
+.guess .q{font-family:var(--display);font-size:clamp(20px,1.55vw,26px);font-weight:600;line-height:1.2}
+.guess .val{font-family:var(--display);font-size:clamp(40px,3.5vw,58px);font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1}
+.guess input[type=range]{width:100%;accent-color:#B8730F;height:28px}
+.guess .scale{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.reveal{display:none;border-top:1px dashed var(--line);padding-top:14px;gap:10px}
+.revealed .reveal{display:grid}
+.rv-row{display:grid;grid-template-columns:96px minmax(0,1fr) 78px;gap:10px;align-items:center;font-size:14px}
+.rv-row .tr{height:14px;background:var(--track);border-radius:4px;overflow:hidden}
+.rv-row .f{display:block;height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.rv-row .f.you{background:#B9AE9F}
+.rv-row .f.real{background:var(--wine)}
+.rv-row .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.reveal p{font-size:15px}
+
+/* vídeo + jardim */
+.cinema{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(18px,2.4vw,40px);margin-top:clamp(22px,3.5vh,40px);align-items:start}
+@media (max-width:1000px){.cinema{grid-template-columns:1fr}}
+.player{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#16130F;box-shadow:0 30px 70px -30px rgba(154,91,0,.55)}
+.player iframe,.player video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.player .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:#F3EDE2;background:radial-gradient(60% 70% at 50% 100%,#3A2A12 0%,#16130F 70%)}
+.player .ph-in{max-width:520px;display:grid;gap:10px;justify-items:center}
+.player .ph-in .big{font-family:var(--display);font-size:clamp(22px,2vw,32px);font-weight:600}
+.player .ph-in code{background:#2A241D;padding:2px 6px;border-radius:4px;font-size:.88em;color:#F6D58E}
+.player-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:14px;color:var(--muted)}
+.howto ol{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.howto li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;font-size:15.5px}
+.howto .ic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#F6E3B8;color:var(--amber);font-weight:800;font-family:var(--display)}
+.human{margin-top:clamp(28px,5vh,52px);display:grid;grid-template-columns:1fr;gap:clamp(18px,3vh,32px)}
+.human-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,3vw,48px);align-items:end}
+@media (max-width:800px){.human-top{grid-template-columns:1fr}}
+.bigclock{font-family:var(--display);font-weight:800;font-size:clamp(54px,6vw,104px);line-height:.95;color:var(--amber)}
+.chart,#garden{width:100%;position:relative}
+.chart svg,#garden svg{display:block;width:100%;height:auto}
+.g-lbl{font-family:var(--body);font-size:13px;fill:var(--fg);text-anchor:middle;font-variant-numeric:tabular-nums}
+.g-year{font-family:var(--body);font-size:12.5px;fill:var(--muted);text-anchor:middle}
+.tip{position:absolute;pointer-events:none;background:#1F1A14;color:#F7F3EB;font-size:14px;line-height:1.35;padding:8px 11px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .12s;z-index:6;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.tip strong{display:block;font-size:15px}
+.tip.on{opacity:1}
+
+/* mapa */
+.controls{display:flex;flex-wrap:wrap;gap:14px 26px;margin:clamp(18px,3vh,30px) 0 16px}
+.ctl{display:grid;gap:6px}
+.ctl-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:3px;gap:3px}
+.seg button{font:inherit;font-size:15px;font-weight:700;border:0;border-radius:7px;padding:8px 14px;background:transparent;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:#1F1A14;color:#F6D58E}
+.map-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(16px,2vw,30px);align-items:start}
+@media (max-width:1000px){.map-grid{grid-template-columns:1fr}}
+.map-card{padding:12px 12px 16px;position:relative;background:#FFFDF8}
+#map-wrap{position:relative;width:100%}
+#map-wrap svg{display:block;width:100%;height:auto;touch-action:manipulation}
+path.district{stroke:#5C4310;stroke-width:1.1;cursor:pointer;transition:filter .15s}
+path.district:hover{filter:brightness(.95)}
+path.district.is-sel{stroke:#1F1A14;stroke-width:3.2}
+path.district:focus-visible{outline:none;stroke:var(--wine);stroke-width:3.6}
+path.outline{fill:none;stroke:#1F1A14;stroke-width:1.8;pointer-events:none}
+.labels text{pointer-events:none;text-anchor:middle;font-family:var(--body)}
+.lab-name{font-weight:700}
+.lab-val{font-weight:800;font-variant-numeric:tabular-nums}
+.scalebar text{fill:#6B6258;font-size:12px;font-family:var(--body)}
+.legend{display:grid;gap:6px;padding:6px 6px 0;color:#1F1A14}
+.legend-title{font-size:14px;font-weight:700}
+.grad-wrap{position:relative;height:28px}
+.grad{height:13px;border-radius:3px;border:1px solid #E2D8C6}
+.tick{position:absolute;top:0;width:2px;height:18px;background:#1F1A14;transform:translateX(-1px)}
+.grad-labels{display:flex;justify-content:space-between;font-size:13px;color:#6B6258}
+.map-note{font-size:14px;color:#6B6258;margin:12px 6px 0}
+.panel{display:grid;gap:16px}
+.bigv{font-family:var(--display);font-size:clamp(46px,4vw,64px);font-weight:800;line-height:1;color:var(--amber);font-variant-numeric:tabular-nums;margin-top:6px}
+.unit{font-size:14px;color:var(--muted);margin-top:4px}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;margin:14px 0 0;font-size:15.5px}
+.dl dt{color:var(--muted)}
+.dl dd{margin:0;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.linkbtn{font:inherit;font-size:15px;font-weight:700;color:var(--accent);background:none;border:0;padding:0;margin-top:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.rank{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.rank-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.rank button{width:100%;font:inherit;display:grid;grid-template-columns:92px minmax(0,1fr) 66px;align-items:center;gap:10px;background:transparent;border:1px solid transparent;border-radius:8px;padding:6px 8px;color:var(--fg);cursor:pointer;text-align:left}
+.rank button:hover{background:var(--track)}
+.rank button[aria-pressed="true"]{border-color:#1F1A14;background:var(--track)}
+.rank .nm{font-size:15px;font-weight:700}
+.rank .track{height:13px;background:var(--track);border-radius:3px;overflow:hidden}
+.rank .fill{display:block;height:100%;border-radius:3px;border:1px solid rgba(92,67,16,.35)}
+.rank .v{font-size:15px;text-align:right;font-variant-numeric:tabular-nums}
+.alert{border:1.5px solid var(--wine);background:#FBEDEA;border-radius:14px}
+.alert summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:10px;align-items:center;font-weight:700;color:#1F1A14}
+.alert summary::-webkit-details-marker{display:none}
+.alert .sign{width:26px;height:26px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.alert .plus{margin-left:auto;color:#6B6258}
+.alert[open] .plus{transform:rotate(45deg)}
+.alert .body{padding:0 16px 16px;display:grid;gap:10px;font-size:15px;color:#1F1A14}
+.split{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.split .box{border:1px solid #E2C9C3;background:#FFF8F6;border-radius:10px;padding:10px;font-size:13.5px;text-align:center}
+.split .box b{display:block;font-size:15px;margin-bottom:4px}
+.split .arrow{font-size:22px;color:var(--wine)}
+
+/* gráficos */
+.grid line{stroke:var(--line)}
+.axis text{fill:var(--muted);font-size:12.5px;font-family:var(--body)}
+.lbl{fill:var(--fg);font-size:12.5px;font-family:var(--body);font-variant-numeric:tabular-nums}
+.lbl.m{fill:var(--muted)}
+.series-line{fill:none;stroke:#B8730F;stroke-width:2.2}
+.series-line.partial{stroke-dasharray:4 4}
+.series-area{fill:#E8A838;opacity:.22}
+.ev-line{stroke:var(--wine);stroke-dasharray:3 3;stroke-width:1.4}
+.ev-dot{fill:var(--wine);stroke:var(--card);stroke-width:2;cursor:pointer}
+.ev-dot.on{fill:#1F1A14}
+.ev-num{fill:#fff;font-size:11px;font-weight:800;text-anchor:middle;pointer-events:none;font-family:var(--body)}
+.hov-dot{fill:#B8730F;stroke:#fff;stroke-width:2}
+.hov-line{stroke:var(--muted);stroke-width:1}
+.bar{fill:#D99A2B}
+.bar.soft{fill:#F2DDB0}
+.bar.hl{fill:var(--wine)}
+.bar.alt{fill:#6B6258}
+.c-branca{fill:#A8B4C0} .c-negra{fill:#2F4A66} .c-amarela{fill:#E8A838} .c-indigena{fill:#6E8B3D} .c-ign{fill:url(#hatch)}
+.sw{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+.sw.c-branca{background:#A8B4C0} .sw.c-negra{background:#2F4A66} .sw.c-amarela{background:#E8A838} .sw.c-indigena{background:#6E8B3D}
+.sw.c-ign,.hatched{background:repeating-linear-gradient(45deg,var(--hatch) 0 2px,transparent 2px 6px)}
+.chart-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin:0 0 10px}
+.fig-title{font-weight:700;font-size:17px;margin-bottom:10px}
+figure{margin:0}
+figcaption,.cap{font-size:14.5px;color:var(--muted);margin-top:10px}
+.evbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.evbtns button{font:inherit;font-size:14px;font-weight:700;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.evbtns button[aria-pressed="true"]{background:var(--wine);border-color:var(--wine);color:#fff}
+.evtext{font-size:16px;min-height:3em;margin-top:10px}
+
+/* o que os dados não mostram (tom escuro) */
+.void-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(16px,2vw,30px);margin-top:clamp(22px,3vh,36px)}
+@media (max-width:1000px){.void-grid{grid-template-columns:1fr}}
+.gaps{display:grid;gap:9px}
+.gap-row{display:grid;grid-template-columns:190px minmax(0,1fr) 60px;gap:12px;align-items:center;font-size:15px}
+@media (max-width:600px){.gap-row{grid-template-columns:1fr 60px}.gap-row .track{grid-column:1 / -1;grid-row:2}}
+.gap-row .track{height:16px;background:var(--track);border-radius:3px;overflow:hidden}
+.gap-row .fill{display:block;height:100%}
+.gap-row .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.void-cards{display:grid;gap:12px}
+.void-cards .card h3{font-size:21px;margin-bottom:6px}
+.void-cards .card p{font-size:15.5px}
+.big-quiet{font-family:var(--display);font-style:italic;font-size:clamp(26px,2.6vw,42px);max-width:30ch;line-height:1.2;margin-top:clamp(24px,4vh,40px)}
+
+/* amanhecer */
+.dawn{background:radial-gradient(80% 60% at 50% 0%,rgba(232,168,56,.28) 0%,rgba(232,168,56,0) 70%)}
+.todo-list{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:16px}
+.todo-list li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.todo-list .petal{width:22px;height:22px;margin-top:2px}
+
+/* comparações */
+.cmp-intro{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(16px,2vw,30px);align-items:end}
+@media (max-width:900px){.cmp-intro{grid-template-columns:1fr}}
+.cmp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,28px);margin-top:clamp(24px,4vh,40px)}
+@media (max-width:1000px){.cmp-grid{grid-template-columns:1fr}}
+.cmp .k{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.cmp h3{margin:6px 0 10px}
+.cmp .takeaway{font-size:15.5px;margin-top:12px}
+.cmp .src{font-size:13px;color:var(--muted);margin-top:8px}
+.todo-cmp{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.todo-cmp li{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:15.5px}
+.todo-cmp b{display:block}
+
+/* princípios */
+.pr-layout{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:clamp(16px,2vw,30px);margin-top:clamp(22px,3vh,34px);align-items:start}
+@media (max-width:900px){.pr-layout{grid-template-columns:1fr}}
+.pr-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pr-list button{width:100%;text-align:left;font:inherit;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font-weight:600;font-size:15.5px}
+.pr-list .n{font-family:var(--display);font-weight:800;font-size:22px;color:var(--amber)}
+.pr-list button[aria-selected="true"]{background:var(--sun);border-color:var(--sun);color:#1F1A14}
+.pr-list button[aria-selected="true"] .n{color:#1F1A14}
+.pr-list .star{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.8;display:block}
+.pr-panel{display:grid;gap:16px}
+.pr-panel .def{font-size:clamp(17px,1.3vw,21px);max-width:66ch}
+.qwh{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.qwh{grid-template-columns:1fr}}
+.qwh .card{padding:14px 16px}
+.qwh b{display:block;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+.qwh p{font-size:15.5px}
+.matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.matrix button{font:inherit;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:12px;padding:14px;cursor:pointer;display:grid;gap:6px;min-height:118px;align-content:start}
+.matrix button b{font-family:var(--display);font-size:20px}
+.matrix button span{font-size:14.5px;color:var(--muted)}
+.matrix button[aria-pressed="true"]{border-color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber)}
+.matrix button[aria-pressed="true"] span{color:var(--fg)}
+.dots-grid{display:flex;flex-wrap:wrap;gap:3px}
+.dots-grid i{width:9px;height:9px;border-radius:50%;background:var(--sun);display:block}
+.mini{display:grid;gap:7px}
+.mini-row{display:grid;grid-template-columns:150px minmax(0,1fr) 56px;gap:10px;align-items:center;font-size:14.5px}
+.mini-row .track{height:12px;background:var(--track);border-radius:3px;overflow:hidden}
+.mini-row .fill{display:block;height:100%;background:#D99A2B}
+.mini-row .v{text-align:right;font-variant-numeric:tabular-nums}
+.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:800px){.quotes{grid-template-columns:1fr}}
+.quotes blockquote{margin:0;border-left:3px solid var(--sun);padding:6px 12px;font-family:var(--display);font-style:italic;font-size:17px}
+.quotes cite{display:block;font-family:var(--body);font-style:normal;font-size:13px;color:var(--muted);margin-top:6px}
+.checklist{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15.5px}
+.checklist li{display:grid;grid-template-columns:22px 1fr;gap:10px}
+.checklist li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--sun);margin-top:7px}
+
+/* datasheet */
+.ds-table{width:100%;border-collapse:collapse;font-size:15px}
+.ds-table th,.ds-table td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+.ds-table th{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ds-wrap{overflow-x:auto}
+.ds-sec{margin-top:clamp(26px,4vh,40px)}
+.ds-sec > h3{margin-bottom:12px}
+.qa{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:8px}
+.qa summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;display:grid;grid-template-columns:52px 1fr 20px;gap:8px;align-items:baseline}
+.qa summary::-webkit-details-marker{display:none}
+.qa .code{font-family:var(--display);color:var(--amber);font-weight:800}
+.qa .pl{color:var(--muted)}
+.qa[open] .pl{transform:rotate(45deg)}
+.qa .ans{padding:0 16px 16px 76px;font-size:15.5px;display:grid;gap:8px}
+@media (max-width:600px){.qa .ans{padding-left:16px}}
+.qa .ans ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.vnote{border-left:4px solid var(--wine);padding:8px 14px;font-size:15px;background:#FBEDEA;border-radius:0 10px 10px 0;color:#1F1A14}
+
+/* apoio, equipe */
+.help-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:clamp(22px,3vh,34px)}
+@media (max-width:900px){.help-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.help-grid .card b{display:block;font-family:var(--display);font-size:48px;color:var(--amber);line-height:1}
+.help-grid .card span{font-size:15px}
+.bio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px);margin-top:clamp(20px,3vh,32px)}
+@media (max-width:1000px){.bio{grid-template-columns:1fr}}
+.bio .card{display:grid;gap:8px;align-content:start}
+.bio h3{font-size:21px}
+.bio p{font-size:15.5px}
+.credits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px);margin-top:clamp(24px,4vh,40px)}
+@media (max-width:1000px){.credits{grid-template-columns:1fr}}
+.credits ul{margin:8px 0 0;padding-left:18px;font-size:15px;display:grid;gap:6px}
+footer{padding:28px 0 90px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+      <rect width="6" height="6" fill="none"></rect>
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#9A8F80" stroke-width="2"></line>
+    </pattern>
+    <g id="sf">
+      <g class="petals"></g>
+    </g>
+  </defs>
+</svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div id="corner" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" data-tab="inicio">Trazer <em>à luz</em></a>
+    <nav class="navtabs" aria-label="Seções do site" id="navtabs">
+      <a href="#inicio" data-tab="inicio">Início</a>
+      <a href="#historia" data-tab="historia">A história</a>
+      <a href="#comparacoes" data-tab="comparacoes">Comparações</a>
+      <a href="#principios" data-tab="principios">Os 7 princípios</a>
+      <a href="#datasheet" data-tab="datasheet">Datasheet</a>
+      <a href="#apoio" data-tab="apoio">Apoio e saúde</a>
+      <a href="#equipe" data-tab="equipe">Equipe e fontes</a>
+    </nav>
+    <a class="helpchip" href="#apoio" data-tab="apoio">CVV 188</a>
+    <button type="button" class="fullbtn" id="btn-full">Tela cheia</button>
+  </div>
+</header>
+
+<main>
+<!-- ============ INÍCIO ============ -->
+<div class="page" id="p-inicio" data-tone-page="0">
+  <section class="hero chap" data-tone="0">
+    <div id="hero-field" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="warn" role="note"><span aria-hidden="true">◐</span><p>Este trabalho trata de <b>tentativas de suicídio</b> e violência autoprovocada. Se você precisar conversar, o <b>CVV</b> atende 24 horas pelo <b>188</b>, ligação gratuita, ou em <a href="https://cvv.org.br">cvv.org.br</a>.</p></div>
+      <h1 class="title">Trazer<br><em>à luz.</em></h1>
+      <p class="subtitle">Um campo de girassóis para olhar com cuidado as notificações de tentativa de suicídio de mulheres em Campinas.</p>
+      <div class="meta"><span class="chip" id="meta-periodo"></span><span class="chip">Fonte: SISNOV/Sinan · Prefeitura de Campinas</span><span class="chip" id="meta-disc"></span></div>
+      <div class="next" style="justify-content:flex-start"><a class="btn solid" href="#historia" data-tab="historia" style="text-decoration:none">Começar a história →</a></div>
+    </div>
+  </section>
+  <section class="chap short" data-tone="0">
+    <div class="wrap">
+      <span class="tag">Entre dados e vidas</span>
+      <h2>Dados que pedem um olhar de cuidado.</h2>
+      <p class="lead">Cada notificação é uma mulher que chegou a um serviço de saúde. Lemos esses registros sem perder de vista as pessoas, o contexto e o que ficou de fora.</p>
+      <div class="doors" id="doors"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ A HISTÓRIA ============ -->
+<div class="page" id="p-historia" hidden>
+  <section class="chap" data-tone="0" id="h-palpite">
+    <div class="wrap">
+      <span class="tag">1 · Adivinhe primeiro</span>
+      <h2>Antes dos gráficos, o seu palpite.</h2>
+      <p class="lead">Mova os controles. Depois revelamos o que os registros de Campinas mostram.</p>
+      <div class="guesses" id="guesses"></div>
+      <div class="next" style="justify-content:flex-start"><button type="button" class="btn solid" id="btn-reveal">Revelar dados</button><button type="button" class="btn" id="btn-reset" hidden>Tentar de novo</button></div>
+    </div>
+  </section>
+
+  <section class="chap" data-tone="0" id="h-jardim">
+    <div class="wrap">
+      <span class="tag">2 · O jardim · Princípio 3</span>
+      <h2>Um girassol a cada 10 notificações.</h2>
+      <p class="lead">Nossa obra transforma as notificações num jardim: cada canteiro é um ano, e cada girassol, 10 mulheres notificadas. Um ano passa como um dia, com uma composição sonora feita a partir dos dados.</p>
+      <div class="cinema">
+        <div><div class="player" id="player"></div><div class="player-meta"><span id="video-title"></span><span id="video-link"></span></div></div>
+        <div class="card howto"><h3>Como ver e ouvir esta obra</h3><ol id="howto"></ol></div>
+      </div>
+      <div class="human">
+        <div class="human-top">
+          <div><p class="muted" style="font-size:15px;margin-bottom:6px">Em escala humana, em <span id="hum-ano"></span>:</p><div class="bigclock" id="hum-clock"></div></div>
+          <p class="lead" id="hum-text"></p>
+        </div>
+        <figure class="card">
+          <p class="fig-title">O jardim inteiro, canteiro por canteiro</p>
+          <div id="garden" role="img" aria-label="Jardim: um canteiro por ano, um girassol a cada 10 notificações"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px"><figcaption style="margin:0">✿ = 10 notificações · broto = menos de 10 · 2026 até outubro. Passe o mouse sobre um canteiro.</figcaption><button type="button" class="btn" id="btn-plant">Plantar o jardim de novo</button></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="chap" data-tone="0" id="h-mapa">
+    <div class="wrap">
+      <span class="tag">3 · O território</span>
+      <h2>Onde essas mulheres moravam.</h2>
+      <p class="lead">Os seis distritos de saúde de Campinas, nos tons do Setembro Amarelo. Clique em um distrito, no mapa ou na lista.</p>
+      <div class="controls">
+        <div class="ctl"><span class="ctl-label" id="lbl-metric">Indicador</span><div class="seg" role="group" aria-labelledby="lbl-metric"><button type="button" data-metric="inc" aria-pressed="true">Incidência</button><button type="button" data-metric="casos" aria-pressed="false">Notificações</button></div></div>
+        <div class="ctl"><span class="ctl-label" id="lbl-idade">Idade</span><div class="seg" role="group" aria-labelledby="lbl-idade"><button type="button" data-idade="todas" aria-pressed="true">Todas as idades</button><button type="button" data-idade="20" aria-pressed="false">20 anos ou mais</button></div></div>
+      </div>
+      <div class="map-grid">
+        <div class="card map-card">
+          <div id="map-wrap"><div class="tip" id="map-tip" role="status" aria-live="polite"></div></div>
+          <div class="legend"><span class="legend-title" id="legend-title"></span><div class="grad-wrap"><div class="grad" id="grad"></div></div><div class="grad-labels"><span id="leg-lo"></span><span id="leg-hi"></span></div></div>
+          <p class="map-note">Incidência acumulada no período, calculada pelo painel da SMS sobre a população total de cada distrito (todas as idades, ambos os sexos). Compara distritos de tamanhos diferentes, mas não é uma taxa por 100 mil mulheres.</p>
+        </div>
+        <div class="panel">
+          <div class="card detail" id="detail" aria-live="polite"></div>
+          <div class="card"><p class="rank-title" id="rank-title"></p><ul class="rank" id="rank"></ul></div>
+          <details class="alert">
+            <summary><span class="sign" aria-hidden="true">!</span>Por que o Suleste precisa de contexto? <span class="plus" aria-hidden="true">＋</span></summary>
+            <div class="body">
+              <span class="chip p" style="border-color:var(--wine);color:var(--wine)">Princípio 6 · Considerar o contexto</span>
+              <p>O distrito Suleste foi criado em 2024, com bairros que antes eram dos distritos <b>Sul</b> e <b>Leste</b>. Quando o território muda, os números mudam junto, mesmo que nada tenha mudado na vida das pessoas.</p>
+              <div class="split" aria-hidden="true"><div class="box"><b>Até 2023</b>5 distritos<br>Sul e Leste maiores</div><div class="arrow">→</div><div class="box"><b>Desde 2024</b>6 distritos<br>Suleste criado</div></div>
+              <p>Uma queda no Sul ou no Leste depois de 2024 não é, por si só, queda da violência. O boletim da SMS faz esse alerta e registra 448 notificações no Suleste em 2024, somando todos os tipos de violência.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chap" data-tone="0" id="h-tempo">
+    <div class="wrap">
+      <span class="tag">4 · No tempo · Princípio 6</span>
+      <h2>Mais notificações, ou mais gente vendo?</h2>
+      <p class="lead">As notificações quadruplicaram depois de 2020. Clique nos marcadores para ver o que mudou na rede em cada momento.</p>
+      <div class="card" style="margin-top:24px">
+        <div class="chart" id="chart-mes" role="img" aria-label="Linha com as notificações mensais"></div>
+        <div class="evbtns" id="evbtns"></div>
+        <p class="evtext" id="evtext" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chap" data-tone="0.25" id="h-quem">
+    <div class="wrap">
+      <span class="tag">5 · Quem são</span>
+      <h2>Jovens, e mais mulheres negras nos últimos anos.</h2>
+      <div class="grid2" style="margin-top:24px">
+        <figure class="card"><p class="fig-title">Faixa etária</p><div class="chart" id="chart-idade" role="img" aria-label="Barras por faixa etária"></div><figcaption>As barras claras ficam fora de um recorte só de adultas (20 anos ou mais). A faixa de 0 a 9 anos foi agrupada para evitar células pequenas.</figcaption></figure>
+        <figure class="card"><p class="fig-title">Raça/cor por ano</p><div class="chart-legend" id="raca-legend"></div><div class="chart" id="chart-raca" role="img" aria-label="Composição de raça/cor por ano"></div><figcaption id="raca-cap"></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="chap" data-tone="1" id="h-sombra">
+    <div class="wrap">
+      <span class="tag">6 · O que os dados não mostram · Princípio 4</span>
+      <h2>Onde a luz não chega.</h2>
+      <p class="lead">Até aqui, vimos o que foi registrado. Mas cada gráfico tem uma sombra: quem não chegou a um serviço, quem não coube nas categorias e os campos que ficaram em branco.</p>
+      <div class="void-grid">
+        <div class="card"><p class="fig-title" id="void-title"></p><div class="gaps" id="gaps"></div><p class="cap">Hachurado = "ignorado". Em dados de violência, campo vazio também é informação.</p></div>
+        <div class="void-cards" id="void-cards"></div>
+      </div>
+      <p class="big-quiet">Nenhum gráfico desta página mostra as tentativas que nunca chegaram a um serviço.</p>
+    </div>
+  </section>
+
+  <section class="chap dawn" data-tone="0" id="h-luz">
+    <div class="wrap">
+      <span class="tag">7 · Trazer à luz</span>
+      <h2>O que dá para iluminar.</h2>
+      <p class="lead">Os dados disponíveis já permitem perguntas melhores. O que falta pode ser cobrado, coletado e cuidado.</p>
+      <div class="grid2" style="margin-top:24px">
+        <div class="card"><h3 style="margin-bottom:12px">O que pedimos à rede e ao painel</h3><ul class="todo-list" id="todo-list"></ul></div>
+        <div class="card"><h3 style="margin-bottom:12px">Para continuar</h3><p style="font-size:16px">Veja as comparações que fizemos com os dados disponíveis, a documentação completa da base (datasheet) e os canais de apoio.</p>
+          <div class="next" style="justify-content:flex-start"><a class="btn" href="#comparacoes" data-tab="comparacoes" style="text-decoration:none">Comparações →</a><a class="btn" href="#datasheet" data-tab="datasheet" style="text-decoration:none">Datasheet →</a><a class="btn solid" href="#apoio" data-tab="apoio" style="text-decoration:none">Apoio e saúde →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ COMPARAÇÕES ============ -->
+<div class="page" id="p-comparacoes" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="wrap">
+      <div class="cmp-intro">
+        <div><span class="tag">Comparações</span><h2>Um número sozinho não diz muito.</h2><p class="lead">Colocamos os dados lado a lado com outros: população, Censo, recortes de idade, tempo, sexo e o Brasil. Cada comparação tem a sua ressalva.</p></div>
+        <p class="muted" style="font-size:15px">Todas as comparações usam dados públicos já citados. As que dependem de uma nova extração estão no fim da página.</p>
+      </div>
+      <div class="cmp-grid" id="cmp-grid"></div>
+      <div class="card" style="margin-top:28px"><h3 style="margin-bottom:12px">Comparações que pedem nova extração</h3><ul class="todo-cmp" id="todo-cmp"></ul></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PRINCÍPIOS ============ -->
+<div class="page" id="p-principios" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="wrap">
+      <span class="tag">Os 7 princípios do Feminismo de Dados</span>
+      <h2>Quem, como, para quem e por quê.</h2>
+      <div class="pr-layout"><ul class="pr-list" role="tablist" aria-label="Princípios" id="pr-list"></ul><div class="pr-panel" role="tabpanel" id="pr-panel" aria-live="polite"></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ DATASHEET ============ -->
+<div class="page" id="p-datasheet" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="wrap">
+      <span class="tag">Datasheet · Gebru et al. (2021)</span>
+      <h2>A documentação da nossa base.</h2>
+      <p class="lead">Seguimos o modelo de <i>Datasheets for Datasets</i>, seções Motivação e Composição. O datasheet documenta a base que o grupo constrói a partir de tabulações públicas, e não o SISNOV ou o SIM em si.</p>
+      <div class="ds-sec"><div class="vnote" id="ds-vnote"></div></div>
+      <div class="ds-sec"><h3>Recorte da base derivada</h3><div class="card ds-wrap"><table class="ds-table" id="ds-recorte"></table></div></div>
+      <div class="ds-sec"><h3>Motivação</h3><div id="ds-mot"></div></div>
+      <div class="ds-sec"><h3>Composição</h3><div id="ds-comp"></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ APOIO ============ -->
+<div class="page" id="p-apoio" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="wrap">
+      <span class="tag">Apoio e saúde</span>
+      <h2>Ninguém precisa passar por isso só.</h2>
+      <p class="lead">Se você ou alguém próximo estiver em sofrimento, procure ajuda. Conversar é um primeiro passo.</p>
+      <div class="help-grid" id="help-grid"></div>
+      <div class="grid2" style="margin-top:28px">
+        <div class="card"><h3 style="margin-bottom:10px">Em Campinas</h3><p style="font-size:16px">Os Centros de Saúde e os CAPS (Centros de Atenção Psicossocial) fazem parte da rede de cuidado em saúde mental do SUS. Em emergência, procure uma UPA ou o pronto-socorro mais próximo, ou ligue 192.</p></div>
+        <div class="card"><h3 style="margin-bottom:10px">Como este site trata o tema</h3><p style="font-size:16px">Seguimos as recomendações da OMS para comunicação sobre suicídio: não mostramos o meio utilizado, evitamos linguagem sensacionalista e mantemos os canais de ajuda sempre visíveis.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ EQUIPE E FONTES ============ -->
+<div class="page" id="p-equipe" hidden>
+  <section class="chap short" data-tone="0">
+    <div class="wrap">
+      <span class="tag">Equipe e fontes · Princípio 7: tornar o trabalho visível</span>
+      <h2>De onde vêm estes números.</h2>
+      <div class="bio" id="bio"></div>
+      <div class="credits">
+        <div class="card"><h3>Equipe</h3><ul id="equipe-list"></ul></div>
+        <div class="card"><h3>Disciplina</h3><ul id="disciplina"></ul></div>
+        <div class="card"><h3>Referências</h3><ul id="refs"></ul></div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+<footer><div class="wrap" id="foot"></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+/* =====================================================================
+   DATA_CONFIG — edite aqui. Tudo o que a página mostra vem deste bloco.
+   ===================================================================== */
+const DATA_CONFIG = {
+
+  /* ---------- VÍDEO DOS GIRASSÓIS ----------
+     modo: 'auto'    -> tenta o .mp4 local e, se ele não estiver na pasta, usa o YouTube (recomendado).
+           'youtube' -> preencha youtubeId (o código depois de "v=" no link do YouTube).
+                        Ex.: https://www.youtube.com/watch?v=AbCdEf12345 -> youtubeId: 'AbCdEf12345'
+                        Pode deixar o vídeo como "Não listado" no YouTube.
+           'arquivo' -> coloque o .mp4 na MESMA pasta deste index.html e informe o nome em arquivo.
+                        É a opção mais segura no projetor: funciona sem internet.
+           'nenhum'  -> mostra um espaço reservado com instruções.
+     Atenção: no visualizador do claude.ai o YouTube embutido não carrega (iframes externos são
+     bloqueados). No GitHub Pages, Vercel ou abrindo o arquivo local, funciona. */
+  video: {modo:'auto', youtubeId:'OEnffoy4wes', arquivo:'girassois_sonificacao.mp4', legenda:'', poster:'', titulo:'Trazer à Luz · o jardim de 2017 a 2026', duracao:'1 min 51 s'},
+  /* modo 'auto': usa o .mp4 da mesma pasta, se existir; senão, cai para o YouTube. */
+
+  /* ---------- COMO VER E OUVIR A OBRA ([EDITAR] = depende de como o grupo fez a sonificação) ---------- */
+  comoOuvir: [
+    {ic:'≡', txt:'Cada canteiro é um ano, de 2017 a 2026.'},
+    {ic:'✿', txt:'Cada girassol vale 10 notificações. Um broto marca o resto, quando sobram menos de 10.'},
+    {ic:'☀', txt:'1 dia = 1 ano: o sol atravessa o céu de janeiro a dezembro e o canteiro vai florescendo. À noite, o ano fecha com o seu total.'},
+    {ic:'♪', txt:'O som acompanha o jardim: fica mais forte e mais denso nos anos com mais notificações, e silencia na noite entre um ano e outro.'},
+    {ic:'Σ', txt:'O contador no alto soma as notificações desde 2017, até 4.855. O canteiro de 2026 vai só até outubro.'}
+  ],
+
+  /* ---------- PERÍODO E FILTROS DA PLANILHA ---------- */
+  periodo: {texto:'Janeiro de 2017 a outubro de 2026', curto:'2017 – out/2026'},
+  totalNotificacoes: 4855,
+  totalComDistrito: 4839,
+  atualizacaoPainel: '16/11/2026',
+  extracao: '17/11/2026',
+
+  /* ---------- DISTRITOS (casos/inc: todas as idades; casos20/inc20: 20 anos ou mais) ---------- */
+  distritos: [
+    {nome:'Leste',    casos:652,  inc:305.21, casos20:497, inc20:232.7},
+    {nome:'Noroeste', casos:846,  inc:486.95, casos20:578, inc20:332.7},
+    {nome:'Norte',    casos:800,  inc:404.11, casos20:619, inc20:312.7},
+    {nome:'Sudoeste', casos:896,  inc:488.49, casos20:656, inc20:357.6},
+    {nome:'Sul',      casos:1226, inc:662.57, casos20:887, inc20:479.4},   // inc20 do Sul calculada: 887 ÷ 185.039 × 100 mil
+    {nome:'Suleste',  casos:419,  inc:225.38, casos20:336, inc20:180.7}
+  ],
+  paletaMapa: ['#FFF3B0','#FFE066','#FFC93C','#F5A800','#D98200','#9C5A00'],
+
+  /* ---------- SÉRIE MENSAL [ano, mês, notificações] (out/2026 incompleto) ---------- */
+  mensal: [[2017,1,15],[2017,2,25],[2017,3,20],[2017,4,20],[2017,5,28],[2017,6,25],[2017,7,15],[2017,8,22],[2017,9,15],[2017,10,29],[2017,11,27],[2017,12,18],[2018,1,38],[2018,2,29],[2018,3,23],[2018,4,32],[2018,5,24],[2018,6,24],[2018,7,12],[2018,8,37],[2018,9,17],[2018,10,24],[2018,11,15],[2018,12,40],[2019,1,24],[2019,2,23],[2019,3,7],[2019,4,18],[2019,5,13],[2019,6,23],[2019,7,9],[2019,8,14],[2019,9,21],[2019,10,23],[2019,11,17],[2019,12,16],[2020,1,13],[2020,2,17],[2020,3,18],[2020,4,43],[2020,5,9],[2020,6,13],[2020,7,8],[2020,8,15],[2020,9,11],[2020,10,20],[2020,11,11],[2020,12,17],[2021,1,10],[2021,2,26],[2021,3,16],[2021,4,6],[2021,5,18],[2021,6,4],[2021,7,32],[2021,8,21],[2021,9,27],[2021,10,48],[2021,11,36],[2021,12,65],[2022,1,24],[2022,2,30],[2022,3,20],[2022,4,25],[2022,5,34],[2022,6,43],[2022,7,38],[2022,8,51],[2022,9,29],[2022,10,47],[2022,11,57],[2022,12,35],[2023,1,42],[2023,2,70],[2023,3,66],[2023,4,45],[2023,5,46],[2023,6,54],[2023,7,53],[2023,8,61],[2023,9,57],[2023,10,62],[2023,11,76],[2023,12,91],[2024,1,67],[2024,2,71],[2024,3,60],[2024,4,72],[2024,5,57],[2024,6,57],[2024,7,63],[2024,8,83],[2024,9,73],[2024,10,83],[2024,11,72],[2024,12,34],[2025,1,46],[2025,2,61],[2025,3,71],[2025,4,58],[2025,5,43],[2025,6,60],[2025,7,70],[2025,8,89],[2025,9,74],[2025,10,94],[2025,11,88],[2025,12,89],[2026,1,98],[2026,2,83],[2026,3,97],[2026,4,83],[2026,5,69],[2026,6,61],[2026,7,68],[2026,8,104],[2026,9,87],[2026,10,28]],
+
+  /* ---------- PERFIL ---------- */
+  faixaEtaria: [['0–9',16],['10–14',290],['15–19',969],['20–29',1391],['30–39',917],['40–49',766],['50–59',341],['60–69',125],['70–79',29],['80+',10]],
+  racaPorAno: [[2017,130,69,3,1,56],[2018,175,97,1,0,42],[2019,132,69,0,0,7],[2020,97,93,1,0,4],[2021,195,100,2,0,12],[2022,263,142,0,0,28],[2023,416,299,3,0,5],[2024,410,377,4,0,1],[2025,468,348,11,5,11],[2026,462,293,8,5,10]],      // [ano, Branca, Negra, Amarela, Indígena, Ignorado]
+  ignorado: [['Orientação sexual',1908],['Identidade de gênero',1868],['Violência de repetição',1837],['Motivação',1667],['Encaminhamento',1347],['Situação conjugal',1307],['Escolaridade',1133],['Raça/cor',176],['Local de ocorrência',156]],
+  identidade: {mulherTrans:66, homemTrans:13},
+  unidadeNotificadora: [['Hospitais',4354],['Centros de saúde',310],['Assistência social',131],['Educação',45],['Outros',15]],
+
+  /* ---------- PALPITES ---------- */
+  palpites: [
+    {id:'g1', pergunta:'Em 2025, quantas tentativas de suicídio de mulheres foram notificadas em Campinas?', min:0, max:2000, passo:10, inicial:300, real:843, sufixo:'', comentario:'Foram 843 notificações em 2025, mais de quatro vezes as 195 de 2020.'},
+    {id:'g2', pergunta:'Que parcela dessas notificações é de meninas e jovens com menos de 20 anos?', min:0, max:100, passo:1, inicial:10, real:26.3, sufixo:'%', comentario:'26,3% (1.275 notificações). Um recorte só de adultas deixa esse grupo de fora.'},
+    {id:'g3', pergunta:'Que parcela das notificações vem de hospitais?', min:0, max:100, passo:1, inicial:50, real:89.7, sufixo:'%', comentario:'89,7%. O sistema enxerga sobretudo quem chega à urgência; centros de saúde respondem por 6,4%.'}
+  ],
+
+  /* ---------- MARCOS DA LINHA DO TEMPO ---------- */
+  marcos: [
+    {data:[2020,3], titulo:'Pandemia e Lei 13.931/2019', texto:'Em março de 2020 começa o isolamento da covid-19, e as notificações caem com o acesso restrito aos serviços. No mesmo mês entra em vigor a Lei 13.931/2019, que obriga serviços de saúde a comunicar à polícia, em até 24 horas, casos com indícios de violência contra a mulher.'},
+    {data:[2023,1], titulo:'Capacitação da rede', texto:'O DEVISA capacitou 288 profissionais em 2023 e 255 em 2024 para identificar e notificar violências. Parte do crescimento das notificações vem de a rede notificar mais.'},
+    {data:[2024,1], titulo:'Distrito Suleste', texto:'Criação do distrito Suleste com bairros do Sul e do Leste. Comparações por distrito antes e depois de 2024 exigem cuidado.'},
+    {data:[2024,6], titulo:'Escolas notificando', texto:'No conjunto das violências, a Secretaria de Educação passou de 5 notificações em 2019 para 85 em 2024 (17 vezes mais): a escola começou a enxergar e registrar.'}
+  ],
+
+  /* ---------- BOLETIM SISNOV Nº 18 (todas as violências, residentes, 2019–2024) ---------- */
+  boletim: {
+    total20192024:15452, tentativas:3791, tentativas2019:291, tentativas2024:1121, tentMulheres:2677, tentHomens:1114,
+    idadeCampinas:{'10–19':25.1,'20–59':71.1}, idadeBrasil:{'10–19':26.1,'20–59':70.1},   // Brasil: Boletim Epidemiológico nº 33 do MS (2010–2019), citado no boletim
+    marioGattiPct:42.8
+  },
+
+  /* ---------- POPULAÇÃO ---------- */
+  censo2022: {negraPct:39.3, brancaPct:59.5, fonte:'IBGE, Censo 2022 (pardos 30,1% + pretos 9,2%)'},
+  negraAPS: {Noroeste:42.8, Sudoeste:38.3, Sul:37.4, Leste:21.0},   // % da população cadastrada na APS que se declara negra, por distrito (Boletim nº 1 SPN/DEVISA, 2024)
+
+  /* ---------- EQUIPE E DISCIPLINA ---------- */
+  equipe: ['Rogério Matheus Gomes Moura','Letízia Manuella','[EDITAR: Nome Sobrenome]','[EDITAR: Nome Sobrenome]'],
+  disciplina: ['MO810 · Feminismo de Dados','Profa. Sandra Avila','Instituto de Computação, UNICAMP','Segundo semestre de 2026'],
+
+  /* ---------- CANAIS DE AJUDA ---------- */
+  ajuda: [['188','CVV · apoio emocional, 24 h, ligação gratuita · cvv.org.br'],['192','SAMU · emergência'],['180','Central de Atendimento à Mulher'],['100','Disque Direitos Humanos']]
+};
+</script>
+<script>
+/* Geometria dos distritos (km, projeção plana). Limite externo: IBGE; divisas: digitalizadas do mapa da SMS. */
+const GEO = {"distritos":{"Leste":[[11.5,16.27],[9.99,17.3],[9.87,17.48],[9.52,17.54],[9.49,17.57],[9.44,17.74],[9.17,17.9],[9.07,18.11],[8.87,18.2],[8.71,18.44],[8.39,18.59],[8.17,18.44],[7.61,17.89],[7.61,17.65],[7.78,17.33],[7.84,17.1],[7.75,16.98],[7.45,16.81],[7.22,16.92],[6.98,16.9],[6.88,16.95],[6.49,16.93],[6.26,16.87],[6.16,16.81],[5.87,16.92],[5.59,16.77],[4.98,16.78],[4.91,16.9],[4.86,17.11],[4.67,17.05],[4.64,17.07],[4.49,17.3],[4.43,17.54],[4.1,17.59],[3.95,17.56],[3.86,17.41],[3.57,17.44],[3.41,17.51],[3.15,17.83],[2.82,18.03],[2.64,18.05],[2.46,17.96],[2.24,17.69],[2.19,17.69],[2.19,17.56],[2.1,17.26],[2.04,17.14],[2.04,17.04],[2.0,16.9],[2.0,16.41],[1.95,16.33],[1.94,16.17],[1.88,15.98],[1.88,15.45],[1.82,15.2],[1.82,14.5],[1.76,14.37],[1.76,13.63],[1.59,13.2],[1.5,13.1],[1.43,12.92],[1.32,12.78],[1.26,12.65],[0.99,12.28],[0.77,11.8],[0.72,11.64],[0.71,11.05],[0.66,10.92],[0.65,10.29],[0.55,10.1],[0.45,9.58],[0.36,9.4],[0.34,9.23],[0.3,9.1],[0.3,9.0],[0.19,8.58],[0.19,8.28],[0.59,7.62],[0.65,7.37],[0.65,7.22],[0.6,7.12],[0.49,7.06],[0.42,7.09],[0.33,7.18],[0.16,7.22],[-0.11,7.21],[-0.18,7.24],[-0.42,7.41],[-0.68,7.4],[-0.81,7.35],[-1.16,7.31],[-1.26,7.27],[-1.31,7.19],[-1.32,6.8],[-1.41,6.53],[-1.37,6.28],[-1.38,6.21],[-1.44,6.13],[-1.74,6.12],[-1.88,6.07],[-2.09,6.07],[-2.36,5.98],[-2.7,5.98],[-2.84,5.94],[-2.99,5.94],[-3.12,5.89],[-3.27,5.89],[-3.41,5.85],[-3.56,5.85],[-3.69,5.8],[-3.91,5.8],[-4.01,5.76],[-4.03,5.73],[-4.03,5.64],[-3.98,5.57],[-3.95,5.45],[-3.69,4.94],[-3.68,4.86],[-3.56,4.7],[-3.53,4.57],[-3.45,4.43],[-3.39,4.22],[-3.33,4.12],[-3.32,3.95],[-3.27,3.82],[-3.27,3.39],[-3.2,3.24],[-3.05,2.76],[-3.08,2.64],[-3.2,2.54],[-3.32,2.49],[-3.57,2.49],[-3.66,2.45],[-3.71,2.39],[-3.71,2.28],[-3.45,1.85],[-3.44,1.51],[-3.38,1.43],[-3.27,1.36],[-3.26,1.27],[-3.3,1.19],[-3.33,1.06],[-3.41,0.96],[-3.5,0.91],[-3.65,0.91],[-3.8,0.87],[-3.84,0.79],[-3.8,0.7],[-3.69,0.58],[-3.53,0.18],[-3.33,-0.15],[-3.24,-0.58],[-3.09,-0.86],[-3.08,-1.04],[-3.03,-1.12],[-2.91,-1.22],[-2.81,-1.24],[-2.69,-1.3],[-2.43,-1.37],[-2.28,-1.52],[-2.19,-1.54],[-2.01,-1.71],[-1.82,-1.77],[-1.43,-1.79],[-1.32,-1.82],[-1.25,-1.79],[-1.01,-1.57],[-0.77,-1.51],[-0.68,-1.46],[-0.6,-1.3],[-0.6,-1.06],[-0.51,-0.98],[-0.23,-0.98],[-0.06,-0.94],[0.28,-0.76],[0.71,-0.64],[0.9,-0.54],[1.07,-0.48],[1.2,-0.46],[1.34,-0.39],[1.62,-0.3],[2.0,-0.22],[2.36,-0.1],[2.55,-0.06],[2.66,-0.06],[2.93,0.05],[3.12,0.06],[3.15,0.03],[3.15,0.34],[2.88,0.85],[2.87,0.94],[2.9,1.02],[2.99,1.08],[3.24,1.13],[3.35,1.13],[3.48,1.18],[3.63,1.18],[4.01,1.27],[4.2,1.27],[4.29,1.3],[4.4,1.39],[4.49,1.55],[4.5,1.72],[4.56,1.85],[4.58,1.96],[4.68,2.07],[4.77,2.12],[4.85,2.19],[5.06,2.63],[5.2,2.76],[5.53,2.95],[5.62,3.04],[5.66,3.13],[5.66,3.92],[5.71,4.01],[5.77,4.07],[5.87,4.12],[5.96,4.22],[5.99,4.37],[5.9,4.58],[5.9,4.7],[6.04,5.04],[6.17,5.27],[6.28,5.34],[6.31,5.45],[6.44,5.68],[6.4,5.82],[6.2,6.01],[6.14,6.16],[6.04,6.25],[6.04,6.34],[6.17,6.64],[6.34,6.8],[6.47,6.86],[6.56,6.94],[6.62,7.12],[6.61,7.31],[6.53,7.44],[6.47,7.62],[6.38,7.73],[6.23,7.83],[6.1,8.12],[6.1,8.31],[6.11,8.35],[6.23,8.44],[6.34,8.88],[6.34,9.03],[6.26,9.16],[6.14,9.29],[6.07,9.56],[6.07,9.67],[6.1,9.73],[6.23,9.82],[6.55,9.88],[7.19,10.1],[7.43,10.16],[7.54,10.16],[7.67,10.2],[8.2,10.2],[8.41,10.19],[8.54,10.14],[8.95,10.16],[10.44,10.62],[10.63,10.73],[10.86,10.79],[11.02,10.89],[11.22,10.96],[11.53,11.04],[11.95,11.2],[12.19,11.2],[12.36,11.14],[12.45,11.16],[12.58,11.29],[12.66,11.32],[12.73,11.43],[13.0,11.53],[13.06,11.61],[13.11,11.77],[13.23,11.93],[13.44,12.16],[13.78,12.46],[13.78,12.58],[13.98,12.72],[14.04,12.9],[14.09,12.95],[14.24,12.99],[14.42,13.13],[14.45,13.2],[14.43,13.26],[14.28,13.47],[14.12,13.49],[14.1,13.66],[13.98,13.99],[14.13,14.4],[14.04,14.46],[13.81,14.41],[13.71,14.48],[13.65,14.68],[13.77,14.87],[11.5,16.27]],"Noroeste":[[-6.91,-0.83],[-7.0,-0.77],[-7.09,-0.77],[-7.25,-0.91],[-7.58,-0.92],[-7.78,-1.01],[-8.02,-1.01],[-8.18,-0.94],[-8.27,-0.94],[-8.35,-1.06],[-8.37,-1.18],[-8.27,-1.45],[-8.29,-1.67],[-8.38,-1.77],[-8.53,-1.86],[-8.58,-1.94],[-8.58,-2.13],[-8.53,-2.27],[-8.53,-2.46],[-8.49,-2.59],[-8.47,-2.79],[-8.77,-3.07],[-8.88,-3.25],[-8.95,-3.33],[-9.07,-3.37],[-9.13,-3.35],[-9.21,-3.27],[-9.27,-3.15],[-9.33,-2.94],[-9.4,-2.8],[-9.58,-2.65],[-9.7,-2.59],[-10.29,-2.56],[-10.42,-2.61],[-10.77,-2.61],[-11.02,-2.55],[-11.37,-2.37],[-11.76,-2.1],[-12.06,-2.0],[-12.15,-1.91],[-12.64,-1.64],[-13.08,-1.49],[-13.67,-1.46],[-13.88,-1.37],[-13.92,-1.27],[-14.3,-1.59],[-14.52,-1.65],[-15.14,-1.51],[-15.77,-1.48],[-16.08,-1.57],[-16.86,-1.61],[-17.33,-1.74],[-18.11,-1.77],[-18.4,-1.61],[-18.7,-1.22],[-18.8,-0.97],[-18.89,-0.92],[-19.43,-0.92],[-19.99,-1.42],[-20.09,-1.21],[-20.33,-1.22],[-20.59,-1.16],[-21.29,-1.36],[-21.01,-1.82],[-20.78,-1.95],[-20.75,-2.09],[-20.56,-2.36],[-20.39,-2.47],[-20.29,-2.64],[-17.5,-3.33],[-17.21,-3.33],[-17.0,-3.24],[-16.83,-3.27],[-16.79,-3.31],[-16.68,-3.61],[-16.8,-4.83],[-17.0,-5.37],[-17.12,-5.53],[-17.33,-5.71],[-17.5,-6.0],[-17.68,-6.01],[-17.96,-5.88],[-18.1,-5.86],[-18.35,-5.95],[-18.59,-6.08],[-19.13,-6.31],[-19.52,-6.1],[-19.33,-6.38],[-19.31,-6.61],[-19.07,-6.71],[-18.94,-6.83],[-18.88,-6.93],[-18.7,-7.08],[-18.62,-7.2],[-18.62,-7.41],[-18.28,-7.52],[-18.17,-7.43],[-17.95,-7.46],[-17.71,-7.77],[-17.69,-7.89],[-17.33,-8.05],[-17.15,-8.22],[-17.04,-8.41],[-17.03,-8.55],[-17.07,-9.07],[-16.94,-9.4],[-16.67,-9.62],[-16.67,-9.93],[-16.86,-10.1],[-16.98,-10.26],[-17.18,-10.83],[-17.16,-10.86],[-16.97,-10.98],[-16.77,-11.16],[-16.8,-11.28],[-16.88,-11.34],[-16.83,-11.34],[-16.74,-11.28],[-16.7,-11.14],[-16.74,-11.05],[-16.83,-10.96],[-16.97,-10.89],[-17.04,-10.81],[-17.07,-10.71],[-16.98,-10.53],[-16.92,-10.25],[-16.74,-10.04],[-16.59,-9.9],[-16.55,-9.81],[-16.55,-9.71],[-16.64,-9.52],[-16.85,-9.35],[-16.97,-9.05],[-16.95,-8.67],[-16.91,-8.56],[-16.91,-8.5],[-17.01,-8.22],[-17.07,-8.13],[-17.07,-8.05],[-17.01,-7.99],[-16.88,-7.95],[-16.77,-7.95],[-16.71,-7.98],[-16.64,-8.07],[-16.52,-8.08],[-16.37,-8.04],[-16.22,-7.93],[-16.11,-7.93],[-16.04,-7.96],[-15.96,-7.95],[-15.86,-7.8],[-15.84,-7.62],[-15.75,-7.53],[-15.62,-7.53],[-15.56,-7.56],[-15.48,-7.67],[-15.39,-7.73],[-14.96,-7.73],[-14.58,-7.56],[-14.43,-7.41],[-14.39,-7.4],[-13.86,-7.4],[-13.47,-6.98],[-13.4,-6.83],[-13.1,-6.82],[-12.69,-6.47],[-12.52,-6.44],[-12.36,-6.34],[-12.01,-6.37],[-11.86,-6.31],[-11.79,-6.31],[-11.55,-6.43],[-11.29,-6.44],[-11.17,-6.5],[-10.99,-6.55],[-10.95,-6.61],[-10.95,-6.7],[-10.92,-6.76],[-10.87,-6.79],[-10.77,-6.79],[-10.66,-6.65],[-10.51,-6.59],[-10.26,-6.35],[-10.17,-6.34],[-10.06,-6.38],[-9.97,-6.38],[-9.73,-6.08],[-9.64,-6.08],[-9.48,-6.13],[-9.4,-6.2],[-9.36,-6.32],[-9.34,-6.55],[-9.3,-6.65],[-9.25,-6.7],[-9.09,-6.77],[-8.89,-6.79],[-8.82,-6.73],[-8.8,-6.58],[-8.85,-6.44],[-8.83,-5.43],[-8.86,-5.35],[-8.88,-4.67],[-8.86,-4.62],[-8.7,-4.49],[-8.67,-4.34],[-8.58,-4.23],[-8.41,-4.16],[-8.09,-4.22],[-7.93,-4.12],[-7.81,-3.92],[-7.67,-3.82],[-7.57,-3.82],[-7.48,-3.89],[-7.3,-3.98],[-7.15,-3.98],[-6.95,-3.91],[-6.88,-3.91],[-6.82,-3.97],[-6.79,-4.06],[-6.79,-4.16],[-6.83,-4.25],[-6.83,-4.35],[-6.73,-4.44],[-6.64,-4.44],[-6.46,-4.34],[-6.2,-4.32],[-5.9,-4.23],[-5.93,-3.86],[-5.87,-3.71],[-5.65,-3.46],[-5.65,-3.25],[-5.81,-3.09],[-5.92,-2.88],[-5.99,-2.61],[-6.08,-2.47],[-6.17,-2.24],[-6.23,-2.15],[-6.26,-2.0],[-6.32,-1.91],[-6.32,-1.8],[-6.26,-1.73],[-6.31,-1.61],[-6.37,-1.54],[-6.44,-1.37],[-6.59,-1.24],[-6.77,-0.97],[-6.91,-0.83]],"Norte":[[1.65,17.99],[1.46,18.01],[0.83,18.29],[0.65,18.08],[0.43,18.18],[-0.2,17.93],[-0.42,17.66],[-0.63,17.56],[-0.86,17.59],[-0.96,17.42],[-1.1,17.39],[-1.23,17.48],[-1.31,17.74],[-1.5,17.83],[-1.64,17.71],[-1.67,17.56],[-2.0,17.54],[-2.03,17.6],[-2.07,17.92],[-2.3,17.9],[-2.33,17.95],[-2.34,18.06],[-2.51,18.11],[-2.64,18.05],[-2.69,18.11],[-2.76,18.3],[-2.91,18.26],[-2.94,18.3],[-2.97,18.48],[-3.06,18.54],[-3.39,18.33],[-3.81,18.23],[-3.86,17.93],[-3.72,17.72],[-4.0,17.5],[-4.01,17.18],[-3.94,17.07],[-3.97,17.02],[-4.07,17.01],[-4.18,17.17],[-4.3,17.2],[-4.58,17.01],[-4.9,16.9],[-4.87,16.74],[-4.94,16.71],[-5.14,16.69],[-5.17,16.56],[-5.23,16.5],[-5.59,16.42],[-5.69,16.51],[-5.87,16.45],[-6.14,16.5],[-6.16,16.33],[-6.19,16.3],[-6.34,16.26],[-6.58,16.14],[-7.09,15.8],[-6.83,15.42],[-6.79,15.32],[-6.79,14.92],[-6.83,14.78],[-6.8,14.69],[-6.76,14.63],[-6.43,14.62],[-6.16,14.51],[-5.92,14.25],[-5.83,14.08],[-5.87,13.74],[-5.68,13.37],[-5.77,12.95],[-6.25,12.46],[-6.41,12.19],[-6.4,11.99],[-6.55,11.62],[-6.55,11.13],[-6.73,10.95],[-7.12,10.82],[-7.27,10.62],[-7.25,10.16],[-7.33,9.82],[-7.19,9.49],[-7.15,8.97],[-7.16,8.89],[-8.27,9.62],[-8.49,9.25],[-8.76,9.25],[-8.82,9.28],[-9.04,9.56],[-9.21,9.59],[-9.15,9.92],[-10.11,9.95],[-10.26,9.88],[-10.44,9.85],[-10.57,9.7],[-10.93,9.73],[-11.44,9.65],[-11.61,9.7],[-11.98,9.89],[-12.13,9.88],[-12.33,10.19],[-12.42,10.26],[-12.61,10.16],[-12.77,10.14],[-12.69,10.11],[-12.64,10.05],[-12.57,9.76],[-12.58,9.49],[-12.43,9.41],[-12.45,9.19],[-12.42,8.92],[-12.19,8.61],[-12.21,8.18],[-11.83,7.52],[-11.71,7.25],[-11.8,6.98],[-12.03,6.86],[-12.15,6.36],[-12.24,6.16],[-12.21,6.12],[-11.98,5.95],[-12.0,5.79],[-12.22,5.52],[-12.34,5.24],[-12.67,4.85],[-12.27,4.54],[-12.22,4.34],[-12.0,4.12],[-12.13,4.04],[-12.15,3.98],[-12.07,3.39],[-11.97,2.87],[-11.98,2.7],[-12.13,2.37],[-12.39,2.07],[-12.13,1.69],[-12.15,1.51],[-12.09,1.28],[-12.12,1.0],[-12.22,0.91],[-12.42,0.82],[-12.57,0.39],[-12.58,0.22],[-12.96,-0.24],[-13.1,-0.71],[-13.56,-0.97],[-13.68,-1.15],[-13.86,-1.22],[-13.91,-1.27],[-13.88,-1.36],[-13.61,-1.46],[-13.08,-1.48],[-12.75,-1.58],[-12.15,-1.89],[-12.06,-1.98],[-11.76,-2.09],[-11.37,-2.36],[-11.02,-2.53],[-10.77,-2.59],[-10.42,-2.59],[-10.29,-2.55],[-9.7,-2.58],[-9.58,-2.64],[-9.39,-2.8],[-9.31,-2.94],[-9.25,-3.15],[-9.19,-3.27],[-9.13,-3.34],[-9.07,-3.35],[-8.95,-3.31],[-8.89,-3.25],[-8.79,-3.07],[-8.49,-2.79],[-8.5,-2.59],[-8.55,-2.46],[-8.55,-2.27],[-8.59,-2.13],[-8.59,-1.94],[-8.53,-1.85],[-8.38,-1.76],[-8.31,-1.67],[-8.29,-1.45],[-8.37,-1.24],[-8.38,-1.12],[-8.32,-0.97],[-8.27,-0.92],[-8.18,-0.92],[-8.02,-1.0],[-7.78,-1.0],[-7.58,-0.91],[-7.3,-0.91],[-7.22,-0.88],[-7.09,-0.76],[-7.0,-0.76],[-6.76,-0.97],[-6.58,-1.24],[-6.43,-1.37],[-6.26,-1.7],[-6.17,-1.74],[-5.77,-2.19],[-5.68,-2.21],[-5.54,-2.15],[-5.47,-2.07],[-5.38,-2.04],[-4.97,-2.03],[-4.9,-2.0],[-4.84,-1.92],[-4.81,-1.79],[-4.84,-1.65],[-4.82,-1.52],[-4.7,-1.45],[-4.48,-1.21],[-4.39,-1.16],[-4.13,-0.83],[-4.06,-0.8],[-3.95,-0.8],[-3.74,-0.92],[-3.6,-0.92],[-3.47,-0.83],[-3.41,-0.71],[-3.33,-0.64],[-3.24,-0.63],[-3.3,-0.43],[-3.3,-0.3],[-3.35,-0.15],[-3.54,0.18],[-3.71,0.58],[-3.81,0.7],[-3.86,0.81],[-3.8,0.88],[-3.65,0.93],[-3.5,0.93],[-3.41,0.97],[-3.35,1.06],[-3.32,1.19],[-3.27,1.27],[-3.29,1.36],[-3.38,1.42],[-3.45,1.51],[-3.47,1.85],[-3.72,2.28],[-3.72,2.39],[-3.66,2.46],[-3.57,2.51],[-3.32,2.51],[-3.2,2.55],[-3.09,2.64],[-3.06,2.76],[-3.21,3.24],[-3.29,3.39],[-3.29,3.82],[-3.33,3.95],[-3.35,4.12],[-3.41,4.22],[-3.47,4.43],[-3.54,4.57],[-3.57,4.7],[-3.69,4.86],[-3.71,4.94],[-3.97,5.45],[-4.0,5.57],[-4.04,5.64],[-4.04,5.73],[-4.01,5.77],[-3.91,5.82],[-3.69,5.82],[-3.56,5.86],[-3.41,5.86],[-3.27,5.91],[-3.12,5.91],[-2.99,5.95],[-2.84,5.95],[-2.7,6.0],[-2.36,6.0],[-2.09,6.09],[-1.88,6.09],[-1.74,6.13],[-1.44,6.15],[-1.4,6.21],[-1.38,6.28],[-1.43,6.53],[-1.34,6.8],[-1.32,7.19],[-1.26,7.28],[-1.16,7.33],[-1.05,7.33],[-0.68,7.41],[-0.42,7.43],[-0.15,7.24],[0.16,7.24],[0.33,7.19],[0.42,7.1],[0.49,7.07],[0.57,7.1],[0.61,7.18],[0.63,7.37],[0.57,7.62],[0.18,8.28],[0.18,8.58],[0.28,9.0],[0.28,9.1],[0.33,9.23],[0.34,9.4],[0.43,9.58],[0.54,10.1],[0.63,10.29],[0.65,10.92],[0.69,11.05],[0.71,11.64],[0.75,11.8],[0.98,12.28],[1.25,12.65],[1.31,12.78],[1.41,12.92],[1.49,13.1],[1.58,13.2],[1.74,13.63],[1.74,14.37],[1.8,14.5],[1.8,15.2],[1.86,15.45],[1.86,15.98],[1.92,16.17],[1.94,16.33],[1.98,16.41],[1.98,16.9],[2.03,17.04],[2.03,17.14],[2.09,17.26],[2.18,17.56],[2.18,17.71],[1.83,17.77],[1.73,17.84],[1.65,17.99]],"Sudoeste":[[-5.42,-4.56],[-5.63,-4.35],[-5.89,-4.23],[-5.96,-4.28],[-6.2,-4.34],[-6.46,-4.35],[-6.64,-4.46],[-6.73,-4.46],[-6.85,-4.35],[-6.85,-4.25],[-6.8,-4.16],[-6.8,-4.06],[-6.83,-3.97],[-6.88,-3.92],[-6.95,-3.92],[-7.15,-4.0],[-7.3,-4.0],[-7.48,-3.91],[-7.57,-3.83],[-7.67,-3.83],[-7.79,-3.92],[-7.93,-4.13],[-8.09,-4.23],[-8.41,-4.18],[-8.58,-4.25],[-8.65,-4.34],[-8.68,-4.49],[-8.85,-4.62],[-8.86,-5.11],[-8.85,-5.35],[-8.82,-5.43],[-8.83,-6.44],[-8.79,-6.58],[-8.8,-6.73],[-8.89,-6.8],[-9.03,-6.8],[-9.25,-6.71],[-9.31,-6.65],[-9.36,-6.55],[-9.37,-6.32],[-9.42,-6.2],[-9.48,-6.14],[-9.64,-6.1],[-9.73,-6.1],[-9.97,-6.4],[-10.06,-6.4],[-10.17,-6.35],[-10.26,-6.37],[-10.51,-6.61],[-10.66,-6.67],[-10.77,-6.8],[-10.87,-6.8],[-10.93,-6.76],[-10.96,-6.7],[-10.96,-6.61],[-10.99,-6.56],[-11.17,-6.52],[-11.29,-6.46],[-11.55,-6.44],[-11.79,-6.32],[-11.86,-6.32],[-12.01,-6.38],[-12.36,-6.35],[-12.52,-6.46],[-12.69,-6.49],[-13.1,-6.83],[-13.4,-6.85],[-13.46,-6.98],[-13.71,-7.25],[-13.76,-7.32],[-13.86,-7.41],[-14.39,-7.41],[-14.43,-7.43],[-14.58,-7.58],[-14.96,-7.74],[-15.39,-7.74],[-15.45,-7.71],[-15.56,-7.58],[-15.62,-7.55],[-15.75,-7.55],[-15.81,-7.59],[-15.84,-7.8],[-15.89,-7.89],[-15.96,-7.96],[-16.04,-7.98],[-16.11,-7.95],[-16.22,-7.95],[-16.31,-8.02],[-16.52,-8.1],[-16.64,-8.08],[-16.71,-7.99],[-16.77,-7.96],[-16.88,-7.96],[-17.01,-8.01],[-17.06,-8.05],[-17.06,-8.13],[-17.0,-8.22],[-16.89,-8.5],[-16.89,-8.56],[-16.94,-8.67],[-16.95,-9.05],[-16.83,-9.35],[-16.62,-9.52],[-16.53,-9.71],[-16.53,-9.81],[-16.58,-9.9],[-16.73,-10.04],[-16.91,-10.25],[-16.97,-10.53],[-17.06,-10.71],[-17.03,-10.81],[-16.97,-10.87],[-16.83,-10.95],[-16.7,-11.1],[-16.68,-11.19],[-16.73,-11.28],[-16.77,-11.32],[-16.89,-11.35],[-16.92,-11.38],[-17.77,-11.36],[-18.14,-11.28],[-18.61,-11.36],[-18.79,-11.5],[-19.07,-11.48],[-19.4,-11.83],[-19.7,-11.96],[-19.88,-12.16],[-19.81,-12.25],[-19.76,-12.42],[-19.37,-12.81],[-19.1,-12.93],[-19.03,-13.05],[-18.88,-13.13],[-18.61,-13.1],[-18.55,-13.13],[-18.53,-13.2],[-18.56,-13.39],[-18.17,-13.72],[-17.83,-13.92],[-17.69,-13.92],[-17.54,-14.01],[-17.33,-14.21],[-17.2,-14.65],[-16.98,-14.78],[-16.95,-14.87],[-16.46,-14.93],[-16.26,-14.81],[-16.2,-14.86],[-15.83,-14.86],[-15.65,-15.03],[-15.45,-15.05],[-15.32,-15.0],[-15.03,-14.69],[-14.87,-14.75],[-14.78,-14.66],[-14.61,-14.66],[-14.36,-14.86],[-14.1,-14.81],[-14.0,-14.89],[-13.83,-14.89],[-13.74,-14.99],[-13.41,-15.0],[-13.34,-14.9],[-13.14,-14.91],[-12.96,-15.11],[-12.9,-15.33],[-12.7,-15.35],[-12.42,-15.5],[-12.3,-15.51],[-12.22,-15.63],[-12.19,-15.93],[-12.12,-15.97],[-11.86,-15.88],[-11.71,-15.63],[-11.65,-15.6],[-11.62,-15.62],[-11.4,-16.03],[-11.4,-16.2],[-11.31,-16.39],[-11.28,-16.63],[-11.38,-17.0],[-11.31,-16.97],[-11.28,-17.0],[-11.22,-17.15],[-11.02,-17.33],[-10.93,-17.53],[-10.81,-17.61],[-10.74,-17.75],[-10.36,-17.53],[-10.14,-17.29],[-9.93,-17.3],[-9.64,-17.5],[-9.52,-17.27],[-9.43,-17.3],[-9.4,-17.29],[-9.4,-17.26],[-9.49,-17.15],[-9.58,-16.99],[-9.58,-16.63],[-9.63,-16.5],[-9.7,-16.44],[-9.81,-16.42],[-9.94,-16.44],[-10.09,-16.51],[-10.21,-16.45],[-10.33,-16.44],[-10.44,-16.33],[-10.47,-16.17],[-10.39,-16.06],[-10.33,-16.05],[-10.2,-16.08],[-10.06,-16.15],[-9.97,-16.12],[-9.81,-15.96],[-9.66,-15.77],[-9.55,-15.72],[-9.49,-15.66],[-9.46,-15.53],[-9.33,-15.32],[-9.25,-15.09],[-9.27,-14.89],[-9.33,-14.74],[-9.3,-14.57],[-9.22,-14.44],[-9.04,-14.27],[-8.8,-14.23],[-8.74,-14.12],[-8.73,-13.87],[-8.7,-13.8],[-8.61,-13.69],[-8.46,-13.63],[-8.41,-13.59],[-8.38,-13.48],[-8.21,-13.17],[-8.15,-12.98],[-7.91,-12.68],[-7.84,-12.39],[-7.61,-11.96],[-7.52,-11.84],[-7.49,-11.65],[-7.3,-11.2],[-7.3,-11.01],[-7.21,-10.84],[-7.13,-10.6],[-7.16,-10.4],[-7.3,-10.29],[-7.37,-10.17],[-7.37,-9.71],[-7.42,-9.57],[-7.42,-9.37],[-7.48,-9.22],[-7.46,-8.87],[-7.55,-8.72],[-7.57,-8.65],[-7.67,-8.53],[-7.69,-8.43],[-7.9,-8.26],[-7.97,-8.16],[-7.97,-7.98],[-8.02,-7.83],[-8.0,-7.7],[-7.88,-7.62],[-7.7,-7.67],[-7.58,-7.64],[-7.52,-7.55],[-7.46,-7.34],[-7.39,-7.23],[-7.25,-7.22],[-7.18,-7.25],[-7.07,-7.22],[-6.94,-7.08],[-6.8,-7.01],[-6.76,-7.02],[-6.67,-7.13],[-6.65,-7.23],[-6.68,-7.31],[-6.68,-7.41],[-6.56,-7.59],[-6.56,-7.64],[-6.52,-7.67],[-6.41,-7.68],[-6.35,-7.67],[-6.26,-7.58],[-6.16,-7.43],[-6.1,-7.2],[-5.68,-6.47],[-5.65,-6.34],[-5.57,-6.2],[-5.56,-6.1],[-5.5,-5.97],[-5.38,-5.85],[-5.17,-5.41],[-5.2,-5.29],[-5.17,-5.19],[-5.17,-5.07],[-5.26,-4.89],[-5.3,-4.85],[-5.42,-4.56]],"Sul":[[-6.25,-1.73],[-6.31,-1.8],[-6.31,-1.91],[-6.25,-2.0],[-6.22,-2.15],[-6.16,-2.24],[-6.07,-2.47],[-5.98,-2.61],[-5.9,-2.88],[-5.8,-3.09],[-5.65,-3.22],[-5.62,-3.31],[-5.63,-3.46],[-5.86,-3.71],[-5.92,-3.86],[-5.89,-4.22],[-5.63,-4.34],[-5.41,-4.56],[-5.36,-4.7],[-5.15,-5.07],[-5.15,-5.19],[-5.18,-5.28],[-5.15,-5.41],[-5.36,-5.85],[-5.48,-5.97],[-5.53,-6.05],[-5.54,-6.16],[-5.63,-6.34],[-5.66,-6.47],[-6.08,-7.2],[-6.14,-7.43],[-6.35,-7.68],[-6.52,-7.68],[-6.58,-7.64],[-6.58,-7.59],[-6.7,-7.41],[-6.7,-7.31],[-6.67,-7.23],[-6.68,-7.13],[-6.76,-7.04],[-6.8,-7.02],[-6.94,-7.1],[-7.07,-7.23],[-7.18,-7.26],[-7.25,-7.23],[-7.39,-7.25],[-7.45,-7.34],[-7.51,-7.55],[-7.58,-7.65],[-7.7,-7.68],[-7.88,-7.64],[-7.99,-7.7],[-8.0,-7.83],[-7.96,-7.98],[-7.96,-8.16],[-7.9,-8.25],[-7.67,-8.43],[-7.66,-8.53],[-7.55,-8.65],[-7.54,-8.72],[-7.45,-8.87],[-7.46,-9.22],[-7.4,-9.37],[-7.4,-9.57],[-7.36,-9.71],[-7.36,-10.17],[-7.28,-10.29],[-7.15,-10.4],[-7.12,-10.5],[-7.13,-10.66],[-7.19,-10.84],[-7.28,-11.01],[-7.28,-11.2],[-7.48,-11.65],[-7.51,-11.84],[-7.6,-11.96],[-7.82,-12.39],[-7.9,-12.68],[-8.14,-12.98],[-8.2,-13.17],[-8.37,-13.48],[-8.4,-13.59],[-8.46,-13.65],[-8.61,-13.71],[-8.68,-13.8],[-8.71,-13.87],[-8.73,-14.12],[-8.82,-14.26],[-8.94,-14.26],[-9.04,-14.29],[-9.21,-14.44],[-9.28,-14.57],[-9.31,-14.74],[-9.25,-14.89],[-9.24,-15.09],[-9.31,-15.32],[-9.45,-15.53],[-9.48,-15.66],[-9.55,-15.74],[-9.66,-15.78],[-9.79,-15.96],[-9.97,-16.14],[-10.06,-16.17],[-10.2,-16.09],[-10.33,-16.06],[-10.39,-16.08],[-10.45,-16.17],[-10.42,-16.33],[-10.33,-16.42],[-10.21,-16.44],[-10.09,-16.5],[-9.94,-16.42],[-9.81,-16.41],[-9.7,-16.42],[-9.61,-16.5],[-9.57,-16.63],[-9.57,-16.99],[-9.51,-17.11],[-9.39,-17.26],[-9.4,-17.3],[-9.28,-17.35],[-9.3,-17.47],[-9.12,-17.45],[-8.95,-17.64],[-8.97,-17.91],[-8.74,-18.0],[-8.71,-17.99],[-8.55,-17.7],[-8.35,-17.6],[-7.99,-17.56],[-7.75,-17.75],[-7.43,-17.82],[-7.24,-18.11],[-7.12,-18.12],[-6.77,-17.9],[-6.56,-17.47],[-6.43,-17.35],[-6.28,-17.39],[-6.01,-17.38],[-5.89,-17.29],[-5.62,-17.18],[-5.47,-17.24],[-5.42,-17.29],[-5.39,-17.39],[-5.24,-17.36],[-5.08,-17.48],[-4.76,-17.6],[-4.57,-17.51],[-4.3,-17.33],[-4.0,-17.26],[-3.78,-17.29],[-3.53,-17.17],[-3.29,-17.0],[-3.26,-16.75],[-3.18,-16.62],[-0.96,-17.05],[-1.13,-16.9],[-1.14,-16.69],[-1.23,-16.39],[-1.46,-16.2],[-1.64,-15.97],[-1.52,-15.65],[-1.65,-15.53],[-1.79,-15.17],[-1.94,-15.15],[-2.06,-15.21],[-2.25,-15.08],[-2.19,-14.9],[-2.33,-14.87],[-2.39,-14.57],[-2.51,-14.44],[-2.64,-14.38],[-2.82,-14.39],[-3.12,-14.3],[-3.21,-14.35],[-3.24,-14.32],[-3.39,-13.98],[-3.42,-13.59],[-3.39,-13.5],[-3.44,-13.32],[-3.63,-13.04],[-3.63,-12.77],[-3.48,-12.47],[-3.35,-12.32],[-3.02,-12.16],[-2.94,-12.02],[-3.02,-11.66],[-2.97,-11.31],[-2.78,-10.99],[-2.81,-10.81],[-2.76,-10.66],[-2.58,-10.47],[-2.28,-10.37],[-2.03,-10.22],[-1.74,-10.16],[-1.47,-9.84],[-1.37,-9.77],[-1.1,-9.68],[-0.81,-9.52],[-0.53,-9.22],[-0.77,-8.9],[-1.25,-7.95],[-1.35,-7.87],[-1.41,-7.8],[-1.47,-7.68],[-1.47,-7.55],[-1.59,-7.38],[-1.65,-7.19],[-1.79,-6.93],[-1.83,-6.8],[-1.86,-6.58],[-1.79,-6.41],[-1.77,-6.26],[-1.65,-6.08],[-1.59,-5.94],[-1.58,-5.79],[-1.52,-5.58],[-1.46,-5.52],[-1.4,-5.5],[-1.34,-5.41],[-1.34,-5.22],[-1.28,-5.09],[-1.28,-4.92],[-1.38,-4.49],[-1.62,-4.1],[-1.73,-3.88],[-1.7,-3.77],[-1.61,-3.65],[-1.59,-3.49],[-1.62,-3.43],[-1.7,-3.38],[-1.92,-3.41],[-2.16,-3.33],[-2.4,-3.1],[-2.46,-3.0],[-2.55,-2.92],[-2.66,-2.91],[-2.73,-2.94],[-2.82,-2.94],[-2.9,-2.98],[-2.94,-3.07],[-2.99,-3.24],[-2.99,-3.37],[-3.15,-3.49],[-3.21,-3.62],[-3.33,-3.79],[-3.38,-3.97],[-3.51,-4.06],[-3.62,-4.06],[-3.72,-3.97],[-3.77,-3.79],[-3.88,-3.71],[-3.97,-3.71],[-4.01,-3.67],[-4.06,-3.56],[-4.28,-3.35],[-4.36,-3.25],[-4.46,-3.21],[-4.58,-3.19],[-4.75,-3.07],[-4.85,-3.04],[-5.29,-2.7],[-5.38,-2.65],[-5.62,-2.42],[-5.65,-2.36],[-5.63,-2.3],[-5.53,-2.24],[-5.54,-2.16],[-5.68,-2.22],[-5.77,-2.21],[-5.98,-2.0],[-6.07,-1.86],[-6.17,-1.76],[-6.25,-1.73]],"Suleste":[[14.21,12.19],[13.95,12.28],[13.77,12.44],[13.24,11.93],[13.12,11.77],[13.08,11.61],[13.0,11.52],[12.73,11.41],[12.66,11.31],[12.58,11.28],[12.45,11.14],[12.36,11.13],[12.19,11.19],[11.95,11.19],[11.53,11.02],[11.22,10.95],[11.02,10.88],[10.86,10.77],[10.63,10.71],[10.44,10.61],[10.2,10.55],[9.67,10.35],[9.38,10.29],[8.89,10.13],[8.54,10.13],[8.41,10.17],[8.2,10.19],[7.67,10.19],[7.54,10.14],[7.43,10.14],[7.19,10.08],[6.55,9.86],[6.23,9.8],[6.11,9.73],[6.08,9.67],[6.08,9.56],[6.14,9.32],[6.28,9.16],[6.35,9.03],[6.32,8.71],[6.26,8.56],[6.25,8.44],[6.13,8.35],[6.11,8.12],[6.25,7.83],[6.38,7.74],[6.49,7.62],[6.55,7.44],[6.62,7.31],[6.64,7.12],[6.58,6.94],[6.47,6.85],[6.34,6.79],[6.19,6.64],[6.05,6.34],[6.05,6.25],[6.16,6.16],[6.22,6.01],[6.41,5.82],[6.46,5.68],[6.32,5.45],[6.29,5.34],[6.19,5.27],[6.05,5.04],[5.92,4.7],[5.92,4.58],[6.01,4.37],[5.98,4.22],[5.87,4.1],[5.77,4.06],[5.68,3.92],[5.68,3.13],[5.63,3.04],[5.53,2.94],[5.2,2.75],[5.07,2.63],[4.86,2.19],[4.77,2.1],[4.68,2.06],[4.59,1.96],[4.58,1.85],[4.52,1.72],[4.5,1.55],[4.41,1.39],[4.26,1.27],[4.01,1.25],[3.63,1.16],[3.48,1.16],[3.35,1.12],[3.24,1.12],[2.99,1.06],[2.91,1.02],[2.88,0.94],[2.9,0.85],[3.17,0.34],[3.15,0.02],[3.12,0.05],[2.93,0.03],[2.66,-0.07],[2.55,-0.07],[2.36,-0.12],[2.0,-0.24],[1.62,-0.31],[1.34,-0.4],[1.2,-0.48],[1.13,-0.48],[0.9,-0.55],[0.71,-0.66],[0.28,-0.77],[-0.06,-0.95],[-0.23,-1.0],[-0.51,-1.0],[-0.59,-1.06],[-0.6,-1.1],[-0.59,-1.3],[-0.66,-1.46],[-0.72,-1.51],[-1.01,-1.58],[-1.25,-1.8],[-1.32,-1.83],[-1.43,-1.8],[-1.82,-1.79],[-2.01,-1.73],[-2.19,-1.55],[-2.28,-1.54],[-2.43,-1.39],[-2.69,-1.31],[-2.81,-1.25],[-2.91,-1.24],[-3.08,-1.07],[-3.11,-0.86],[-3.23,-0.64],[-3.33,-0.66],[-3.39,-0.71],[-3.45,-0.83],[-3.6,-0.94],[-3.74,-0.94],[-3.91,-0.83],[-4.06,-0.82],[-4.18,-0.89],[-4.39,-1.18],[-4.48,-1.22],[-4.7,-1.46],[-4.81,-1.52],[-4.81,-1.88],[-4.9,-2.01],[-4.97,-2.04],[-5.32,-2.04],[-5.51,-2.12],[-5.51,-2.24],[-5.63,-2.33],[-5.6,-2.42],[-5.38,-2.64],[-5.29,-2.68],[-4.85,-3.03],[-4.75,-3.06],[-4.58,-3.18],[-4.46,-3.19],[-4.36,-3.24],[-4.27,-3.35],[-4.04,-3.56],[-3.97,-3.7],[-3.88,-3.7],[-3.75,-3.79],[-3.71,-3.97],[-3.62,-4.04],[-3.51,-4.04],[-3.39,-3.97],[-3.35,-3.79],[-3.23,-3.62],[-3.17,-3.49],[-3.09,-3.41],[-3.0,-3.37],[-3.0,-3.24],[-2.96,-3.07],[-2.91,-2.98],[-2.82,-2.92],[-2.73,-2.92],[-2.66,-2.89],[-2.55,-2.91],[-2.45,-3.0],[-2.39,-3.1],[-2.16,-3.31],[-1.92,-3.4],[-1.7,-3.37],[-1.61,-3.43],[-1.58,-3.49],[-1.58,-3.59],[-1.61,-3.68],[-1.71,-3.83],[-1.71,-3.88],[-1.61,-4.1],[-1.37,-4.49],[-1.26,-4.92],[-1.26,-5.09],[-1.32,-5.22],[-1.32,-5.41],[-1.4,-5.52],[-1.46,-5.53],[-1.5,-5.58],[-1.56,-5.79],[-1.58,-5.94],[-1.64,-6.08],[-1.76,-6.26],[-1.77,-6.41],[-1.85,-6.58],[-1.82,-6.8],[-1.77,-6.93],[-1.64,-7.19],[-1.58,-7.38],[-1.46,-7.55],[-1.46,-7.68],[-1.4,-7.8],[-1.23,-7.95],[-0.75,-8.9],[-0.51,-9.22],[-0.26,-9.04],[-0.05,-8.8],[0.28,-8.75],[0.43,-8.68],[0.65,-8.44],[0.78,-8.19],[1.05,-7.99],[1.08,-7.77],[1.19,-7.7],[1.25,-7.61],[1.4,-7.14],[1.65,-6.56],[1.61,-6.44],[1.41,-6.25],[1.44,-6.13],[1.5,-6.08],[1.67,-6.07],[1.97,-5.98],[2.16,-5.86],[2.25,-5.5],[2.34,-5.31],[2.55,-5.04],[2.75,-4.95],[2.96,-4.76],[3.15,-4.47],[3.47,-4.41],[3.65,-4.28],[3.98,-4.13],[4.19,-4.15],[4.25,-3.97],[4.32,-3.85],[4.4,-3.77],[4.68,-3.59],[4.88,-3.41],[4.91,-3.3],[4.89,-2.73],[4.85,-2.45],[5.0,-2.16],[5.0,-1.94],[5.14,-1.54],[5.18,-1.49],[5.29,-1.45],[5.45,-1.16],[5.77,-0.92],[5.84,-0.79],[5.96,-0.71],[6.13,-0.66],[6.43,-0.68],[6.58,-0.76],[6.71,-0.92],[7.27,-0.89],[7.52,-1.01],[7.64,-1.15],[7.85,-1.55],[7.93,-1.58],[8.09,-1.59],[8.24,-1.51],[8.57,-1.57],[8.72,-1.28],[8.9,-1.25],[9.05,-1.37],[9.22,-1.83],[9.75,-2.22],[9.81,-2.31],[9.87,-2.47],[10.03,-2.61],[10.08,-2.71],[10.03,-2.95],[10.2,-3.38],[10.65,-3.73],[10.77,-3.71],[10.98,-3.49],[11.28,-3.47],[11.5,-3.67],[11.73,-3.74],[12.01,-3.73],[12.0,-3.58],[12.09,-3.46],[12.3,-3.49],[12.39,-3.47],[12.48,-3.4],[12.61,-3.21],[12.64,-3.06],[12.79,-2.97],[13.02,-2.97],[13.33,-3.1],[13.66,-3.15],[13.71,-3.21],[13.78,-3.41],[13.98,-3.43],[14.33,-3.21],[14.4,-3.31],[14.33,-3.47],[14.36,-3.86],[14.46,-4.01],[14.6,-3.98],[14.75,-4.13],[14.93,-3.97],[15.09,-3.92],[15.5,-4.09],[15.57,-3.91],[15.62,-3.86],[15.72,-3.82],[16.08,-3.88],[16.17,-4.0],[16.41,-3.83],[16.56,-3.91],[16.68,-3.83],[16.7,-3.71],[16.5,-3.4],[16.47,-3.3],[16.23,-3.28],[16.04,-3.13],[15.71,-3.01],[15.68,-2.98],[15.69,-2.85],[15.62,-2.65],[15.51,-2.47],[15.17,-2.24],[15.2,-1.76],[15.29,-1.64],[15.38,-1.34],[15.59,-1.24],[15.78,-1.06],[16.32,-1.06],[16.5,-0.97],[16.71,-0.74],[17.01,-0.76],[17.25,-0.61],[17.28,-0.55],[17.34,-0.24],[17.43,-0.16],[17.57,-0.19],[17.91,-0.16],[18.24,-0.46],[18.35,-0.8],[18.46,-0.92],[18.68,-0.94],[19.06,-0.8],[19.15,-0.6],[19.18,-0.57],[19.25,-0.57],[19.52,-0.71],[19.9,-0.71],[20.17,-0.85],[20.36,-0.79],[20.69,-0.83],[20.77,-0.86],[20.96,-1.01],[21.32,-1.06],[21.56,-1.0],[21.68,-0.82],[21.76,-0.6],[21.83,-0.51],[22.37,-0.37],[22.55,-0.19],[22.79,-0.06],[22.9,0.17],[22.81,0.61],[22.93,0.84],[22.95,1.06],[22.76,1.39],[22.58,1.51],[22.52,1.81],[22.34,1.97],[22.07,2.45],[21.85,2.63],[21.71,2.7],[21.49,2.61],[21.32,2.63],[21.11,2.27],[21.08,2.03],[20.96,1.9],[20.69,1.93],[20.53,1.85],[20.35,1.88],[20.08,2.04],[19.84,2.04],[19.72,2.07],[19.55,2.21],[19.36,2.27],[19.33,2.3],[19.3,2.45],[19.4,2.63],[19.36,3.1],[19.51,3.28],[19.54,3.4],[19.49,3.83],[19.45,3.94],[19.3,4.03],[18.95,4.0],[18.82,4.15],[18.7,4.4],[18.73,4.68],[18.67,4.98],[18.55,5.16],[18.32,5.31],[18.43,5.46],[18.46,5.55],[18.49,5.74],[18.46,6.18],[18.56,6.4],[18.52,6.59],[18.53,6.77],[18.5,6.88],[18.46,6.94],[18.27,7.07],[18.3,7.31],[18.23,7.59],[18.23,7.92],[17.99,8.01],[17.87,7.77],[17.75,7.71],[17.63,7.76],[17.6,7.86],[17.63,8.7],[17.55,8.83],[17.27,8.82],[17.03,8.86],[16.79,8.8],[16.59,8.68],[16.53,8.5],[16.49,8.46],[16.29,8.41],[15.99,8.7],[15.84,8.71],[15.54,8.61],[15.41,8.77],[15.21,8.88],[15.15,9.14],[14.96,9.43],[14.81,9.97],[14.82,10.1],[14.99,10.38],[14.85,10.5],[14.84,10.74],[15.0,10.89],[14.9,11.05],[14.81,11.01],[14.78,11.04],[14.7,11.22],[14.64,11.46],[14.45,11.5],[14.39,11.55],[14.33,11.71],[14.36,11.98],[14.21,12.19]]},"municipio":[[-0.97,-17.04],[-1.13,-16.9],[-1.14,-16.7],[-1.23,-16.39],[-1.41,-16.24],[-1.64,-15.98],[-1.51,-15.65],[-1.66,-15.53],[-1.79,-15.16],[-1.94,-15.15],[-2.06,-15.22],[-2.25,-15.07],[-2.2,-14.89],[-2.33,-14.88],[-2.38,-14.57],[-2.51,-14.44],[-2.66,-14.38],[-2.82,-14.4],[-3.13,-14.3],[-3.23,-14.35],[-3.39,-13.96],[-3.43,-13.6],[-3.39,-13.51],[-3.46,-13.27],[-3.64,-13.04],[-3.64,-12.78],[-3.51,-12.51],[-3.37,-12.34],[-3.0,-12.14],[-2.94,-12.01],[-3.02,-11.63],[-2.97,-11.3],[-2.78,-10.99],[-2.82,-10.83],[-2.76,-10.66],[-2.59,-10.47],[-2.26,-10.35],[-2.03,-10.22],[-1.74,-10.16],[-1.49,-9.85],[-1.37,-9.76],[-1.07,-9.66],[-0.8,-9.5],[-0.58,-9.27],[-0.24,-9.02],[-0.05,-8.8],[0.27,-8.75],[0.45,-8.67],[0.63,-8.45],[0.79,-8.17],[1.05,-8.0],[1.08,-7.76],[1.21,-7.66],[1.3,-7.49],[1.39,-7.15],[1.65,-6.55],[1.6,-6.44],[1.41,-6.25],[1.45,-6.1],[1.71,-6.06],[1.99,-5.96],[2.18,-5.85],[2.25,-5.52],[2.32,-5.34],[2.55,-5.04],[2.74,-4.95],[2.94,-4.77],[3.15,-4.47],[3.46,-4.41],[3.68,-4.27],[3.99,-4.14],[4.19,-4.15],[4.28,-3.9],[4.38,-3.79],[4.7,-3.58],[4.88,-3.42],[4.91,-3.26],[4.9,-2.76],[4.84,-2.47],[5.0,-2.15],[5.0,-1.96],[5.15,-1.5],[5.31,-1.43],[5.47,-1.14],[5.79,-0.9],[5.85,-0.76],[6.14,-0.65],[6.4,-0.69],[6.59,-0.77],[6.71,-0.93],[7.24,-0.9],[7.52,-1.02],[7.63,-1.13],[7.86,-1.57],[8.1,-1.59],[8.25,-1.5],[8.58,-1.56],[8.72,-1.28],[8.91,-1.25],[9.06,-1.37],[9.22,-1.84],[9.77,-2.26],[9.86,-2.48],[10.03,-2.61],[10.07,-2.73],[10.02,-2.94],[10.2,-3.38],[10.64,-3.73],[10.77,-3.72],[10.98,-3.49],[11.27,-3.47],[11.5,-3.66],[11.75,-3.74],[12.01,-3.73],[12.0,-3.57],[12.08,-3.46],[12.36,-3.48],[12.46,-3.41],[12.63,-3.17],[12.65,-3.04],[12.81,-2.96],[13.01,-2.96],[13.35,-3.1],[13.67,-3.15],[13.78,-3.42],[13.98,-3.43],[14.32,-3.21],[14.39,-3.31],[14.33,-3.48],[14.36,-3.86],[14.45,-4.0],[14.6,-3.98],[14.75,-4.14],[14.93,-3.96],[15.1,-3.93],[15.49,-4.09],[15.58,-3.88],[15.74,-3.82],[16.07,-3.87],[16.18,-3.99],[16.41,-3.84],[16.58,-3.9],[16.69,-3.83],[16.7,-3.72],[16.47,-3.34],[16.47,-3.3],[16.24,-3.28],[16.03,-3.13],[15.67,-3.0],[15.69,-2.86],[15.59,-2.59],[15.49,-2.47],[15.17,-2.23],[15.2,-1.76],[15.27,-1.67],[15.38,-1.34],[15.6,-1.22],[15.79,-1.05],[16.3,-1.05],[16.5,-0.97],[16.71,-0.74],[17.02,-0.76],[17.26,-0.6],[17.34,-0.24],[17.44,-0.17],[17.6,-0.19],[17.92,-0.16],[18.24,-0.47],[18.36,-0.83],[18.45,-0.92],[18.67,-0.94],[19.06,-0.8],[19.16,-0.56],[19.24,-0.56],[19.52,-0.71],[19.88,-0.72],[20.18,-0.84],[20.37,-0.79],[20.74,-0.85],[20.97,-1.01],[21.27,-1.06],[21.55,-1.01],[21.67,-0.85],[21.76,-0.6],[21.84,-0.5],[22.4,-0.35],[22.53,-0.2],[22.79,-0.06],[22.89,0.18],[22.81,0.61],[22.93,0.84],[22.94,1.06],[22.75,1.4],[22.59,1.51],[22.52,1.8],[22.36,1.96],[22.05,2.47],[21.81,2.66],[21.69,2.7],[21.48,2.61],[21.32,2.62],[21.12,2.27],[21.08,2.03],[20.96,1.89],[20.71,1.92],[20.5,1.86],[20.3,1.9],[20.07,2.05],[19.86,2.05],[19.68,2.09],[19.55,2.21],[19.32,2.29],[19.29,2.45],[19.41,2.62],[19.36,3.11],[19.5,3.28],[19.54,3.44],[19.49,3.83],[19.45,3.95],[19.29,4.02],[18.96,4.0],[18.81,4.15],[18.69,4.41],[18.72,4.65],[18.66,4.99],[18.56,5.15],[18.32,5.32],[18.44,5.49],[18.48,5.78],[18.45,6.17],[18.57,6.37],[18.51,6.63],[18.54,6.76],[18.48,6.91],[18.28,7.07],[18.3,7.29],[18.23,7.63],[18.23,7.93],[17.99,8.0],[17.89,7.78],[17.76,7.72],[17.63,7.74],[17.59,7.89],[17.62,8.7],[17.55,8.83],[17.3,8.81],[17.05,8.87],[16.74,8.79],[16.6,8.68],[16.51,8.48],[16.29,8.41],[15.99,8.7],[15.86,8.71],[15.54,8.61],[15.43,8.76],[15.21,8.87],[15.15,9.14],[14.98,9.4],[14.8,9.98],[14.81,10.11],[14.99,10.38],[14.84,10.5],[14.83,10.75],[15.01,10.89],[14.89,11.06],[14.79,11.01],[14.71,11.19],[14.64,11.45],[14.4,11.52],[14.33,11.73],[14.36,11.97],[14.21,12.18],[13.95,12.27],[13.78,12.42],[13.79,12.57],[13.97,12.73],[14.05,12.94],[14.2,12.98],[14.43,13.15],[14.44,13.24],[14.28,13.48],[14.12,13.48],[14.11,13.66],[13.97,13.98],[14.14,14.4],[14.04,14.45],[13.83,14.41],[13.73,14.45],[13.64,14.67],[13.77,14.87],[11.66,16.18],[9.97,17.32],[9.86,17.48],[9.5,17.55],[9.44,17.74],[9.15,17.91],[9.08,18.1],[8.86,18.22],[8.7,18.43],[8.38,18.59],[8.15,18.42],[7.61,17.89],[7.61,17.66],[7.78,17.32],[7.84,17.09],[7.77,16.99],[7.45,16.81],[7.21,16.92],[7.0,16.9],[6.85,16.95],[6.51,16.93],[6.26,16.87],[6.15,16.81],[5.87,16.92],[5.58,16.77],[4.99,16.78],[4.91,16.91],[4.87,17.12],[4.65,17.05],[4.5,17.28],[4.43,17.54],[4.15,17.59],[3.94,17.56],[3.86,17.4],[3.51,17.45],[3.39,17.53],[3.17,17.81],[2.81,18.03],[2.65,18.06],[2.46,17.97],[2.24,17.69],[1.86,17.76],[1.74,17.82],[1.66,17.99],[1.47,18.01],[0.83,18.29],[0.64,18.08],[0.46,18.18],[-0.19,17.93],[-0.41,17.68],[-0.65,17.56],[-0.86,17.59],[-0.96,17.43],[-1.09,17.39],[-1.23,17.48],[-1.31,17.74],[-1.51,17.82],[-1.64,17.71],[-1.66,17.56],[-2.02,17.54],[-2.07,17.92],[-2.31,17.9],[-2.34,18.07],[-2.54,18.11],[-2.66,18.06],[-2.76,18.31],[-2.93,18.26],[-2.98,18.48],[-3.06,18.54],[-3.37,18.35],[-3.82,18.23],[-3.86,17.93],[-3.73,17.72],[-3.99,17.5],[-4.0,17.18],[-3.92,17.04],[-4.08,17.01],[-4.17,17.17],[-4.29,17.2],[-4.61,16.99],[-4.9,16.9],[-4.87,16.72],[-5.14,16.7],[-5.18,16.52],[-5.59,16.42],[-5.69,16.51],[-5.89,16.45],[-6.14,16.5],[-6.16,16.32],[-6.37,16.24],[-6.6,16.13],[-7.09,15.8],[-6.81,15.39],[-6.78,15.3],[-6.79,14.95],[-6.84,14.75],[-6.75,14.63],[-6.45,14.62],[-6.16,14.52],[-5.93,14.26],[-5.83,14.09],[-5.87,13.75],[-5.68,13.35],[-5.77,12.95],[-6.23,12.47],[-6.41,12.18],[-6.39,12.01],[-6.55,11.61],[-6.53,11.24],[-6.55,11.12],[-6.72,10.95],[-7.12,10.81],[-7.28,10.63],[-7.26,10.18],[-7.33,9.83],[-7.19,9.48],[-7.14,8.88],[-8.28,9.62],[-8.49,9.24],[-8.75,9.24],[-8.83,9.29],[-9.04,9.56],[-9.2,9.58],[-9.14,9.92],[-10.11,9.95],[-10.21,9.88],[-10.43,9.85],[-10.58,9.7],[-10.89,9.73],[-11.41,9.65],[-11.61,9.7],[-12.0,9.9],[-12.14,9.87],[-12.34,10.21],[-12.42,10.27],[-12.62,10.16],[-12.77,10.15],[-12.66,10.09],[-12.57,9.74],[-12.59,9.49],[-12.43,9.43],[-12.45,9.27],[-12.41,8.92],[-12.2,8.61],[-12.21,8.17],[-11.78,7.41],[-11.72,7.23],[-11.81,6.98],[-12.02,6.87],[-12.16,6.37],[-12.24,6.15],[-11.98,5.95],[-11.99,5.78],[-12.23,5.53],[-12.35,5.24],[-12.68,4.84],[-12.27,4.53],[-12.22,4.34],[-11.99,4.11],[-12.16,4.02],[-12.05,3.33],[-11.96,2.83],[-11.99,2.64],[-12.16,2.37],[-12.39,2.08],[-12.14,1.69],[-12.16,1.54],[-12.1,1.26],[-12.13,1.01],[-12.22,0.91],[-12.42,0.82],[-12.58,0.38],[-12.59,0.23],[-12.97,-0.24],[-13.1,-0.71],[-13.58,-0.98],[-13.69,-1.15],[-13.86,-1.22],[-14.3,-1.59],[-14.56,-1.65],[-15.17,-1.5],[-15.74,-1.47],[-16.12,-1.57],[-16.85,-1.6],[-17.35,-1.75],[-18.11,-1.77],[-18.41,-1.59],[-18.71,-1.19],[-18.8,-0.97],[-18.91,-0.93],[-19.44,-0.92],[-19.99,-1.42],[-20.09,-1.21],[-20.31,-1.22],[-20.62,-1.16],[-21.29,-1.35],[-21.0,-1.83],[-20.79,-1.95],[-20.75,-2.09],[-20.58,-2.33],[-20.4,-2.47],[-20.29,-2.63],[-17.46,-3.32],[-17.22,-3.33],[-16.99,-3.24],[-16.8,-3.28],[-16.68,-3.62],[-16.73,-4.19],[-16.8,-4.82],[-17.01,-5.37],[-17.14,-5.55],[-17.32,-5.7],[-17.51,-6.02],[-17.65,-6.02],[-17.97,-5.87],[-18.08,-5.86],[-18.38,-5.96],[-18.53,-6.05],[-19.15,-6.3],[-19.53,-6.1],[-19.33,-6.38],[-19.32,-6.6],[-19.12,-6.68],[-18.95,-6.81],[-18.86,-6.96],[-18.71,-7.07],[-18.63,-7.2],[-18.63,-7.41],[-18.26,-7.51],[-18.18,-7.43],[-17.95,-7.45],[-17.68,-7.8],[-17.68,-7.88],[-17.33,-8.05],[-17.16,-8.21],[-17.04,-8.4],[-17.03,-8.65],[-17.08,-9.06],[-16.95,-9.4],[-16.67,-9.62],[-16.67,-9.93],[-16.85,-10.07],[-17.01,-10.28],[-17.04,-10.44],[-17.18,-10.85],[-16.96,-10.99],[-16.78,-11.16],[-16.8,-11.28],[-16.93,-11.38],[-17.76,-11.36],[-18.11,-11.28],[-18.61,-11.36],[-18.79,-11.5],[-19.07,-11.49],[-19.4,-11.83],[-19.71,-11.95],[-19.89,-12.15],[-19.82,-12.21],[-19.77,-12.42],[-19.37,-12.82],[-19.07,-12.94],[-19.04,-13.04],[-18.87,-13.13],[-18.63,-13.09],[-18.54,-13.14],[-18.56,-13.39],[-18.19,-13.71],[-17.83,-13.91],[-17.68,-13.92],[-17.52,-14.02],[-17.34,-14.22],[-17.2,-14.64],[-16.98,-14.8],[-16.96,-14.87],[-16.46,-14.93],[-16.27,-14.81],[-16.2,-14.85],[-15.83,-14.86],[-15.65,-15.03],[-15.47,-15.05],[-15.32,-15.01],[-15.04,-14.7],[-14.86,-14.75],[-14.78,-14.66],[-14.62,-14.66],[-14.35,-14.86],[-14.11,-14.81],[-14.0,-14.88],[-13.84,-14.88],[-13.74,-14.99],[-13.41,-15.01],[-13.34,-14.91],[-13.14,-14.92],[-12.96,-15.11],[-12.9,-15.34],[-12.7,-15.35],[-12.41,-15.5],[-12.28,-15.51],[-12.22,-15.62],[-12.2,-15.92],[-12.12,-15.98],[-11.86,-15.89],[-11.71,-15.61],[-11.63,-15.6],[-11.4,-16.03],[-11.4,-16.19],[-11.33,-16.33],[-11.28,-16.61],[-11.39,-17.01],[-11.3,-16.97],[-11.22,-17.15],[-11.03,-17.33],[-10.94,-17.53],[-10.82,-17.6],[-10.73,-17.75],[-10.35,-17.52],[-10.14,-17.28],[-9.93,-17.29],[-9.65,-17.49],[-9.53,-17.27],[-9.28,-17.33],[-9.3,-17.47],[-9.12,-17.45],[-8.96,-17.64],[-8.97,-17.91],[-8.72,-18.0],[-8.56,-17.73],[-8.35,-17.59],[-7.99,-17.55],[-7.78,-17.74],[-7.44,-17.83],[-7.25,-18.1],[-7.12,-18.12],[-6.77,-17.89],[-6.56,-17.47],[-6.44,-17.34],[-6.26,-17.39],[-6.0,-17.37],[-5.85,-17.27],[-5.6,-17.18],[-5.43,-17.25],[-5.4,-17.38],[-5.24,-17.36],[-5.04,-17.49],[-4.78,-17.59],[-4.59,-17.53],[-4.32,-17.35],[-3.98,-17.25],[-3.8,-17.28],[-3.56,-17.18],[-3.29,-17.0],[-3.26,-16.75],[-3.18,-16.62],[-0.97,-17.04]],"labels":{"Leste":[5.21,13.28],"Noroeste":[-14.09,-4.22],"Norte":[-7.79,3.38],"Sudoeste":[-11.89,-11.12],"Sul":[-5.89,-14.62],"Suleste":[12.21,3.68]}};
+</script>
+<script>
+(function(){
+const C = DATA_CONFIG;
+const NF = new Intl.NumberFormat('pt-BR');
+const NF1 = new Intl.NumberFormat('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const P1 = v => NF1.format(v*100) + '%';
+const small = v => (v > 0 && v < 5) ? '<5' : NF.format(v);
+const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const PAPER = '#F7F3EB', NIGHT = '#16130F';
+function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; }
+function txtWithTodo(node, s){ s.split(/(\[EDITAR[^\]]*\])/).forEach(p => { if(!p) return; if(p.startsWith('[EDITAR')) node.append(el('span','todo',p)); else node.append(document.createTextNode(p)); }); }
+const tipOn = (tip, host, ev, title, body) => {
+  const r = host.getBoundingClientRect(); tip.replaceChildren(el('strong',null,title), document.createTextNode(body)); tip.classList.add('on');
+  let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+  if(x + tip.offsetWidth > r.width) x = ev.clientX - r.left - tip.offsetWidth - 12;
+  if(y + tip.offsetHeight > r.height) y = ev.clientY - r.top - tip.offsetHeight - 12;
+  tip.style.left = Math.max(0,x) + 'px'; tip.style.top = Math.max(0,y) + 'px';
+};
+
+/* ---------- girassol ---------- */
+function sunflower(g, cx, baseY, topY, r, o){
+  o = Object.assign({partial:false, petals:18, petal:'#E8A838', center:'#3B2A1A', stem:'#6E8B3D', spin:false, spinCls:'spin'}, o||{});
+  const s = g.append('g'), stemH = baseY - topY;
+  if(stemH > 0){
+    s.append('path').attr('d',`M${cx},${baseY} C${cx-6},${baseY-stemH*0.4} ${cx+6},${baseY-stemH*0.7} ${cx},${topY+r*0.6}`).attr('fill','none').attr('stroke',o.stem).attr('stroke-width',Math.max(2,r*0.16)).attr('stroke-dasharray',o.partial?'5 5':null).attr('stroke-linecap','round');
+    if(stemH > r*3){ const ly = baseY - stemH*0.45, lw = r*0.9; s.append('path').attr('d',`M${cx},${ly} q${lw*0.6},${-lw*0.55} ${lw*1.25},${-lw*0.2} q${-lw*0.55},${lw*0.5} ${-lw*1.25},${lw*0.2}`).attr('fill',o.stem).attr('opacity',o.partial?.5:.95); }
+  }
+  const head = s.append('g').attr('transform',`translate(${cx},${topY})`).attr('opacity',o.partial?.55:1);
+  const rot = head.append('g').attr('class', o.spin ? o.spinCls : null);
+  for(let i=0;i<o.petals;i++){ rot.append('ellipse').attr('cx',0).attr('cy',-r*0.78).attr('rx',r*0.24).attr('ry',r*0.52).attr('transform',`rotate(${i*360/o.petals})`).attr('fill',o.petal).attr('fill-opacity',o.partial?.35:1).attr('stroke',o.partial?o.petal:'none').attr('stroke-dasharray',o.partial?'2 2':null); }
+  rot.append('circle').attr('r',r*0.5).attr('fill',o.center);
+  rot.append('circle').attr('r',r*0.5).attr('fill','none').attr('stroke','#5A4127').attr('stroke-dasharray','1.5 2.5');
+  rot.append('circle').attr('r',r*0.18).attr('cx',r*0.12).attr('cy',-r*0.1).attr('fill','#5A4127');
+  return s;
+}
+// girassol do canto
+(function(){
+  const svg = d3.select('#corner').append('svg').attr('viewBox','-50 -50 100 100');
+  const g = svg.append('g').attr('id','corner-rot');
+  sunflower(g, 0, 0, 0, 40, {spin:true, spinCls:'spin slow'});
+})();
+const anual = d3.rollups(C.mensal, v => d3.sum(v, d => d[2]), d => d[0]).map(([y,n]) => ({y,n}));
+const ultimoAno = anual[anual.length-1].y;
+
+/* ---------- abas (páginas) ---------- */
+const TABS = ['inicio','historia','comparacoes','principios','datasheet','apoio','equipe'];
+let curTab = 'inicio';
+function showTab(id, push){
+  if(!TABS.includes(id)) id = 'inicio';
+  curTab = id;
+  TABS.forEach(t => { document.getElementById('p-' + t).hidden = t !== id; });
+  document.querySelectorAll('#navtabs a').forEach(a => a.setAttribute('aria-current', a.dataset.tab === id ? 'page' : 'false'));
+  if(push !== false && location.hash !== '#' + id){ try{ history.replaceState(null,'','#' + id); }catch(e){ location.hash = id; } }
+  window.scrollTo({top:0, behavior:'instant'});
+  requestAnimationFrame(() => { drawVisible(); onScroll(); });
+}
+document.querySelectorAll('[data-tab]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showTab(a.dataset.tab); }));
+window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if(TABS.includes(h) && h !== curTab) showTab(h, false); });
+
+/* ---------- tom do fundo: degradê claro → escuro → claro conforme o scroll ---------- */
+const mixBg = d3.interpolateRgb(PAPER, NIGHT);
+function chapsOf(){ return Array.from(document.querySelectorAll('#p-' + curTab + ' .chap')); }
+function toneAt(){
+  const cs = chapsOf(); if(!cs.length) return 0;
+  const mid = window.innerHeight * 0.5;
+  const pts = cs.map(c => { const r = c.getBoundingClientRect(); return {y: r.top + r.height/2, t: +(c.dataset.tone || 0)}; });
+  if(mid <= pts[0].y) return pts[0].t;
+  for(let i=0;i<pts.length-1;i++){
+    if(mid >= pts[i].y && mid <= pts[i+1].y){ const k = (mid - pts[i].y) / (pts[i+1].y - pts[i].y); return pts[i].t + (pts[i+1].t - pts[i].t) * d3.easeCubicInOut(k); }
+  }
+  return pts[pts.length-1].t;
+}
+function onScroll(){
+  const h = document.documentElement, p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('progress').style.width = (p*100) + '%';
+  const t = toneAt();
+  document.body.style.backgroundColor = mixBg(t);
+  document.body.classList.toggle('is-dark', t > 0.55);
+  const rot = document.getElementById('corner-rot'); if(rot) rot.setAttribute('transform', `rotate(${h.scrollTop * 0.15})`);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+
+/* teclado: ←/→ troca de aba; ↑/↓ capítulo anterior/seguinte */
+document.addEventListener('keydown', e => {
+  const t = e.target; if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+  if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+    if(t && t.getAttribute && (t.getAttribute('role') === 'tab')) return;
+    e.preventDefault(); const i = TABS.indexOf(curTab); showTab(TABS[(i + (e.key === 'ArrowRight' ? 1 : TABS.length-1)) % TABS.length]); return;
+  }
+  let dir = 0;
+  if(e.key === 'ArrowDown' || e.key === 'PageDown') dir = 1;
+  if(e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1;
+  if(!dir) return;
+  const cs = chapsOf(); if(cs.length < 2) return;
+  e.preventDefault();
+  const mid = window.innerHeight * 0.35; let idx = 0;
+  cs.forEach((c,i) => { if(c.getBoundingClientRect().top <= mid) idx = i; });
+  const n = Math.min(cs.length-1, Math.max(0, idx + dir));
+  if(n === idx && dir > 0){ window.scrollBy({top: window.innerHeight*0.8, behavior:'smooth'}); return; }
+  window.scrollTo({top: cs[n].getBoundingClientRect().top + window.scrollY - 62, behavior:'smooth'});
+});
+document.getElementById('btn-full').addEventListener('click', async () => {
+  try{ if(!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); }
+  catch(err){ document.getElementById('btn-full').textContent = 'Use F11'; }
+});
+
+/* ---------- início ---------- */
+document.getElementById('meta-periodo').textContent = C.periodo.texto;
+document.getElementById('meta-disc').textContent = C.disciplina[0];
+function drawHero(){
+  const host = document.getElementById('hero-field'); const w = host.clientWidth, h = host.clientHeight; if(!w || !h) return;
+  const svg = d3.select(host).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('preserveAspectRatio','xMaxYMax meet');
+  svg.selectAll('*').remove();
+  const g = svg.append('g');
+  const x = d3.scalePoint().domain(anual.map(d => d.y)).range([w*0.06, w*0.95]).padding(0.3);
+  const tops = [0.42,0.30,0.48,0.26,0.38,0.22,0.34,0.18,0.40,0.28];
+  const r = Math.max(10, Math.min(30, w/32));
+  anual.forEach((d,i) => {
+    const s = sunflower(g, x(d.y), h, h*tops[i % tops.length], r, {partial: d.y === ultimoAno, spin:true, spinCls: 'spin' + (i % 2 ? ' rev' : '') + (i % 3 ? ' slow' : '')});
+    s.style('opacity',0).transition().delay(200 + i*150).duration(900).style('opacity',1);
+  });
+}
+(function(){
+  const DOORS = [
+    ['historia','A história','Do palpite ao mapa, do que os dados mostram ao que eles escondem.'],
+    ['principios','Os 7 princípios','Como o Feminismo de Dados muda as perguntas que fazemos ao SISNOV.'],
+    ['apoio','Apoio e saúde','Canais de escuta e de cuidado, sempre à mão.']
+  ];
+  const box = document.getElementById('doors');
+  DOORS.forEach(([id,t,s],i) => {
+    const a = el('a','card door'); a.href = '#' + id; a.addEventListener('click', e => { e.preventDefault(); showTab(id); });
+    const ic = d3.select(a).append('svg').attr('class','ico').attr('viewBox','-30 -30 60 60').attr('aria-hidden','true');
+    sunflower(ic.append('g'), 0, 0, 0, 24, {petals: 10 + i*4, spin:true, spinCls:'spin slow'});
+    a.append(el('b',null,t), el('span',null,s)); box.append(a);
+  });
+})();
+
+/* ---------- palpites ---------- */
+const fmtG = (g,v) => (g.sufixo === '%' ? NF1.format(v).replace(',0','') : NF.format(v)) + g.sufixo;
+const gBox = document.getElementById('guesses');
+C.palpites.forEach(g => {
+  const c = el('div','card guess'); c.id = 'card-' + g.id;
+  const lab = el('label','q',g.pergunta); lab.htmlFor = g.id;
+  const val = el('div','val', fmtG(g, g.inicial));
+  const inp = document.createElement('input'); Object.assign(inp, {type:'range', id:g.id, min:g.min, max:g.max, step:g.passo, value:g.inicial});
+  inp.addEventListener('input', () => { val.textContent = fmtG(g, +inp.value); });
+  const sc = el('div','scale'); sc.append(el('span',null,fmtG(g,g.min)), el('span',null,fmtG(g,g.max)));
+  const rv = el('div','reveal');
+  const row = (k,cls) => { const r = el('div','rv-row'), tr = el('span','tr'), f = el('span','f ' + cls); tr.append(f); r.append(el('span',null,k), tr, el('span','v','')); return r; };
+  rv.append(row('Seu palpite','you'), row('Dado real','real'), el('p'));
+  c.append(lab, val, inp, sc, rv); gBox.append(c);
+});
+document.getElementById('btn-reveal').addEventListener('click', () => {
+  C.palpites.forEach(g => {
+    const c = document.getElementById('card-' + g.id), you = +document.getElementById(g.id).value, rows = c.querySelectorAll('.rv-row');
+    c.classList.add('revealed');
+    rows[0].querySelector('.v').textContent = fmtG(g, you); rows[1].querySelector('.v').textContent = fmtG(g, g.real);
+    c.querySelector('.reveal p').textContent = g.comentario;
+    requestAnimationFrame(() => { rows[0].querySelector('.f').style.width = ((you-g.min)/(g.max-g.min)*100) + '%'; rows[1].querySelector('.f').style.width = ((g.real-g.min)/(g.max-g.min)*100) + '%'; });
+  });
+  document.getElementById('btn-reset').hidden = false;
+});
+document.getElementById('btn-reset').addEventListener('click', () => {
+  C.palpites.forEach(g => { const c = document.getElementById('card-' + g.id); c.classList.remove('revealed'); c.querySelectorAll('.f').forEach(f => f.style.width = '0%'); });
+  document.getElementById('btn-reset').hidden = true;
+});
+
+/* ---------- vídeo e jardim ---------- */
+(function(){
+  const v = C.video, box = document.getElementById('player');
+  document.getElementById('video-title').textContent = v.titulo + (v.duracao ? ' · ' + v.duracao : '');
+  function youtube(){
+    box.replaceChildren();
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.youtubeId) + '?rel=0&modestbranding=1';
+    f.title = v.titulo; f.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.loading = 'lazy';
+    box.append(f);
+  }
+  if(v.youtubeId){ const a = el('a',null,'Assistir no YouTube ↗'); a.href = 'https://youtu.be/' + encodeURIComponent(v.youtubeId); a.rel = 'noopener'; document.getElementById('video-link').append(a); }
+  if(v.modo === 'auto' && v.arquivo){
+    const vid = document.createElement('video'); vid.controls = true; vid.preload = 'metadata'; vid.playsInline = true; if(v.poster) vid.poster = v.poster;
+    const src = document.createElement('source'); src.src = v.arquivo; src.type = 'video/mp4';
+    src.addEventListener('error', () => { if(v.youtubeId) youtube(); });
+    vid.append(src); box.append(vid);
+  } else if(v.modo === 'youtube' && v.youtubeId){ youtube(); } else if(v.modo === 'arquivo' && v.arquivo){
+    const vid = document.createElement('video'); vid.controls = true; vid.preload = 'metadata'; vid.playsInline = true; if(v.poster) vid.poster = v.poster;
+    const src = document.createElement('source'); src.src = v.arquivo; src.type = 'video/mp4'; vid.append(src);
+    if(v.legenda){ const tr = document.createElement('track'); Object.assign(tr,{kind:'captions', srclang:'pt', label:'Português', src:v.legenda, default:true}); vid.append(tr); }
+    box.append(vid);
+  } else {
+    const ph = el('div','ph'), inn = el('div','ph-in');
+    const ic = d3.select(inn).append('svg').attr('viewBox','-30 -30 60 60').attr('width',64).attr('height',64).attr('aria-hidden','true');
+    sunflower(ic.append('g'), 0, 0, 0, 24, {spin:true});
+    inn.append(el('div','big','O vídeo dos girassóis entra aqui'));
+    const p = el('p'); p.append(document.createTextNode('No início do código, em '), el('code',null,'DATA_CONFIG.video'), document.createTextNode(', escolha '), el('code',null,"'youtube'"), document.createTextNode(' e cole o código do vídeo, ou '), el('code',null,"'arquivo'"), document.createTextNode(' com o .mp4 na mesma pasta.'));
+    inn.append(p); ph.append(inn); box.append(ph);
+  }
+  const ol = document.getElementById('howto');
+  C.comoOuvir.forEach(it => { const li = el('li'); li.append(el('span','ic',it.ic)); const p = el('p'); txtWithTodo(p, it.txt); li.append(p); ol.append(li); });
+  const full = anual.filter(d => d.y !== ultimoAno), last = full[full.length-1];
+  const horas = 365*24 / last.n, hh = Math.floor(horas), mm = Math.round((horas-hh)*60);
+  document.getElementById('hum-ano').textContent = last.y;
+  document.getElementById('hum-clock').textContent = `1 a cada ${hh}h${String(mm).padStart(2,'0')}`;
+  document.getElementById('hum-text').textContent = `Foram ${NF.format(last.n)} notificações de tentativa de suicídio de mulheres em ${last.y}: em média, uma a cada ${hh} horas e ${mm} minutos, dia e noite, o ano inteiro.`;
+})();
+const garden = document.getElementById('garden'), gTip = el('div','tip'); garden.append(gTip);
+let plantAnim = false;
+function drawGarden(){
+  const w = garden.clientWidth; if(!w) return;
+  const maxF = d3.max(anual, d => Math.floor(d.n/10)) + 1;
+  const m = {l: w < 520 ? 36 : 64, r: 54, t: 6}, avail = w - m.l - m.r;
+  const sp = Math.max(3.2, Math.min(16, avail / maxF)), r = Math.max(1.6, sp*0.42), rowH = Math.max(22, Math.min(34, sp*2.4));
+  const h = m.t + anual.length*rowH + 6;
+  const svg = d3.select(garden).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h);
+  svg.selectAll('*').remove();
+  anual.forEach((d,i) => {
+    const y0 = m.t + i*rowH, base = y0 + rowH - 4, nf = Math.floor(d.n/10), rest = d.n % 10, partial = d.y === ultimoAno;
+    const g = svg.append('g').attr('tabindex',0).attr('role','img').attr('aria-label', `${d.y}: ${NF.format(d.n)} notificações, ${nf} girassóis${rest ? ' e um broto' : ''}`);
+    g.append('rect').attr('x',m.l-4).attr('y',base).attr('width',avail+8).attr('height',3).attr('rx',1.5).attr('fill','#8A6A3E').attr('opacity',.55);
+    g.append('text').attr('class','g-year').attr('x',m.l-12).attr('y',base-2).attr('text-anchor','end').text(w < 520 ? "'" + String(d.y).slice(2) : d.y + (partial ? '*' : ''));
+    const fl = g.append('g');
+    for(let k=0;k<nf;k++){
+      const cx = m.l + k*sp + sp/2, top = base - rowH*0.62;
+      const one = fl.append('g');
+      one.append('line').attr('x1',cx).attr('x2',cx).attr('y1',base).attr('y2',top).attr('stroke','#5E7F34').attr('stroke-width',Math.max(1,r*0.35));
+      one.append('circle').attr('cx',cx).attr('cy',top).attr('r',r).attr('fill','#E8A838');
+      one.append('circle').attr('cx',cx).attr('cy',top).attr('r',r*0.45).attr('fill','#4A3320');
+      if(plantAnim) one.attr('opacity',0).transition().delay(i*420 + k*(380/Math.max(nf,1))).duration(160).attr('opacity',1);
+    }
+    if(rest){
+      const cx = m.l + nf*sp + sp/2, top = base - rowH*0.38;
+      const b = fl.append('g');
+      b.append('line').attr('x1',cx).attr('x2',cx).attr('y1',base).attr('y2',top).attr('stroke','#5E7F34').attr('stroke-width',Math.max(1,r*0.35));
+      b.append('circle').attr('cx',cx).attr('cy',top).attr('r',Math.max(1.4,r*0.45)).attr('fill','#7FA347');
+      if(plantAnim) b.attr('opacity',0).transition().delay(i*420 + 400).duration(160).attr('opacity',1);
+    }
+    g.append('text').attr('class','g-lbl').attr('x', m.l + (nf + (rest?1:0))*sp + 9).attr('y',base-2).attr('text-anchor','start').attr('font-weight',700).text(NF.format(d.n));
+    g.append('rect').attr('x',0).attr('y',y0).attr('width',w).attr('height',rowH).attr('fill','transparent')
+      .on('pointermove', ev => tipOn(gTip, garden, ev, String(d.y) + (partial ? ' (jan a out)' : ''), `${NF.format(d.n)} notificações = ${nf} girassóis${rest ? ' + 1 broto (' + rest + ')' : ''}`))
+      .on('pointerleave', () => gTip.classList.remove('on'));
+  });
+  plantAnim = false;
+}
+document.getElementById('btn-plant').addEventListener('click', () => { plantAnim = true; drawGarden(); });
+
+/* ---------- mapa ---------- */
+const D = C.distritos, interp = d3.interpolateRgbBasis(C.paletaMapa);
+const st = {metric:'inc', idade:'todas', sel:null};
+const val = d => st.idade === 'todas' ? (st.metric === 'inc' ? d.inc : d.casos) : (st.metric === 'inc' ? d.inc20 : d.casos20);
+const casosOf = d => st.idade === 'todas' ? d.casos : d.casos20;
+const totalRec = () => d3.sum(D, casosOf);
+function domain(){ const v = D.map(val), lo = d3.min(v), hi = d3.max(v); return [lo - (hi-lo)*0.06, hi]; }
+const tOf = d => { const [a,b] = domain(); return (val(d)-a)/(b-a); };
+const colorOf = d => interp(tOf(d));
+const fmtVal = v => st.metric === 'inc' ? NF1.format(v) : NF.format(v);
+const unit = () => st.metric === 'inc' ? 'por 100 mil hab.' : 'notificações';
+const mapWrap = document.getElementById('map-wrap'), tip = document.getElementById('map-tip');
+const feats = D.map(d => ({type:'Feature', properties:d, geometry:{type:'Polygon', coordinates:[GEO.distritos[d.nome]]}}));
+const mun = {type:'Feature', properties:{}, geometry:{type:'Polygon', coordinates:[GEO.municipio]}};
+function drawMap(){
+  const w = mapWrap.clientWidth; if(!w) return;
+  const h = Math.round(Math.min(w*0.86, 700));
+  const svg = d3.select(mapWrap).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h).attr('role','group').attr('aria-label','Mapa dos seis distritos de saúde de Campinas');
+  const proj = d3.geoIdentity().reflectY(true).fitExtent([[8,8],[w-8,h-40]], mun), path = d3.geoPath(proj);
+  const g = svg.selectAll('g.districts').data([0]).join('g').attr('class','districts');
+  g.selectAll('path').data(feats, f => f.properties.nome).join('path')
+    .attr('d', path).attr('fill', f => colorOf(f.properties))
+    .attr('class', f => 'district' + (st.sel === f.properties.nome ? ' is-sel' : ''))
+    .attr('tabindex',0).attr('role','button').attr('aria-pressed', f => String(st.sel === f.properties.nome))
+    .attr('aria-label', f => `${f.properties.nome}: ${fmtVal(val(f.properties))} ${unit()}`)
+    .on('click', (e,f) => select(f.properties.nome))
+    .on('keydown', (e,f) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); select(f.properties.nome); } })
+    .on('pointermove', (e,f) => { if(e.pointerType !== 'touch') tipOn(tip, mapWrap, e, f.properties.nome, fmtVal(val(f.properties)) + ' ' + unit() + (st.metric === 'inc' ? ' · ' + NF.format(casosOf(f.properties)) + ' notificações' : '')); })
+    .on('pointerleave', () => tip.classList.remove('on'));
+  g.selectAll('path.is-sel').raise();
+  svg.selectAll('path.outline').data([mun]).join('path').attr('class','outline').attr('d', path);
+  const fs = Math.max(10, Math.min(16, w/40));
+  const lg = svg.selectAll('g.labels').data([0]).join('g').attr('class','labels').attr('aria-hidden','true');
+  const L = lg.selectAll('g.lab').data(D, d => d.nome).join(en => { const e = en.append('g').attr('class','lab'); e.append('text').attr('class','lab-name'); e.append('text').attr('class','lab-val'); return e; });
+  const tc = d => tOf(d) > 0.72 ? '#FFFFFF' : '#1F1A14';
+  L.select('.lab-name').attr('y',-fs*0.3).style('font-size',fs+'px').attr('fill',tc).text(d => d.nome);
+  L.select('.lab-val').attr('y',fs*0.98).style('font-size',(fs*1.08)+'px').attr('fill',tc).text(d => fmtVal(val(d)));
+  L.each(function(d){
+    const p = proj(GEO.labels[d.nome]); d3.select(this).attr('transform',`translate(${p[0]},${p[1]})`);
+    const bb = this.getBBox(); let dx = 0;
+    if(p[0] + bb.x < 4) dx = 4 - (p[0] + bb.x);
+    if(p[0] + bb.x + bb.width > w - 4) dx = (w - 4) - (p[0] + bb.x + bb.width);
+    d3.select(this).attr('transform',`translate(${p[0]+dx},${p[1]})`);
+  });
+  const px = proj.scale()*10, sx = 14, sy = h - 22;
+  const sb = svg.selectAll('g.scalebar').data([0]).join('g').attr('class','scalebar').attr('aria-hidden','true'); sb.selectAll('*').remove();
+  sb.append('rect').attr('x',sx).attr('y',sy).attr('width',px/2).attr('height',6).attr('fill','#1F1A14');
+  sb.append('rect').attr('x',sx+px/2).attr('y',sy).attr('width',px/2).attr('height',6).attr('fill','#fff').attr('stroke','#1F1A14');
+  [[0,'0'],[px/2,'5'],[px,'10 km']].forEach(([dx,t]) => sb.append('text').attr('x',sx+dx).attr('y',sy-5).attr('text-anchor', dx === 0 ? 'start' : 'middle').text(t));
+}
+function drawLegend(){
+  const [a,b] = domain();
+  document.getElementById('legend-title').textContent = st.metric === 'inc' ? 'Incidência acumulada por 100 mil habitantes' : 'Número de notificações';
+  const grad = document.getElementById('grad'); grad.style.background = 'linear-gradient(90deg,' + d3.range(0,1.0001,0.1).map(t => interp(t)).join(',') + ')';
+  const wg = grad.parentNode; wg.querySelectorAll('.tick').forEach(n => n.remove());
+  D.forEach(d => { const t = el('span','tick'); t.style.left = ((val(d)-a)/(b-a)*100) + '%'; t.title = d.nome + ': ' + fmtVal(val(d)); wg.append(t); });
+  const v = D.map(val);
+  document.getElementById('leg-lo').textContent = fmtVal(d3.min(v)) + ' · ' + D[d3.minIndex(v)].nome;
+  document.getElementById('leg-hi').textContent = D[d3.maxIndex(v)].nome + ' · ' + fmtVal(d3.max(v));
+}
+function drawPanel(){
+  const tot = totalRec(), det = document.getElementById('detail'); det.replaceChildren();
+  if(!st.sel){
+    det.append(el('h3',null,'Campinas'), el('div','bigv', NF.format(tot)), el('div','unit', st.idade === 'todas' ? `notificações com distrito informado (de ${NF.format(C.totalNotificacoes)} no total)` : 'notificações de mulheres de 20 anos ou mais com distrito informado'));
+    const p = el('p','muted','Clique em um distrito para ver os detalhes.'); p.style.cssText = 'font-size:15px;margin-top:10px'; det.append(p);
+  } else {
+    const d = D.find(x => x.nome === st.sel), rank = D.slice().sort((x,y) => val(y)-val(x)).findIndex(x => x.nome === d.nome) + 1;
+    det.append(el('h3',null,d.nome), el('div','bigv', fmtVal(val(d))), el('div','unit', unit()));
+    const dl = el('dl','dl'), add = (k,v) => dl.append(el('dt',null,k), el('dd',null,v));
+    add('Notificações', NF.format(casosOf(d))); add('Parcela do município', P1(casosOf(d)/tot)); add('Posição', rank + 'º de 6');
+    add('Menores de 20 anos', NF.format(d.casos-d.casos20) + ' (' + P1((d.casos-d.casos20)/d.casos) + ')');
+    if(C.negraAPS[d.nome] != null) add('População negra (APS)', NF1.format(C.negraAPS[d.nome]) + '%');
+    det.append(dl);
+    const b = el('button','linkbtn','Ver Campinas inteira'); b.type = 'button'; b.addEventListener('click', () => select(null)); det.append(b);
+  }
+  document.getElementById('rank-title').textContent = 'Distritos por ' + (st.metric === 'inc' ? 'incidência' : 'notificações');
+  const ul = document.getElementById('rank'); ul.replaceChildren(); const mx = d3.max(D, val);
+  D.slice().sort((x,y) => val(y)-val(x)).forEach(d => {
+    const li = el('li'), b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', String(st.sel === d.nome)); b.setAttribute('aria-label', `${d.nome}: ${fmtVal(val(d))} ${unit()}`);
+    const tr = el('span','track'), f = el('span','fill'); f.style.width = (val(d)/mx*100) + '%'; f.style.background = colorOf(d); tr.append(f);
+    b.append(el('span','nm',d.nome), tr, el('span','v',fmtVal(val(d)))); b.addEventListener('click', () => select(d.nome)); li.append(b); ul.append(li);
+  });
+}
+function select(n){ st.sel = (n === null || st.sel === n) ? null : n; renderMap(); }
+function renderMap(){ drawMap(); drawLegend(); drawPanel(); }
+document.querySelectorAll('[data-metric]').forEach(b => b.addEventListener('click', () => { st.metric = b.dataset.metric; document.querySelectorAll('[data-metric]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderMap(); }));
+document.querySelectorAll('[data-idade]').forEach(b => b.addEventListener('click', () => { st.idade = b.dataset.idade; document.querySelectorAll('[data-idade]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); renderMap(); }));
+
+/* ---------- série mensal ---------- */
+const mensal = C.mensal.map(([y,m,n]) => ({date:new Date(y,m-1,1), y, m, n}));
+let evSel = 0;
+const evbtns = document.getElementById('evbtns');
+C.marcos.forEach((mk,i) => { const b = el('button',null,(i+1) + '. ' + mk.titulo); b.type = 'button'; b.addEventListener('click', () => { evSel = i; drawMes(); }); evbtns.append(b); });
+const chartMes = document.getElementById('chart-mes');
+function drawMes(){
+  const w = chartMes.clientWidth; if(!w) return;
+  const h = Math.round(Math.max(260, Math.min(400, w*0.38))), m = {t:30, r:16, b:30, l:40};
+  const x = d3.scaleTime().domain(d3.extent(mensal, d => d.date)).range([m.l, w-m.r]);
+  const y = d3.scaleLinear().domain([0, d3.max(mensal, d => d.n)*1.08]).nice().range([h-m.b, m.t]);
+  const svg = d3.select(chartMes).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h);
+  svg.selectAll('*').remove();
+  const gy = svg.append('g').attr('class','grid'), ax = svg.append('g').attr('class','axis');
+  y.ticks(5).forEach(t => { gy.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(t)).attr('y2',y(t)); ax.append('text').attr('x',m.l-6).attr('y',y(t)+4).attr('text-anchor','end').text(NF.format(t)); });
+  d3.timeYear.range(new Date(2017,0,1), new Date(2027,0,1)).filter((d,i) => w > 600 || i % 2 === 0).forEach(d => ax.append('text').attr('x',x(d)).attr('y',h-9).attr('text-anchor','middle').text(d.getFullYear()));
+  const full = mensal.slice(0,-1), part = mensal.slice(-2);
+  svg.append('path').attr('class','series-area').attr('d', d3.area().x(d => x(d.date)).y0(h-m.b).y1(d => y(d.n))(full));
+  svg.append('path').attr('class','series-line').attr('d', d3.line().x(d => x(d.date)).y(d => y(d.n))(full));
+  svg.append('path').attr('class','series-line partial').attr('d', d3.line().x(d => x(d.date)).y(d => y(d.n))(part));
+  const last = mensal[mensal.length-1];
+  svg.append('text').attr('class','lbl m').attr('x',x(last.date)-6).attr('y',Math.min(h-m.b-6, y(last.n)+16)).attr('text-anchor','end').text('out/2026 parcial');
+  const hov = svg.append('g').style('display','none');
+  hov.append('line').attr('class','hov-line').attr('y1',m.t).attr('y2',h-m.b); hov.append('circle').attr('class','hov-dot').attr('r',5);
+  const ht = hov.append('text').attr('class','lbl').attr('font-weight',700), bis = d3.bisector(d => d.date).center;
+  svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',w-m.l-m.r).attr('height',h-m.t-m.b).attr('fill','transparent')
+    .on('pointermove', ev => { const [px] = d3.pointer(ev), d = mensal[bis(mensal, x.invert(px))]; hov.style('display',null); hov.select('line').attr('x1',x(d.date)).attr('x2',x(d.date)); hov.select('circle').attr('cx',x(d.date)).attr('cy',y(d.n)); const right = x(d.date) > w*0.75; ht.attr('x', right ? x(d.date)-9 : x(d.date)+9).attr('y', Math.max(m.t+12, y(d.n)-12)).attr('text-anchor', right ? 'end' : 'start').text(`${MESES[d.m-1]}/${d.y}: ${NF.format(d.n)}`); })
+    .on('pointerleave', () => hov.style('display','none'));
+  C.marcos.forEach((mk,i) => {
+    const ex = x(new Date(mk.data[0], mk.data[1]-1, 1)), on = i === evSel;
+    svg.append('line').attr('class','ev-line').attr('x1',ex).attr('x2',ex).attr('y1',m.t-6).attr('y2',h-m.b).attr('opacity', on ? 1 : .45).style('pointer-events','none');
+    svg.append('circle').attr('class','ev-dot' + (on ? ' on' : '')).attr('cx',ex).attr('cy',m.t-12).attr('r', on ? 10 : 8).attr('tabindex',0).attr('role','button').attr('aria-label','Marco ' + (i+1) + ': ' + mk.titulo)
+      .on('click', () => { evSel = i; drawMes(); }).on('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); evSel = i; drawMes(); } });
+    svg.append('text').attr('class','ev-num').attr('x',ex).attr('y',m.t-8).text(i+1);
+  });
+  evbtns.querySelectorAll('button').forEach((b,i) => b.setAttribute('aria-pressed', String(i === evSel)));
+  document.getElementById('evtext').textContent = C.marcos[evSel].texto;
+}
+
+/* ---------- faixa etária e raça ---------- */
+const chartIdade = document.getElementById('chart-idade');
+function drawIdade(){
+  const w = chartIdade.clientWidth; if(!w) return;
+  const data = C.faixaEtaria.map(([k,n]) => ({k,n,menor:['0–9','10–14','15–19'].includes(k)}));
+  const h = 300, m = {t:48, r:4, b:28, l:4};
+  const x = d3.scaleBand().domain(data.map(d => d.k)).range([m.l, w-m.r]).padding(0.18), y = d3.scaleLinear().domain([0, d3.max(data, d => d.n)]).range([h-m.b, m.t]);
+  const svg = d3.select(chartIdade).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h);
+  svg.selectAll('*').remove(); const fz = w < 440 ? 10.5 : 12.5;
+  data.forEach(d => {
+    svg.append('rect').attr('class','bar' + (d.menor ? ' soft' : '')).attr('x',x(d.k)).attr('y',y(d.n)).attr('width',x.bandwidth()).attr('height',h-m.b-y(d.n)).attr('rx',3);
+    svg.append('text').attr('class','lbl').style('font-size',fz+'px').attr('x',x(d.k)+x.bandwidth()/2).attr('y',y(d.n)-6).attr('text-anchor','middle').text(small(d.n));
+    svg.append('text').attr('class','lbl m').style('font-size',fz+'px').attr('x',x(d.k)+x.bandwidth()/2).attr('y',h-9).attr('text-anchor','middle').text(d.k);
+  });
+  const men = data.filter(d => d.menor), tot = d3.sum(data, d => d.n), sm = d3.sum(men, d => d.n), x0 = x(men[0].k), x1 = x(men[men.length-1].k) + x.bandwidth(), by = 18;
+  svg.append('path').attr('d',`M${x0},${by+9}V${by}H${x1}V${by+9}`).attr('fill','none').attr('stroke','var(--muted)');
+  svg.append('text').attr('class','lbl').attr('x',x0).attr('y',by-6).attr('font-weight',700).text(`Menores de 20: ${NF.format(sm)} (${P1(sm/tot)})`);
+}
+const RC = [['Branca','c-branca'],['Negra','c-negra'],['Amarela','c-amarela'],['Indígena','c-indigena'],['Ignorado','c-ign']];
+RC.forEach(([k,c]) => { const s = el('span'); s.append(el('span','sw ' + c), document.createTextNode(k)); document.getElementById('raca-legend').append(s); });
+const tt = r => d3.sum(r.slice(1));
+(function(){
+  const r0 = C.racaPorAno[0], rl = C.racaPorAno.find(r => r[0] === 2024);
+  document.getElementById('raca-cap').textContent = `A parcela de mulheres negras passou de ${P1(r0[2]/tt(r0))} em ${r0[0]} para ${P1(rl[2]/tt(rl))} em ${rl[0]}, acima dos ${NF1.format(C.censo2022.negraPct)}% de pessoas negras na população de Campinas (Censo 2022). O "ignorado" (hachurado) caiu de ${P1(r0[5]/tt(r0))} para ${P1(rl[5]/tt(rl))}: parte da mudança pode vir de um preenchimento melhor.`;
+})();
+const chartRaca = document.getElementById('chart-raca'), rTip = el('div','tip'); chartRaca.append(rTip);
+function drawRaca(){
+  const w = chartRaca.clientWidth; if(!w) return;
+  const rowH = 21, gap = 6, m = {t:4, r:6, b:24, l:42}, rows = C.racaPorAno.map(r => ({y:r[0], v:r.slice(1), t:tt(r)}));
+  const h = m.t + rows.length*(rowH+gap) + m.b, x = d3.scaleLinear().domain([0,1]).range([m.l, w-m.r]);
+  const svg = d3.select(chartRaca).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h);
+  svg.selectAll('*').remove();
+  rows.forEach((r,i) => {
+    const yy = m.t + i*(rowH+gap); let acc = 0;
+    svg.append('text').attr('class','lbl m').attr('x',m.l-7).attr('y',yy+rowH/2+4).attr('text-anchor','end').text(r.y);
+    r.v.forEach((n,j) => { const p = n / r.t; if(n > 0) svg.append('rect').attr('class',RC[j][1]).attr('x',x(acc)).attr('y',yy).attr('width',Math.max(0,x(acc+p)-x(acc))).attr('height',rowH).on('pointermove', ev => tipOn(rTip, chartRaca, ev, `${r.y} · ${RC[j][0]}`, `${small(n)} notificações (${P1(p)})`)).on('pointerleave', () => rTip.classList.remove('on')); acc += p; });
+  });
+  const ax = svg.append('g').attr('class','axis');
+  [0,.25,.5,.75,1].forEach(t => ax.append('text').attr('x',x(t)).attr('y',h-6).attr('text-anchor', t === 0 ? 'start' : t === 1 ? 'end' : 'middle').text((t*100) + '%'));
+}
+
+/* ---------- sombra: o que os dados não mostram ---------- */
+(function(){
+  document.getElementById('void-title').textContent = `Parcela "ignorado" nas ${NF.format(C.totalNotificacoes)} notificações`;
+  const gw = document.getElementById('gaps');
+  C.ignorado.forEach(([k,n]) => { const r = el('div','gap-row'), tr = el('span','track'), f = el('span','fill hatched'); f.style.width = (n/C.totalNotificacoes*100) + '%'; tr.append(f); r.append(el('span',null,k), tr, el('span','v', P1(n/C.totalNotificacoes))); gw.append(r); });
+  const hosp = C.unidadeNotificadora[0][1] / d3.sum(C.unidadeNotificadora, d => d[1]);
+  const VOID = [
+    ['O filtro é binário', `O painel filtra por "sexo: feminino". Nessa seleção aparecem ${C.identidade.mulherTrans} mulheres trans e ${C.identidade.homemTrans} homens trans: a ficha registra o sexo, e a identidade de gênero fica num campo à parte, vazio em 38,5% dos casos.`],
+    ['A rede vê a urgência', `${P1(hosp)} das notificações vêm de hospitais. Quem sofre em silêncio, ou é acolhida na atenção básica sem notificação, não aparece.`],
+    ['Sem o denominador certo', 'O painel divide pela população total do distrito, não pela de mulheres. Sem esse dado, não há taxa por 100 mil mulheres, nem por idade ou raça.'],
+    ['Por quê? Quase nunca se sabe', 'Em 75,1% das notificações a motivação é "outros" ou não foi informada. Sexismo aparece em 2,2%.']
+  ];
+  const vc = document.getElementById('void-cards');
+  VOID.forEach(([t,s]) => { const c = el('div','card'); c.append(el('h3',null,t), el('p',null,s)); vc.append(c); });
+  const TODO = [
+    'Publicar a população feminina por distrito, idade e raça, para taxas corretas.',
+    'Tornar identidade de gênero e orientação sexual campos realmente preenchidos, com formação para perguntar com cuidado.',
+    'Ampliar a notificação na atenção básica, nas escolas e na assistência social, não só na urgência.',
+    'Abrir os dados em formato aberto, com versões datadas, em vez de só um painel.',
+    'Cruzar tentativas (SISNOV) e óbitos (SIM) para entender o caminho entre as duas.',
+    'Ouvir quem está no território: CAPS, centros de saúde, coletivos de mulheres.'
+  ];
+  const tl = document.getElementById('todo-list');
+  TODO.forEach(t => { const li = el('li'); const ic = d3.select(li).append('svg').attr('class','petal').attr('viewBox','-12 -12 24 24').attr('aria-hidden','true'); sunflower(ic.append('g'),0,0,0,10,{petals:10}); li.append(el('span',null,t)); tl.append(li); });
+})();
+
+/* ---------- comparações ---------- */
+const CMP = [];
+function cmpCard(k, title, drawFn, takeaway, src){
+  const c = el('figure','card cmp'); c.append(el('span','k',k), el('h3',null,title));
+  const ch = el('div','chart'); c.append(ch);
+  const tk = el('p','takeaway', takeaway); const sr = el('p','src', src); c.append(tk, sr);
+  document.getElementById('cmp-grid').append(c); CMP.push(() => drawFn(ch));
+}
+// 1. população × notificações por distrito
+const popD = D.map(d => ({nome:d.nome, pop: d.casos / d.inc * 1e5, casos:d.casos}));
+const popT = d3.sum(popD, d => d.pop), casT = d3.sum(popD, d => d.casos);
+popD.forEach(d => { d.pp = d.pop/popT; d.pc = d.casos/casT; });
+cmpCard('Distritos', 'Parte da população × parte das notificações', ch => {
+  const w = ch.clientWidth; if(!w) return; const rows = popD.slice().sort((a,b) => (b.pc-b.pp)-(a.pc-a.pp));
+  const rowH = 34, m = {t:24, r:118, b:6, l:84}, h = m.t + rows.length*rowH + m.b;
+  const x = d3.scaleLinear().domain([0.05, 0.27]).range([m.l, w-m.r]);
+  const svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
+  svg.append('circle').attr('cx',m.l).attr('cy',9).attr('r',5).attr('fill','#9A8F80'); svg.append('text').attr('class','lbl m').attr('x',m.l+9).attr('y',13).text('população');
+  svg.append('circle').attr('cx',m.l+96).attr('cy',9).attr('r',5).attr('fill','var(--wine)'); svg.append('text').attr('class','lbl m').attr('x',m.l+105).attr('y',13).text('notificações');
+  rows.forEach((d,i) => {
+    const yy = m.t + i*rowH + rowH/2;
+    svg.append('text').attr('class','lbl').attr('x',m.l-10).attr('y',yy+4).attr('text-anchor','end').attr('font-weight',700).text(d.nome);
+    svg.append('line').attr('x1',x(d.pp)).attr('x2',x(d.pc)).attr('y1',yy).attr('y2',yy).attr('stroke', d.pc > d.pp ? 'var(--wine)' : '#9A8F80').attr('stroke-width',3);
+    svg.append('circle').attr('cx',x(d.pp)).attr('cy',yy).attr('r',6).attr('fill','#9A8F80');
+    svg.append('circle').attr('cx',x(d.pc)).attr('cy',yy).attr('r',6).attr('fill','var(--wine)');
+    const right = d.pc > d.pp; svg.append('text').attr('class','lbl').attr('x', x(Math.max(d.pc,d.pp)) + 10).attr('y',yy+4).text(`${P1(d.pp)} → ${P1(d.pc)}`);
+  });
+}, 'O Sul tem 16,2% da população e 25,3% das notificações; o Suleste, 16,3% da população e só 8,7% das notificações. A diferença pode ser de risco, de acesso aos serviços ou de cobertura da rede.', 'População derivada do denominador do painel (casos ÷ incidência). Planilha, 2017–out/2026, todas as idades.');
+// 2. raça: notificações × Censo
+cmpCard('Raça/cor', 'Mulheres negras nas notificações × pessoas negras na cidade', ch => {
+  const w = ch.clientWidth; if(!w) return; const data = C.racaPorAno.map(r => ({y:r[0], p:r[2]/(tt(r)-r[5])}));
+  const h = 240, m = {t:20, r:92, b:26, l:38};
+  const x = d3.scalePoint().domain(data.map(d => d.y)).range([m.l, w-m.r]), y = d3.scaleLinear().domain([0, .6]).range([h-m.b, m.t]);
+  const svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
+  const gy = svg.append('g').attr('class','grid'), ax = svg.append('g').attr('class','axis');
+  [0,.2,.4,.6].forEach(t => { gy.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(t)).attr('y2',y(t)); ax.append('text').attr('x',m.l-6).attr('y',y(t)+4).attr('text-anchor','end').text(t*100 + '%'); });
+  data.forEach((d,i) => { if(w > 520 || i % 2 === 0) ax.append('text').attr('x',x(d.y)).attr('y',h-7).attr('text-anchor','middle').text(d.y); });
+  const yc = y(C.censo2022.negraPct/100);
+  svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',yc).attr('y2',yc).attr('stroke','#9A8F80').attr('stroke-width',2).attr('stroke-dasharray','5 4');
+  svg.append('text').attr('class','lbl m').attr('x',w-m.r+4).attr('y',yc+4).text('Censo ' + NF1.format(C.censo2022.negraPct) + '%');
+  svg.append('path').attr('d', d3.line().x(d => x(d.y)).y(d => y(d.p))(data)).attr('fill','none').attr('stroke','#2F4A66').attr('stroke-width',2.5);
+  data.forEach(d => svg.append('circle').attr('cx',x(d.y)).attr('cy',y(d.p)).attr('r',4).attr('fill','#2F4A66'));
+  const l = data.find(d => d.y === 2024); svg.append('text').attr('class','lbl').attr('font-weight',700).attr('x',x(l.y)).attr('y',y(l.p)-10).attr('text-anchor','middle').text(P1(l.p));
+}, 'Entre as notificações com raça informada, a parcela de mulheres negras ficou abaixo da parcela de pessoas negras na cidade até 2022 (exceto em 2020) e acima dela de 2023 a 2025, com pico de 47,7% em 2024. Nos distritos com mais população negra (Noroeste, Sudoeste e Sul), a incidência também é maior que no Leste, o de menor população negra.', 'Censo 2022 (IBGE): população total, ambos os sexos. População negra por distrito: Boletim nº 1 SPN/DEVISA (APS). Comparação exata exigiria a população feminina por raça e distrito.');
+// 3. menores de 20 por distrito
+cmpCard('Idade', 'Quanto cada distrito perde num recorte só de adultas', ch => {
+  const w = ch.clientWidth; if(!w) return; const rows = D.map(d => ({nome:d.nome, p:(d.casos-d.casos20)/d.casos, n:d.casos-d.casos20})).sort((a,b) => b.p-a.p);
+  const rowH = 32, m = {t:4, r:96, b:4, l:84}, h = m.t + rows.length*rowH + m.b, x = d3.scaleLinear().domain([0,.35]).range([m.l, w-m.r]);
+  const svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
+  rows.forEach((d,i) => { const yy = m.t + i*rowH; svg.append('text').attr('class','lbl').attr('x',m.l-10).attr('y',yy+rowH/2+4).attr('text-anchor','end').attr('font-weight',700).text(d.nome); svg.append('rect').attr('class','bar' + (i === 0 ? ' hl' : '')).attr('x',m.l).attr('y',yy+6).attr('width',x(d.p)-m.l).attr('height',rowH-12).attr('rx',3); svg.append('text').attr('class','lbl').attr('x',x(d.p)+6).attr('y',yy+rowH/2+4).text(`${P1(d.p)} (${NF.format(d.n)})`); });
+}, 'No Noroeste, quase um terço das notificações (31,7%) é de menores de 20 anos; no Suleste, 19,8%. Excluir adolescentes muda mais o retrato de uns distritos do que de outros.', 'Diferença entre a planilha (todas as idades) e a captura do painel com 20 a 80+ anos.');
+// 4. antes, durante e depois da pandemia
+cmpCard('Tempo', 'Média de notificações por mês', ch => {
+  const w = ch.clientWidth; if(!w) return; const avg = ys => d3.mean(mensal.filter(d => ys.includes(d.y)), d => d.n);
+  const data = [['2017–2019', avg([2017,2018,2019])],['2020', avg([2020])],['2021–2025', avg([2021,2022,2023,2024,2025])]];
+  const h = 220, m = {t:28, r:10, b:28, l:10}, x = d3.scaleBand().domain(data.map(d => d[0])).range([m.l, w-m.r]).padding(.35), y = d3.scaleLinear().domain([0, 60]).range([h-m.b, m.t]);
+  const svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
+  data.forEach((d,i) => { svg.append('rect').attr('class','bar' + (i === 1 ? ' alt' : '')).attr('x',x(d[0])).attr('y',y(d[1])).attr('width',x.bandwidth()).attr('height',h-m.b-y(d[1])).attr('rx',4); svg.append('text').attr('class','lbl').attr('font-weight',800).style('font-size','15px').attr('x',x(d[0])+x.bandwidth()/2).attr('y',y(d[1])-8).attr('text-anchor','middle').text(NF1.format(d[1])); svg.append('text').attr('class','lbl m').attr('x',x(d[0])+x.bandwidth()/2).attr('y',h-8).attr('text-anchor','middle').text(d[0]); });
+}, 'De 21,7 notificações por mês antes da pandemia para 51,7 depois dela: 2,4 vezes mais. O salto coincide com capacitações e com a expansão da rede notificadora.', 'Planilha, série mensal. 2026 fora da média por estar incompleto.');
+// 5. sazonalidade (setembro amarelo)
+cmpCard('Setembro Amarelo', 'Há mais notificações em setembro?', ch => {
+  const w = ch.clientWidth; if(!w) return; const anos = d3.range(2017, 2026), tot = {}; anos.forEach(a => tot[a] = d3.sum(mensal.filter(d => d.y === a), d => d.n));
+  const idx = d3.range(1,13).map(mo => ({mo, v: d3.mean(anos, a => { const r = mensal.find(d => d.y === a && d.m === mo); return r.n / (tot[a]/12); })}));
+  const h = 220, m = {t:18, r:6, b:26, l:46}, x = d3.scaleBand().domain(idx.map(d => d.mo)).range([m.l, w-m.r]).padding(.18), y = d3.scaleLinear().domain([0, 1.4]).range([h-m.b, m.t]);
+  const svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
+  svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(1)).attr('y2',y(1)).attr('stroke','var(--muted)').attr('stroke-dasharray','4 3');
+  svg.append('text').attr('class','lbl m').attr('x',m.l-4).attr('y',y(1)+4).attr('text-anchor','end').text('média');
+  idx.forEach(d => { svg.append('rect').attr('class','bar' + (d.mo === 9 ? ' hl' : (d.v < 1 ? ' soft' : ''))).attr('x',x(d.mo)).attr('y',y(d.v)).attr('width',x.bandwidth()).attr('height',h-m.b-y(d.v)).attr('rx',2); svg.append('text').attr('class','lbl m').attr('x',x(d.mo)+x.bandwidth()/2).attr('y',h-8).attr('text-anchor','middle').style('font-size','11px').text(MESES[d.mo-1]); });
+}, 'Não. Setembro fica abaixo da média mensal (0,91); outubro (1,29) e dezembro (1,24) ficam acima. A campanha não aparece como pico de notificações, e o padrão pode refletir rotinas de registro, não só de sofrimento.', 'Índice = notificações do mês ÷ média mensal do ano, médio entre 2017 e 2025.');
+// 6. mulheres × homens e Campinas × Brasil (boletim)
+cmpCard('Sexo e Brasil', 'Mulheres × homens, Campinas × Brasil', ch => {
+  const w = ch.clientWidth; if(!w) return; const b = C.boletim;
+  const h = 250, svg = d3.select(ch).selectAll('svg').data([0]).join('svg').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h); svg.selectAll('*').remove();
+  const m = 10, half = (w - 3*m)/2, tot = b.tentMulheres + b.tentHomens;
+  svg.append('text').attr('class','lbl').attr('font-weight',700).attr('x',m).attr('y',16).text('Tentativas notificadas, 2019–2024');
+  const xs = d3.scaleLinear().domain([0, tot]).range([m, m+half]);
+  svg.append('rect').attr('x',m).attr('y',30).attr('width',xs(b.tentMulheres)-m).attr('height',34).attr('fill','var(--wine)').attr('rx',3);
+  svg.append('rect').attr('x',xs(b.tentMulheres)).attr('y',30).attr('width',xs(tot)-xs(b.tentMulheres)).attr('height',34).attr('fill','#9A8F80').attr('rx',3);
+  svg.append('text').attr('class','lbl').attr('x',m).attr('y',84).text(`Mulheres ${NF.format(b.tentMulheres)} (${P1(b.tentMulheres/tot)})`);
+  svg.append('text').attr('class','lbl m').attr('x',m).attr('y',102).text(`Homens ${NF.format(b.tentHomens)} (${P1(b.tentHomens/tot)})`);
+  svg.append('text').attr('class','lbl m').attr('x',m).attr('y',128).style('font-size','12px').text('Óbitos por suicídio: maiores entre homens');
+  svg.append('text').attr('class','lbl m').attr('x',m).attr('y',145).style('font-size','12px').text('(dado do SIM a extrair)');
+  const ox = 2*m + half; svg.append('text').attr('class','lbl').attr('font-weight',700).attr('x',ox).attr('y',16).text('Faixa etária das tentativas');
+  const yb = d3.scaleLinear().domain([0,80]).range([h-30, 40]), bw = Math.min(34, half/6);
+  [['10–19',0],['20–59',1]].forEach(([k,i]) => {
+    const gx = ox + 10 + i*(half/2);
+    [[b.idadeCampinas[k],'var(--wine)','Campinas'],[b.idadeBrasil[k],'#9A8F80','Brasil']].forEach(([v,c,lab],j) => {
+      svg.append('rect').attr('x',gx + j*(bw+4)).attr('y',yb(v)).attr('width',bw).attr('height',h-30-yb(v)).attr('fill',c).attr('rx',2);
+      svg.append('text').attr('class','lbl').style('font-size','11.5px').attr('x',gx + j*(bw+4) + bw/2).attr('y',yb(v)-5).attr('text-anchor','middle').text(NF1.format(v) + '%');
+    });
+    svg.append('text').attr('class','lbl m').attr('x',gx + bw + 2).attr('y',h-12).attr('text-anchor','middle').text(k + ' anos');
+  });
+}, 'Mulheres são 70,6% das tentativas notificadas, mas os homens morrem mais por suicídio: tentativa e óbito contam histórias diferentes. Por idade, Campinas se parece com o Brasil (vinho: Campinas; cinza: Brasil).', 'Boletim SISNOV nº 18 (ambos os sexos, residentes), que cita o Boletim Epidemiológico nº 33 do Ministério da Saúde (Brasil, 2010–2019).');
+const TODO_CMP = [
+  ['Mulheres × homens por distrito, idade e raça', 'Mesmos filtros do painel, trocando o sexo para masculino.'],
+  ['Tentativas (SISNOV) × óbitos (SIM) de mulheres', 'TabNet do SIM, CID-10 X60–X84 e Y87.0, por ano, idade e raça.'],
+  ['Taxa por 100 mil mulheres', 'População feminina por distrito e faixa etária (Censo 2022 / estimativas da SMS).'],
+  ['Tentativa de suicídio × outras violências contra mulheres', 'Mesmo painel, violência principal "todas, exceto trabalho infantil", por distrito.'],
+  ['Campinas × cidades parecidas', 'Sinan nacional (TabNet/DATASUS) para municípios de porte semelhante.']
+];
+TODO_CMP.forEach(([t,s]) => { const li = el('li'); li.append(el('b',null,t), el('span','muted',s)); document.getElementById('todo-cmp').append(li); });
+
+/* ---------- princípios ---------- */
+const PR = [
+  {n:1, t:'Examinar o poder', def:'O Feminismo de Dados começa analisando como o poder opera no mundo, e quem ele favorece e desfavorece.', q:{quem:'Quem decide o que entra na ficha de notificação: o Ministério da Saúde (Sinan) e a SMS de Campinas, não as mulheres notificadas.', como:'Por campos fixos e categorias fechadas, preenchidos sobretudo na urgência hospitalar.', paraquem:'Para a vigilância epidemiológica e a gestão, que usam o dado para planejar serviços.', porque:'Porque o que não está na ficha não vira política pública.'}, viz:'matriz'},
+  {n:2, t:'Desafiar o poder', def:'Examinar o poder não basta: é preciso agir contra estruturas desiguais, inclusive produzindo contra-dados.', q:{quem:'Nós, como grupo, reorganizando dados públicos com outras perguntas.', como:'Mostrando o que o painel esconde: a parcela "ignorado", o denominador da incidência, o efeito de excluir menores de 20 anos.', paraquem:'Para a turma, para a rede de cuidado e para quem lê o boletim sem essas perguntas.', porque:'Porque um painel sem contexto parece neutro, e a neutralidade aparente esconde escolhas.'}, viz:'contra'},
+  {n:3, t:'Elevar a emoção e a corporificação', star:true, def:'Conhecimento também vem de pessoas, corpos e afetos. A visualização pode fazer sentir, não só informar, rompendo o "truque de deus" da visão neutra de lugar nenhum.', q:{quem:'Mulheres reais por trás de cada ponto; e nós, que escolhemos como mostrá-las.', como:'Com um jardim em que cada girassol são 10 mulheres, um ano que passa como um dia, som feito de dados e a escala humana: uma notificação a cada poucas horas.', paraquem:'Para que a turma sinta o peso dos números antes de analisá-los.', porque:'Porque tabelas frias permitem olhar sem se implicar.'}, viz:'pontos'},
+  {n:4, t:'Repensar binários e hierarquias', def:'Questionar classificações binárias e hierárquicas que contam algumas pessoas e apagam outras.', q:{quem:'Quem não cabe nas caixas: pessoas trans, quem tem a raça ou a orientação sexual "ignorada".', como:'O filtro do painel é "sexo: feminino", binário; identidade de gênero e orientação sexual ficam em campos separados e frequentemente vazios.', paraquem:'Para quem decide que categorias a ficha tem e quais são obrigatórias.', porque:'Porque o que fica em branco não pode ser cuidado.'}, viz:'apaga'},
+  {n:5, t:'Abraçar o pluralismo', def:'O conhecimento mais completo vem da síntese de muitas perspectivas, com prioridade para os saberes locais e de quem vive o problema.', q:{quem:'Profissionais de CAPS e centros de saúde, conselheiras tutelares, coletivos de mulheres das periferias, sobreviventes.', como:'Ouvindo quem atende e quem é atendida, e não só lendo o painel.', paraquem:'Para que a análise não seja só de quem está longe do território.', porque:'Porque a diferença entre distritos pode ser de acesso aos serviços, e isso só quem está na ponta explica.'}, viz:'vozes'},
+  {n:6, t:'Considerar o contexto', def:'Dados não são neutros nem objetivos: são produtos de relações sociais desiguais, e o contexto é essencial para analisá-los com ética.', q:{quem:'A rede que notifica, que mudou ao longo do tempo.', como:'Lendo cada número com o que aconteceu: pandemia, capacitações, nova divisão de distritos, mudanças na lei.', paraquem:'Para evitar conclusões erradas, como "a violência caiu no Sul".', porque:'Porque notificação não é ocorrência.'}, viz:'contexto'},
+  {n:7, t:'Tornar o trabalho visível', def:'O trabalho da ciência de dados é feito por muitas mãos. O Feminismo de Dados torna esse trabalho visível para que seja reconhecido e valorizado.', q:{quem:'Profissionais de enfermagem, médicas, assistentes sociais, educadoras, equipes do DEVISA/CIE, e o cuidado não pago das famílias.', como:'Cada notificação é uma ficha preenchida por alguém, em geral no meio de um plantão.', paraquem:'Para que se reconheça quem produz o dado, e não só quem o publica.', porque:'Porque sem esse trabalho não existiria nenhum destes gráficos.'}, viz:'trabalho'}
+];
+const MATRIZ = [['Estrutural','Leis e políticas que organizam quem é contado: Sinan, notificação compulsória, Lei 13.931/2019, financiamento do SUS.'],['Disciplinar','Regras e rotinas que aplicam a estrutura: campos da ficha, protocolos da urgência, o que é obrigatório e o que pode ficar "ignorado".'],['Hegemônico','Ideias que circulam como normais: o estigma do suicídio, a ideia de sexo binário, o hospital como lugar "certo" da notificação.'],['Interpessoal','O encontro entre profissional e paciente: tempo, vínculo e confiança decidem o que é perguntado e o que é registrado.']];
+const prList = document.getElementById('pr-list'), prPanel = document.getElementById('pr-panel');
+let prSel = 2, mxSel = 0;
+PR.forEach((p,i) => {
+  const li = el('li'), b = el('button'); b.type = 'button'; b.setAttribute('role','tab'); b.id = 'pr-' + p.n;
+  b.append(el('span','n',String(p.n))); const sp = el('span'); if(p.star) sp.append(el('span','star','Nosso foco')); sp.append(document.createTextNode(p.t)); b.append(sp);
+  b.addEventListener('click', () => { prSel = i; drawPrinciple(); }); li.append(b); prList.append(li);
+});
+function drawPrinciple(){
+  const p = PR[prSel];
+  prList.querySelectorAll('button').forEach((b,i) => b.setAttribute('aria-selected', String(i === prSel)));
+  prPanel.setAttribute('aria-labelledby','pr-' + p.n); prPanel.replaceChildren();
+  prPanel.append(el('h3',null, p.n + '. ' + p.t), el('p','def muted', p.def));
+  const q = el('div','qwh'); [['Quem',p.q.quem],['Como',p.q.como],['Para quem',p.q.paraquem],['Por quê',p.q.porque]].forEach(([k,v]) => { const c = el('div','card'); c.append(el('b',null,k), el('p',null,v)); q.append(c); }); prPanel.append(q);
+  const viz = el('div','card'); prPanel.append(viz);
+  const note = t => { const pp = el('p','muted',t); pp.style.cssText = 'font-size:15px;margin-top:12px'; viz.append(pp); };
+  if(p.viz === 'matriz'){
+    viz.append(el('p','fig-title','Matriz da dominação (Patricia Hill Collins) aplicada ao SISNOV · clique nos domínios'));
+    const mx = el('div','matrix'); MATRIZ.forEach(([k,v],i) => { const b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', String(i === mxSel)); b.append(el('b',null,k), el('span',null,v)); b.addEventListener('click', () => { mxSel = i; drawPrinciple(); }); mx.append(b); }); viz.append(mx);
+    note('Perigo do privilégio: quem projeta o sistema raramente é quem é notificado nele, e por isso os pontos cegos passam despercebidos.');
+  } else if(p.viz === 'contra'){
+    viz.append(el('p','fig-title','O que este trabalho faz que o painel não faz')); const ul = el('ul','checklist');
+    ['Mostra a parcela "ignorado" de cada variável, em vez de escondê-la.','Explica que a incidência usa a população total, e não a de mulheres.','Compara recortes de idade e mostra quem sai quando se escolhe "só adultas".','Compara notificações com o Censo e com a população de cada distrito.','Não mostra o meio utilizado, seguindo a OMS, e protege células pequenas.'].forEach(t => ul.append(el('li',null,t))); viz.append(ul);
+  } else if(p.viz === 'pontos'){
+    const full = anual.filter(d => d.y !== ultimoAno), last = full[full.length-1];
+    viz.append(el('p','fig-title',`Cada ponto é uma notificação de ${last.y}: ${NF.format(last.n)} mulheres`));
+    const g = el('div','dots-grid'); for(let i=0;i<last.n;i++) g.append(el('i')); g.setAttribute('role','img'); g.setAttribute('aria-label', `${NF.format(last.n)} pontos`); viz.append(g);
+    const a = el('a',null,'Ver o vídeo dos girassóis →'); a.href = '#historia'; a.style.cssText = 'display:inline-block;margin-top:12px;font-weight:700'; a.addEventListener('click', e => { e.preventDefault(); showTab('historia'); setTimeout(() => document.getElementById('h-jardim').scrollIntoView({behavior:'smooth'}), 60); }); viz.append(a);
+  } else if(p.viz === 'apaga'){
+    viz.append(el('p','fig-title','O que o sistema apaga'));
+    const gw = el('div','gaps'); C.ignorado.slice(0,4).forEach(([k,n]) => { const r = el('div','gap-row'), tr = el('span','track'), f = el('span','fill hatched'); f.style.width = (n/C.totalNotificacoes*100) + '%'; tr.append(f); r.append(el('span',null,k), tr, el('span','v', P1(n/C.totalNotificacoes))); gw.append(r); }); viz.append(gw);
+    note(`Dentro do filtro "sexo: feminino" aparecem ${C.identidade.mulherTrans} mulheres trans e ${C.identidade.homemTrans} homens trans.`);
+  } else if(p.viz === 'vozes'){
+    viz.append(el('p','fig-title','Vozes da ponta · relatos incluídos com consentimento'));
+    const qs = el('div','quotes'); for(let i=0;i<3;i++){ const b = el('blockquote'); txtWithTodo(b,'[EDITAR: trecho de entrevista ou relato]'); const c = el('cite'); txtWithTodo(c,'[EDITAR: função, serviço, distrito]'); b.append(c); qs.append(b); } viz.append(qs);
+    note('Diferenças entre distritos no mapa podem refletir acesso e cobertura da rede. Quem atende no território ajuda a explicar.');
+  } else if(p.viz === 'contexto'){
+    viz.append(el('p','fig-title','Antes de interpretar um número, pergunte')); const ul = el('ul','checklist');
+    ['A rede passou a notificar mais? (capacitações de 2023 e 2024, escolas notificando)','O acesso aos serviços mudou? (pandemia em 2020)','O território mudou? (Suleste criado em 2024)','Qual é o denominador? (população total, não a de mulheres)','O ano está completo? (2026 vai só até outubro)'].forEach(t => ul.append(el('li',null,t))); viz.append(ul);
+  } else if(p.viz === 'trabalho'){
+    viz.append(el('p','fig-title','Quem fez as notificações de tentativa de suicídio de mulheres'));
+    const mi = el('div','mini'), tot = d3.sum(C.unidadeNotificadora, d => d[1]); C.unidadeNotificadora.forEach(([k,n]) => { const r = el('div','mini-row'), tr = el('span','track'), f = el('span','fill'); f.style.width = (n/tot*100) + '%'; tr.append(f); r.append(el('span',null,k), tr, el('span','v',P1(n/tot))); mi.append(r); }); viz.append(mi);
+    note('No conjunto das violências, a Rede Mário Gatti de Urgência e Emergência fez 6.619 notificações entre 2019 e 2024, e a equipe da CIE/DEVISA organizou o boletim que usamos.');
+  }
+}
+drawPrinciple();
+
+/* ---------- datasheet ---------- */
+document.getElementById('ds-vnote').textContent = 'Nota de versão: o datasheet descreve o recorte planejado (mulheres de 20 anos ou mais, 2018 a 2026). A extração usada nos gráficos deste site, de 17/11/2026, inclui todas as idades e começa em 2017; o recorte de 20 anos ou mais aparece no mapa como alternativa.';
+const RECORTE = [['','SISNOV (notificações)','SIM (óbitos)'],['Período','2018 a 2026; 2026 apenas de janeiro a outubro','2018 ao último ano disponível (pendente)'],['Território','Município de notificação: Campinas; distrito de residência: todos','Residentes em Campinas'],['Sexo','Feminino (o masculino entra depois, para comparação)','Feminino'],['Idade','20 a 80 anos ou mais','20 a 80 anos ou mais'],['Evento','Violência principal: todas, exceto trabalho infantil; foco em "tentativa de suicídio/suicídio"','Lesões autoprovocadas intencionalmente (CID-10 X60–X84) e sequelas (Y87.0)'],['Desagregações','Ano, mês, distrito de residência, raça/cor, faixa etária, violência principal','Ano, faixa etária, raça/cor'],['Unidade','Notificação','Óbito'],['Acesso','TabNet da SMS Campinas','TabNet da SMS Campinas ou TabNet/DATASUS']];
+(function(){
+  const t = document.getElementById('ds-recorte'); const th = el('thead'), tr0 = el('tr'); RECORTE[0].forEach(h => tr0.append(el('th',null,h))); th.append(tr0); t.append(th);
+  const tb = el('tbody'); RECORTE.slice(1).forEach(r => { const tr = el('tr'); r.forEach((c,i) => { const td = el(i === 0 ? 'th' : 'td', null, c); if(i === 0) td.scope = 'row'; tr.append(td); }); tb.append(tr); }); t.append(tb);
+})();
+const DS_MOT = [
+  ['M1','Para qual propósito a base foi criada?',['Para o projeto final da MO810: analisar, com a lente do Feminismo de Dados, as notificações de tentativa de suicídio de mulheres em Campinas e confrontá-las com os óbitos por suicídio do mesmo grupo.','Lacunas: o boletim não cruza sexo e idade, não traz raça/cor nem distrito para as tentativas, usa só números absolutos, e não há base pública em formato aberto. A solicitação formal de dados feita pelo grupo à Prefeitura não foi respondida.']],
+  ['M2','Quem criou a base e em nome de qual entidade?',['Os integrantes do grupo, estudantes da MO810 no IC/UNICAMP, como trabalho acadêmico, não em nome da Prefeitura. O SISNOV é mantido pela SMS de Campinas (DEVISA) a partir das fichas de notificação preenchidas por profissionais de saúde, assistência social e educação; o SIM é do Ministério da Saúde.']],
+  ['M3','Quem financiou a criação da base?',['Não houve financiamento específico. Os sistemas de origem são mantidos com recursos públicos do SUS.']]
+];
+const DS_COMP = [
+  ['C1','O que representam as instâncias?',['Células de tabulações agregadas: contagens por combinação de atributos, não pessoas nem fichas. Notificação não é pessoa nem ocorrência: uma mulher pode ser notificada mais de uma vez, e uma tentativa que não chega a um serviço não é notificada.']],
+  ['C2','Quantas instâncias existem?',['Depende das tabulações extraídas, porque o TabNet só cruza duas variáveis por consulta. O plano prevê tabelas de ano × mês, idade, raça/cor, distrito e violência principal, mais tabelas do SIM.']],
+  ['C3','É a população inteira ou uma amostra?',['Um recorte deliberado. O SISNOV não representa todas as tentativas: só as que chegaram a um serviço e foram notificadas, com peso da urgência (a Rede Mário Gatti responde por 42,8% de todas as notificações de 2019 a 2024).']],
+  ['C4','Em que dados consiste cada instância?',['Contagens agregadas pelo TabNet, mais variáveis derivadas pelo grupo: taxa por 100 mil e intervalo médio entre notificações (para a escala humana).']],
+  ['C5','Há rótulos?',['Não no sentido de aprendizado de máquina. A violência principal é escolhida por quem notifica, e só uma é registrada por notificação.']],
+  ['C6','Falta informação?',['Sim: "ignorado" em raça/cor e distrito; campos coletados mas pouco preenchidos, como identidade de gênero e orientação sexual; meses recentes subestimados por atraso de digitação.']],
+  ['C7','As relações entre instâncias são explícitas?',['Não há identificador individual: não dá para saber quantas mulheres distintas foram notificadas, nem quantas que morreram por suicídio tinham tentativa notificada antes.']],
+  ['C8','Há divisões recomendadas?',['Períodos: 2018–2019 (pré-pandemia), 2020–2021 (pandemia e Lei 13.931/2019), 2022–2025, e 2026 parcial. Distritos separados em antes e depois de 2024.']],
+  ['C9','Há erros, ruído ou redundância?',['Mesma mulher em várias notificações; suicídio que aparece no SISNOV e no SIM; subnotificação seletiva; mudanças na rede; categorias ambíguas; inconsistências no próprio boletim.']],
+  ['C10','A base depende de recursos externos?',['Sim: TabNet da SMS Campinas, TabNet/DATASUS, Censo 2022 e o boletim. O TabNet muda retroativamente e não tem versões; por isso guardamos cada extração com data e parâmetros.']],
+  ['C11','Há dados confidenciais?',['A base derivada não: só contagens agregadas públicas. As fichas de origem são sigilosas e o grupo não teve acesso a elas.']],
+  ['C12','Há dados que podem causar ansiedade?',['Sim. Por isso: aviso de conteúdo, nenhuma desagregação por método, comunicação conforme a OMS e canais de ajuda sempre visíveis.']],
+  ['C13','A base identifica subpopulações?',['Sim: sexo (binário, como na ficha), faixa etária, raça/cor autodeclarada e distrito.']],
+  ['C14','É possível identificar indivíduos?',['Diretamente não. Indiretamente, em células pequenas: por isso valores de 1 a 4 aparecem como "<5", e cruzamentos com três ou mais variáveis não são publicados.']],
+  ['C15','Há dados sensíveis?',['Sim: saúde, raça/cor, sexo e localização, sensíveis pela LGPD. A supressão de células pequenas é condição para tratar a base derivada como anônima.']]
+];
+function renderQA(host, list){ const h = document.getElementById(host); list.forEach(([c,q,a]) => { const d = el('details','qa'), s = el('summary'); s.append(el('span','code',c), el('span',null,q), el('span','pl','＋')); const ans = el('div','ans'); a.forEach(t => ans.append(el('p',null,t))); d.append(s, ans); h.append(d); }); }
+renderQA('ds-mot', DS_MOT); renderQA('ds-comp', DS_COMP);
+
+/* ---------- apoio, equipe, fontes ---------- */
+C.ajuda.forEach(([n,t]) => { const d = el('div','card'); d.append(el('b',null,n), el('span',null,t)); document.getElementById('help-grid').append(d); });
+const BIO = [
+  ['Origem','Cada número começa numa ficha de notificação de violência interpessoal e autoprovocada, preenchida por um profissional depois do atendimento, em geral num hospital ou pronto-atendimento.'],
+  ['Sistema','A ficha entra no SISNOV, o sistema de Campinas criado em 2005, integrado ao Sinan do Ministério da Saúde. A equipe da CIE/DEVISA consolida e publica boletins.'],
+  ['Painel',`Usamos o Painel de Monitoramento de Violências da Prefeitura, atualizado em ${C.atualizacaoPainel} e consultado em ${C.extracao}, e o Boletim SISNOV nº 18 (dezembro de 2025).`],
+  ['Nosso recorte',`Violência autoprovocada, com violência principal "tentativa de suicídio/suicídio"; sexo feminino; município de notificação Campinas; ${C.periodo.texto.toLowerCase()}.`],
+  ['O que falta','Quem não chegou a um serviço; identidade de gênero, orientação sexual e motivação, muitas vezes em branco; a população feminina por distrito; os óbitos (SIM).'],
+  ['Escolhas éticas','Não mostramos o meio utilizado (orientação da OMS). Valores de 1 a 4 aparecem como "<5". O mapa usa o limite do IBGE e divisas digitalizadas do mapa da SMS, com erro de 100 a 300 m.']
+];
+BIO.forEach(([k,v]) => { const c = el('div','card'); c.append(el('h3',null,k), el('p',null,v)); document.getElementById('bio').append(c); });
+C.equipe.forEach(n => { const li = el('li'); txtWithTodo(li, n); document.getElementById('equipe-list').append(li); });
+C.disciplina.forEach(n => document.getElementById('disciplina').append(el('li',null,n)));
+const REFS = [
+  ['D\'IGNAZIO, C.; KLEIN, L. F. Data Feminism. MIT Press, 2020.','https://data-feminism.mitpress.mit.edu/'],
+  ['GEBRU, T. et al. Datasheets for datasets. Communications of the ACM, 2021.', null],
+  ['Prefeitura de Campinas. Painel de Monitoramento de Violências (SISNOV/Sinan).','https://campinas.sp.gov.br/sites/vigiviolencias/painel-de-monitoramento'],
+  ['DEVISA/SMS Campinas. Boletim Epidemiológico SISNOV nº 18, dez. 2025.', null],
+  ['DEVISA/SMS Campinas. Boletim nº 1 SPN (saúde da população negra), 2024.','https://portal-api.campinas.sp.gov.br/sites/default/files/secretarias/arquivos-avulsos/125/2024/03/21-104624/Boletim_01_SPN_DEVISA_SMS.pdf'],
+  ['IBGE. Censo Demográfico 2022: identificação étnico-racial.', null],
+  ['Datos contra el Feminicidio (Data + Feminism Lab, MIT).','https://datoscontrafeminicidio.net/pt/pagina-inicial/'],
+  ['OMS. Preventing suicide: a resource for media professionals, 2023.', null],
+  ['Brasil. Lei nº 13.931, de 10 de dezembro de 2019.', null]
+];
+REFS.forEach(([t,u]) => { const li = el('li'); if(u){ const a = el('a',null,t); a.href = u; a.rel = 'noopener'; li.append(a); } else li.textContent = t; document.getElementById('refs').append(li); });
+document.getElementById('foot').textContent = `Trazer à Luz · ${C.disciplina.join(' · ')}. Dados públicos agregados; nenhuma informação individual foi usada. CVV 188.`;
+
+/* ---------- desenho ---------- */
+function drawVisible(){
+  if(curTab === 'inicio') drawHero();
+  if(curTab === 'historia'){ drawGarden(); renderMap(); drawMes(); drawIdade(); drawRaca(); }
+  if(curTab === 'comparacoes') CMP.forEach(f => f());
+}
+showTab(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'inicio', false);
+let raf = 0, lastW = document.documentElement.clientWidth;
+new ResizeObserver(() => { const cw = document.documentElement.clientWidth; if(cw === lastW) return; lastW = cw; cancelAnimationFrame(raf); raf = requestAnimationFrame(drawVisible); }).observe(document.body);
+})();
+</script>
+</body>
+</html>
